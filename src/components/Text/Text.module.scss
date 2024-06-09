@@ -1,0 +1,12 @@
+@use '@/styles/colors';
+
+.text {
+  color: rgb(var(--text-color, var(#{colors.getVar(secondary, 900)})));
+  margin: 0;
+}
+
+@each $align in (start, center, end) {
+  .align--#{$align} {
+    text-align: $align;
+  }
+}

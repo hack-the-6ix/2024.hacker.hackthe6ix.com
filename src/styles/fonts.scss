@@ -1,0 +1,84 @@
+@use '@/styles/mixins';
+@use 'sass:math';
+
+$fonts: (
+  display: (
+    size: 3.75rem,
+    wgt: bold,
+  ),
+  heading-lg: (
+    size: 3rem,
+    wgt: medium,
+  ),
+  heading-sm: (
+    size: 2.5rem,
+    wgt: medium,
+  ),
+  subtitle-lg: (
+    size: 2rem,
+    wgt: medium,
+  ),
+  subtitle-sm: (
+    size: 1.625rem,
+    wgt: medium,
+  ),
+  paragraph-lg: (
+    size: 1.25rem,
+    wgt: normal,
+  ),
+  paragraph-sm: (
+    size: 1rem,
+    wgt: normal,
+  ),
+  label: (
+    size: 0.875rem,
+    wgt: normal,
+  ),
+);
+
+$wgts: (
+  normal: 400,
+  medium: 500,
+  semi-bold: 600,
+  bold: 700,
+  extra-bold: 800,
+);
+
+@mixin fontStyles($type) {
+  $size: map-get($fonts, $type, size);
+  $wgt: map-get($fonts, $type, wgt);
+
+  $height: $size * 1.25;
+  $tracking: $size * -0.022;
+
+  font-size: $size;
+  line-height: $height;
+  letter-spacing: $tracking;
+  @extend .font--wgt--#{$wgt};
+}
+
+@mixin init {
+  font-size: 16px;
+
+  @include mixins.media(tablet) {
+    font-size: 14px;
+  }
+
+  @include mixins.media(mobile) {
+    font-size: 13px;
+  }
+
+  @at-root {
+    @each $tag in map-keys($fonts) {
+      .font--#{$tag} {
+        @include fontStyles($tag);
+      }
+    }
+
+    @each $tag, $wgt in $wgts {
+      .font--wgt--#{$tag} {
+        font-weight: $wgt;
+      }
+    }
+  }
+}

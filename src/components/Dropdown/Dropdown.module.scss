@@ -1,0 +1,111 @@
+@use '@/styles/variables';
+@use '@/styles/mixins';
+@use '@/styles/colors';
+
+%abs {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+}
+
+.frame {
+  position: relative;
+  display: block;
+
+  &:hover,
+  &:focus-within {
+    .input {
+      outline-color: rgb(var(--input-color));
+    }
+  }
+}
+
+.chevron {
+  @include mixins.transition(transform);
+  @extend %abs;
+
+  margin: auto mixins.spacing(m) auto auto;
+  transform-origin: center;
+  height: min-content;
+  width: min-content;
+
+  .active & {
+    transform: rotate(180deg);
+  }
+}
+
+.input {
+  @include mixins.transition(outline-color);
+  --input-color: var(#{colors.getVar(primary, 600)});
+  border: 0.0625rem solid rgb(var(--input-color));
+  outline: 0.0625rem solid transparent;
+  padding: mixins.spacing(sm) mixins.spacing(x-lg) mixins.spacing(sm)
+    mixins.spacing(m);
+  appearance: none;
+  border-radius: 9999rem;
+  background: white;
+  width: 100%;
+}
+
+.error {
+  --input-color: var(#{colors.getVar(error, 500)});
+  outline-color: rgb(var(--input-color));
+  outline-width: 0.125rem;
+}
+
+.trigger {
+  @extend %abs;
+  border-radius: 9999rem;
+  text-align: right;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  appearance: none;
+  background: none;
+  height: 100%;
+  width: 100%;
+}
+
+.popup {
+  border: 0.0625rem solid colors.getColor(primary, 600);
+  transform: translateY(mixins.spacing(x-sm));
+  border-radius: mixins.spacing(m);
+  display: none;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0;
+  width: 100%;
+  right: auto;
+  overflow: auto;
+  max-height: 10rem;
+
+  &[open] {
+    display: flex;
+  }
+}
+
+.option {
+  @include mixins.transition(background-color);
+  padding: mixins.spacing(sm) mixins.spacing(m);
+  text-align: start;
+  background: transparent;
+  cursor: pointer;
+  border: none;
+
+  &:hover,
+  &:focus {
+    background-color: colors.getColor(secondary, 300, 0.08);
+  }
+
+  &.active,
+  &:active {
+    background-color: colors.getColor(secondary, 300, 0.16);
+  }
+}
+
+@media (hover: none) {
+  .trigger,
+  .popup {
+    display: none;
+  }
+}

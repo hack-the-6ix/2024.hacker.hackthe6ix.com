@@ -1,0 +1,76 @@
+@use '@/styles/colors';
+@use '@/styles/mixins';
+
+.button {
+  @include mixins.transition(background-color border-color color);
+  text-decoration: none;
+
+  border-width: 0.125rem;
+  border-radius: 1000rem;
+  display: inline-flex;
+  justify-content: center;
+  border-style: solid;
+  cursor: pointer;
+
+  padding: mixins.spacing(3) mixins.spacing(6);
+  appearance: none;
+}
+
+.type {
+  &--primary {
+    background-color: rgb(var(--button-color));
+    border-color: rgb(var(--button-color));
+    color: colors.getColor(shade, 0);
+
+    &:hover {
+      background-color: rgb(var(--button-color-hover));
+      border-color: rgb(var(--button-color-hover));
+    }
+
+    &:focus,
+    &:active {
+      background-color: rgb(var(--button-color-active));
+      border-color: rgb(var(--button-color-active));
+    }
+  }
+
+  &--secondary {
+    background-color: transparent;
+    border-color: rgb(var(--button-color));
+    color: rgb(var(--button-color));
+
+    &:hover {
+      border-color: rgb(var(--button-color-hover));
+      color: rgb(var(--button-color-hover));
+    }
+
+    &:focus,
+    &:active {
+      border-color: rgb(var(--button-color-active));
+      color: rgb(var(--button-color-active));
+    }
+  }
+
+  &--tertiary {
+    background-color: transparent;
+    border-color: transparent;
+    color: rgb(var(--button-color));
+
+    &:hover {
+      color: rgb(var(--button-color-hover));
+    }
+
+    &:focus,
+    &:active {
+      color: rgb(var(--button-color-active));
+    }
+  }
+}
+
+.disabled,
+.button:disabled {
+  --button-color: var(#{colors.getVar(neutral, 400)});
+  --button-color-hover: var(#{colors.getVar(neutral, 400)});
+  --button-color-active: var(#{colors.getVar(neutral, 400)});
+  cursor: not-allowed;
+}

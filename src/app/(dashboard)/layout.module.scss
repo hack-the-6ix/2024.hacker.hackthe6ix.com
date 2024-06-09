@@ -1,0 +1,18 @@
+@use '@/styles/colors';
+@use '@/styles/mixins';
+
+.container {
+  display: grid;
+  grid-template-columns: 18rem auto;
+  height: 100%;
+}
+
+.sidenav {
+  border-right: 0.0625rem solid colors.getColor(neutral, 200);
+  background-image: url('~@/assets/sidenav.png');
+  background-position: bottom center;
+  background-size: cover;
+
+  padding: mixins.spacing(lg) mixins.spacing(2x-big);
+  box-sizing: border-box;
+}

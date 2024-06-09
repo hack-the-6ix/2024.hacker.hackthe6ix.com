@@ -1,0 +1,14 @@
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+  "experimentalTernaries": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "react*",
+    "next*",
+    "<THIRD_PARTY_MODULES>",
+    "^@(.*)$",
+    "^[./].*(?<!\\.scss)$",
+    "\\.scss$"
+  ]
+}
