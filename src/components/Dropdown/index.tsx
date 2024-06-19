@@ -26,7 +26,8 @@ function Dropdown({ inputProps, options, ...props }: DropdownProps) {
   const inputRef = useRef<HTMLSelectElement>(null);
   const update = useForceUpdate();
 
-  const selectedValue = inputProps.value ?? inputRef.current?.value;
+  const selectedValue =
+    inputProps.defaultValue ?? inputProps.value ?? inputRef.current?.value;
   const hasActive = R.any(R.propEq(selectedValue, 'value'), options);
 
   return (
@@ -47,7 +48,7 @@ function Dropdown({ inputProps, options, ...props }: DropdownProps) {
               inputProps['aria-invalid'] && styles.error,
               styles.input,
             )}
-            defaultValue=""
+            defaultValue={inputProps.defaultValue ?? ''}
             textColor={hasActive ? 'neutral-900' : 'neutral-400'}
             textType="paragraph-sm"
             as="select"

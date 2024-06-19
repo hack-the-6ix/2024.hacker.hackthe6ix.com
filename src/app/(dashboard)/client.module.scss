@@ -45,6 +45,10 @@
     > *[data-full] {
       grid-column: span 2;
     }
+
+    > *[data-start] {
+      grid-column-start: 1;
+    }
   }
 
   &__back {
