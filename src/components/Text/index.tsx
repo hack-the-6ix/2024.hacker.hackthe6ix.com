@@ -1,11 +1,8 @@
-import { Inter } from 'next/font/google';
 import cn from 'classnames';
 import forwardRefAs from 'forward-ref-as';
 import * as R from 'ramda';
 import { Colors, TextTypes, TextWeights } from '@/styles';
 import styles from './Text.module.scss';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export type TextProps = {
   textType?: TextTypes;
@@ -26,7 +23,7 @@ const Text = forwardRefAs<'span', TextProps>(
           '--text-color': textColor ? `var(--${textColor})` : null,
         })}
         className={cn(
-          textType && [`font--${textType}`, inter.className],
+          textType && `font--${textType}`,
           textAlign && styles[`align--${textAlign}`],
           textWeight && `font--wgt--${textWeight}`,
           styles.text,

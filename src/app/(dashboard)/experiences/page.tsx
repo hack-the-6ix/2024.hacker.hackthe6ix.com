@@ -1,5 +1,6 @@
 import Checkbox from '@/components/Checkbox';
 import Dropdown from '@/components/Dropdown';
+import FileUpload from '@/components/FileUpload';
 import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input';
@@ -76,6 +77,14 @@ function ExperiencesPage() {
             value: 'placeholder',
           },
         ]}
+      />
+      <FileUpload
+        label="Your resume"
+        inputProps={{
+          accept: '.pdf',
+          required: true,
+          name: 'resume',
+        }}
       />
       <Checkbox
         label="I allow Hack the 6ix to distribute my resume to its event sponsors."

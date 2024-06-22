@@ -1,0 +1,44 @@
+@use '@/styles/mixins';
+@use '@/styles/colors';
+
+.frame {
+  @include mixins.transition(outline-color);
+  --input-color: var(#{colors.getVar(primary, 600)});
+  border: 0.0625rem solid rgb(var(--input-color));
+  outline: 0.0625rem solid transparent;
+  padding: mixins.spacing(m) mixins.spacing(x-big);
+  position: relative;
+  border-radius: mixins.spacing(big);
+  background: white;
+
+  &::placeholder {
+    color: colors.getColor(neutral, 400);
+  }
+
+  &:hover,
+  &:focus-within {
+    outline-color: rgb(var(--input-color));
+  }
+}
+
+.input {
+  position: absolute;
+  cursor: pointer;
+  appearance: none;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  inset: 0;
+}
+
+.preview {
+  text-decoration: none;
+  margin-right: auto;
+  gap: mixins.spacing(2x-sm);
+  align-items: center;
+  display: flex;
+  border: none;
+  padding: 0;
+  z-index: 1;
+}

@@ -15,6 +15,10 @@ html {
   @include fonts.init;
 }
 
+dialog {
+  z-index: 999999;
+}
+
 :root {
   @include colors.init;
 }
