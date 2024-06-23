@@ -7,6 +7,12 @@
   height: 100%;
 }
 
+.content {
+  box-sizing: border-box;
+  overflow: auto;
+  height: 100%;
+}
+
 .sidenav {
   border-right: 0.0625rem solid colors.getColor(neutral, 200);
   background-image: url('~@/assets/sidenav.png');

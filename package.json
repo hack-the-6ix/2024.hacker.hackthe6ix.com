@@ -13,10 +13,10 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv env.d.ts"
   },
   "dependencies": {
-    "@material-symbols/font-600": "^0.19.0",
+    "@material-symbols/font-600": "^0.20.0",
     "classnames": "^2.5.1",
     "forward-ref-as": "^2.0.0",
-    "next": "14.2.3",
+    "next": "14.2.4",
     "ramda": "^0.30.1",
     "react": "^18",
     "react-dom": "^18",
@@ -27,21 +27,21 @@
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.11.3",
-    "@cloudflare/workers-types": "^4.20240529.0",
+    "@cloudflare/workers-types": "^4.20240620.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20",
     "@types/ramda": "^0.30.0",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.3",
+    "eslint-config-next": "14.2.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-next-on-pages": "^1.11.3",
     "eslint-plugin-prettier": "^5.1.3",
-    "prettier": "^3.3.1",
-    "sass": "^1.77.4",
+    "prettier": "^3.3.2",
+    "sass": "^1.77.6",
     "typescript": "^5",
-    "vercel": "^34.2.4",
-    "wrangler": "^3.58.0"
+    "vercel": "^34.2.7",
+    "wrangler": "^3.61.0"
   }
 }

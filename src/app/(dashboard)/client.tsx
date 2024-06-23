@@ -43,7 +43,7 @@ export function NavLinks({ items }: NavLinksProps) {
 export interface FormPageProps extends ComponentPropsWithoutRef<'form'> {
   heading: ReactNode;
   onBack: ButtonProps<'button'>;
-  onNext: ButtonProps<'button'>;
+  onNext?: ButtonProps<'button'>;
 }
 
 export function FormPage({ heading, onBack, onNext, ...props }: FormPageProps) {
@@ -71,7 +71,7 @@ export function FormPage({ heading, onBack, onNext, ...props }: FormPageProps) {
             {...onBack}
             className={cn(styles.form__back, onBack.className)}
           />
-          <Button {...onNext} />
+          {onNext && <Button {...onNext} />}
         </Flex>
       </Flex>
     </Flex>

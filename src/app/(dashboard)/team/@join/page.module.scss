@@ -1,0 +1,11 @@
+@use '@/styles/mixins';
+
+.content {
+  grid-template-columns: 1fr max-content;
+  gap: mixins.spacing(x-big);
+  align-items: flex-end;
+  max-width: 40rem;
+  margin: 0 auto;
+  display: grid;
+  width: 100%;
+}

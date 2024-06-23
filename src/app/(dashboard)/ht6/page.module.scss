@@ -1,0 +1,8 @@
+.link {
+  padding: 0;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}

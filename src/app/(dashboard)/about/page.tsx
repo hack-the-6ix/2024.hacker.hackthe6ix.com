@@ -57,7 +57,6 @@ function AboutPage() {
       <Checkbox
         label="I give permission to Hack the 6ix for sending me emails containing information from the event sponsors."
         inputProps={{
-          required: true,
           name: 'can-email',
         }}
         data-full
@@ -176,6 +175,7 @@ function AboutPage() {
         label="First name"
         inputProps={{
           placeholder: 'First name',
+          autoComplete: 'off',
           required: true,
           name: 'firstName',
         }}
@@ -184,6 +184,7 @@ function AboutPage() {
         label="Last name"
         inputProps={{
           placeholder: 'Last name',
+          autoComplete: 'off',
           required: true,
           name: 'lastName',
         }}
@@ -192,6 +193,7 @@ function AboutPage() {
         label="Phone number"
         inputProps={{
           placeholder: '###-###-####',
+          autoComplete: 'off',
           required: true,
           type: 'phone',
         }}

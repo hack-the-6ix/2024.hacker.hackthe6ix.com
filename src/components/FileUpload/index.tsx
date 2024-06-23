@@ -19,7 +19,7 @@ import styles from './FileUpload.module.scss';
 
 export type FileUploadProps = InputLikePublicProps & {
   inputProps: Omit<ComponentPropsWithoutRef<'input'>, 'value'> & {
-    value: File;
+    value?: File;
   };
 };
 

@@ -1,0 +1,19 @@
+@use '@/styles/mixins';
+@use '@/styles/colors';
+
+.container {
+  width: 100%;
+  max-width: 66rem;
+  height: 100%;
+  padding: mixins.spacing(3x-big);
+  box-sizing: border-box;
+}
+
+.content {
+  min-height: 20rem;
+}
+
+.footer {
+  border-top: 0.0625rem solid colors.getColor(secondary, 700);
+  padding-top: mixins.spacing(sm);
+}

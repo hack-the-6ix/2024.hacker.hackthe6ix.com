@@ -33,9 +33,10 @@
 
 .form {
   width: 100%;
-  max-width: 50rem;
+  max-width: 55rem;
   box-sizing: border-box;
   padding: mixins.spacing(huge) mixins.spacing(x-big);
+  flex-basis: auto;
 
   &__body {
     display: grid;

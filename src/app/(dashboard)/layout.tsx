@@ -50,7 +50,12 @@ function DashboardLayout({
           </Button>
         </Flex>
       </Flex>
-      <Flex justify="center" as="main">
+      <Flex
+        className={styles.content}
+        direction="column"
+        align="center"
+        as="main"
+      >
         {children}
       </Flex>
     </div>
