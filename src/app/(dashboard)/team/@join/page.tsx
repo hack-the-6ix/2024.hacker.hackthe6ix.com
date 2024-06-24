@@ -17,7 +17,7 @@ function JoinTeam() {
           label="Team code"
           inputProps={{ required: true, placeholder: 'OWO123' }}
         />
-        <Button>Join team</Button>
+        <Button buttonColor="primary">Join team</Button>
       </form>
     </TeamLayout>
   );

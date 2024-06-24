@@ -2,7 +2,6 @@ import { ComponentPropsWithoutRef, ReactNode, useId } from 'react';
 import cn from 'classnames';
 import Flex from '../Flex';
 import Text from '../Text';
-import styles from './InputLike.module.scss';
 
 // Used for extending by inputs
 export type InputLikePublicProps = {
@@ -48,15 +47,16 @@ function InputLike({
       <Text
         htmlFor={id}
         className={cn(hideLabel && 'hidden')}
+        textColor="secondary-700"
         textType="paragraph-sm"
         textWeight="semi-bold"
         as="label"
       >
         <span>{label}</span>
         {required && (
-          <span className={styles.required} aria-hidden>
+          <Text textColor="error-500" aria-hidden>
             *
-          </span>
+          </Text>
         )}
       </Text>
       {children?.({

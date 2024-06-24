@@ -39,22 +39,19 @@
   flex-basis: auto;
 
   &__body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: mixins.spacing(big) mixins.spacing(m);
+    > *[data-grid] {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: mixins.spacing(m);
+    }
 
-    > *[data-full] {
+    *[data-full] {
       grid-column: span 2;
     }
 
-    > *[data-start] {
+    *[data-start] {
       grid-column-start: 1;
     }
-  }
-
-  &__back {
-    border-radius: 0;
-    padding: 0;
   }
 
   &__hr {

@@ -63,15 +63,19 @@ export function FormPage({ heading, onBack, onNext, ...props }: FormPageProps) {
       >
         {heading}
       </Text>
-      <div className={styles.form__body}>{props.children}</div>
+      <Flex className={styles.form__body} direction="column" gap="3x-big">
+        {props.children}
+      </Flex>
       <Flex direction="column" gap="sm">
         <hr className={styles.form__hr} />
         <Flex align="center" justify="space-between" gap="sm">
           <Button
+            buttonLevel={200}
+            buttonColor="neutral"
+            buttonType="secondary"
             {...onBack}
-            className={cn(styles.form__back, onBack.className)}
           />
-          {onNext && <Button {...onNext} />}
+          {onNext && <Button buttonColor="primary" type="submit" {...onNext} />}
         </Flex>
       </Flex>
     </Flex>

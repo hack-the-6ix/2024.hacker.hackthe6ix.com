@@ -5,6 +5,7 @@ import Checkbox from '@/components/Checkbox';
 import Flex from '@/components/Flex';
 import { InputLikePublicProps } from '@/components/InputLike';
 import Text from '@/components/Text';
+import styles from './client.module.scss';
 
 export interface ChecklistProps extends InputLikePublicProps {
   limit?: number;
@@ -17,9 +18,18 @@ export interface ChecklistProps extends InputLikePublicProps {
 }
 export function Checklist({ label, required, options, name }: ChecklistProps) {
   return (
-    <Flex as="fieldset" data-full>
-      <Text as="legend">{label}</Text>
-      <Flex>
+    <Flex direction="column" role="group" gap="sm" data-full>
+      <Text
+        className={styles.label}
+        textColor="secondary-700"
+        textType="paragraph-lg"
+        textWeight="semi-bold"
+        as="legend"
+      >
+        <span>{label}</span>
+        {required && <Text textColor="error-400">*</Text>}
+      </Text>
+      <div className={styles.content}>
         {options.map((option, key) => (
           <Checkbox
             label={option.label}
@@ -27,7 +37,7 @@ export function Checklist({ label, required, options, name }: ChecklistProps) {
             key={key}
           />
         ))}
-      </Flex>
+      </div>
     </Flex>
   );
 }

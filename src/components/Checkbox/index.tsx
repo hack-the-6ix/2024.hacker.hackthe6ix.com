@@ -19,7 +19,11 @@ function Checkbox({ inputProps, ...props }: CheckboxProps) {
       required={inputProps.required}
     >
       {(ariaProps) => (
-        <Flex justify="center" align="center" className={styles.content}>
+        <Flex
+          justify="center"
+          align="center"
+          className={cn(inputProps.required && styles.offset, styles.content)}
+        >
           <input
             {...inputProps}
             {...ariaProps}

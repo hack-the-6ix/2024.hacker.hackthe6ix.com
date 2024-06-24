@@ -62,8 +62,8 @@ export function TeamLayout({
         className={styles.footer}
         align="center"
       >
-        {leftAction && <Button {...leftAction} />}
-        <Button {...rightAction} as={Link} href="/about">
+        {leftAction && <Button buttonType="secondary" {...leftAction} />}
+        <Button buttonColor="primary" {...rightAction} as={Link} href="/about">
           {rightAction?.children ?? 'My application'}
         </Button>
       </Flex>

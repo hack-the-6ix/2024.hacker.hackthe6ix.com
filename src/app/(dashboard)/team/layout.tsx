@@ -5,7 +5,7 @@ interface TeamPageProps {
   team: ReactNode;
 }
 function TeamPage({ join, team }: TeamPageProps) {
-  const hasTeam = false;
+  const hasTeam = true;
   return hasTeam ? team : join;
 }
 
