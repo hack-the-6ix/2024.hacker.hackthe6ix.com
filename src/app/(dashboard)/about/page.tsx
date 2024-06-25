@@ -52,19 +52,6 @@ function AboutPage() {
             type: 'email',
           }}
         />
-        <Dropdown
-          label="Shirt size"
-          inputProps={{
-            required: true,
-            name: 'size',
-          }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
-        />
         <Checkbox
           label="I give Hack the 6ix permission to send me emails containing information from the event sponsors."
           inputProps={{
@@ -109,6 +96,59 @@ function AboutPage() {
           }}
           options={schools}
         />
+        <Dropdown 
+          label="Level of Study"
+          inputProps={{
+            required: true,
+            name: 'level',
+          }}
+          options={[
+            {
+              label: 'Less than Secondary / High School',
+              value: 'less-than-secondary',
+            },
+            {
+              label: 'Secondary / High School',
+              value: 'secondary',
+            },
+            {
+              label: 'Undergraduate University (2 year - community college or similar)',
+              value: 'undergraduate-2',
+            },
+            {
+              label: 'Undergraduate University (3+ year)',
+              value: 'undergraduate-3',
+            },
+            {
+              label: 'Graduate University (Masters, Professional, Doctoral, etc)',
+              value: 'graduate',
+            },
+            {
+              label: 'Code School / Bootcamp',
+              value: 'code-school',
+            },
+            {
+              label: 'Other Vocational / Trade Program or Apprenticeship',
+              value: 'vocational',
+            },
+            {
+              label: 'Post Doctorate',
+              value: 'post-doctorate',
+            },
+            {
+              label: 'Other',
+              value: 'other',
+            },
+            {
+              label: 'I’m not currently a student',
+              value: 'not-student',
+            },
+            {
+              label: 'Prefer not to answer',
+              value: 'prefer-not-to-answer',
+            },
+          ]}
+        />
         <Dropdown
           label="Country"
           inputProps={{
@@ -123,6 +163,19 @@ function AboutPage() {
             },
           ]}
         />
+        <Dropdown
+          label="Shirt size"
+          inputProps={{
+            required: true,
+            name: 'size',
+          }}
+          options={[
+            {
+              label: 'Placeholder',
+              value: 'placeholder',
+            },
+          ]}
+        />
         <Input
           label="Please specify any dietary restrictions you have."
           data-full
@@ -130,15 +183,6 @@ function AboutPage() {
             placeholder: 'ie: vegan, vegetarian',
             required: true,
             name: 'dietary',
-          }}
-        />
-        <Input
-          label="Please specify any allergies you have."
-          data-full
-          inputProps={{
-            placeholder: 'ie: peanuts, nuts',
-            required: true,
-            name: 'allergies',
           }}
         />
       </div>
