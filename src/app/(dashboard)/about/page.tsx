@@ -5,6 +5,7 @@ import Icon from '@/components/Icon';
 import Input from '@/components/Input';
 import Text from '@/components/Text';
 import { FormPage } from '../client';
+import schools from './schools.data';
 
 function AboutPage() {
   return (
@@ -51,8 +52,21 @@ function AboutPage() {
             type: 'email',
           }}
         />
+        <Dropdown
+          label="Shirt size"
+          inputProps={{
+            required: true,
+            name: 'size',
+          }}
+          options={[
+            {
+              label: 'Placeholder',
+              value: 'placeholder',
+            },
+          ]}
+        />
         <Checkbox
-          label="I give permission to Hack the 6ix for sending me emails containing information from the event sponsors."
+          label="I give Hack the 6ix permission to send me emails containing information from the event sponsors."
           inputProps={{
             name: 'can-email',
           }}
@@ -88,30 +102,12 @@ function AboutPage() {
           ]}
         />
         <Dropdown
-          label="City"
+          label="School"
           inputProps={{
             required: true,
-            name: 'city',
+            name: 'school',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
-        />
-        <Dropdown
-          label="Province"
-          inputProps={{
-            required: true,
-            name: 'province',
-          }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
+          options={schools}
         />
         <Dropdown
           label="Country"
@@ -119,26 +115,11 @@ function AboutPage() {
             required: true,
             name: 'country',
             defaultValue: 'canada',
-            disabled: true,
           }}
           options={[
             {
               label: 'Canada',
               value: 'canada',
-            },
-          ]}
-        />
-        <Dropdown
-          label="Shirt size"
-          data-start
-          inputProps={{
-            required: true,
-            name: 'size',
-          }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
             },
           ]}
         />
