@@ -26,7 +26,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.11.3",
+    "@cloudflare/next-on-pages": "^1.12.0",
     "@cloudflare/workers-types": "^4.20240620.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20",
@@ -36,12 +36,12 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-next-on-pages": "^1.11.3",
+    "eslint-plugin-next-on-pages": "^1.12.0",
     "eslint-plugin-prettier": "^5.1.3",
     "prettier": "^3.3.2",
     "sass": "^1.77.6",
     "typescript": "^5",
-    "vercel": "^34.2.7",
-    "wrangler": "^3.61.0"
+    "vercel": "^34.2.8",
+    "wrangler": "^3.62.0"
   }
 }
