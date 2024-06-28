@@ -1,4 +1,9 @@
 import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { fetchJSON } from './api';
+
+const loginURL = new URL('/auth/public/login', process.env.API_HOST);
+const callbackURL = new URL('/callback', process.env.HOST);
 
 interface AuthPayload {
   redirectTo: string;
@@ -12,25 +17,18 @@ interface AuthResult {
   };
 }
 
-export async function middleware() {
+export async function middleware(request: NextRequest) {
   const isAuthenticated = true; // TODO: Add logic for auth
+
   if (isAuthenticated) return NextResponse.next();
-
-  const loginURL = new URL('/auth/public/login', process.env.API_HOST);
-  const callbackURL = new URL('/callback', process.env.HOST);
-
-  const res = await fetch(loginURL.href, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      redirectTo: process.env.HOST!,
+  const data = await fetchJSON<AuthPayload, AuthResult>(loginURL, {
+    body: {
+      redirectTo: new URL(request.url).pathname,
       callbackURL: callbackURL.href,
-    } satisfies AuthPayload),
+    },
+    method: 'POST',
   });
 
-  const data = await res.json<AuthResult>();
   if (data.status !== 200) {
     throw new Error('Unable to auth. RIP');
   }
