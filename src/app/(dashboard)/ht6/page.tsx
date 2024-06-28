@@ -1,3 +1,5 @@
+import { fetchHt6 } from '@/api';
+import type Ht6Api from '@/api.d';
 import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
 import Flex from '@/components/Flex';
@@ -7,7 +9,14 @@ import { FormPage } from '../client';
 import { Checklist } from './client';
 import styles from './page.module.scss';
 
-function HT6Page() {
+async function HT6Page() {
+  const [{ message: profile }, { message: enums }] = await Promise.all([
+    fetchHt6<Ht6Api.ApiResponse<Ht6Api.HackerProfile>>('/api/action/profile'),
+    fetchHt6<Ht6Api.ApiResponse<Ht6Api.ApplicationEnums>>(
+      '/api/action/applicationEnums',
+    ),
+  ]);
+
   return (
     <FormPage
       heading="At HT6"
@@ -27,16 +36,10 @@ function HT6Page() {
         <Checklist
           label="Please choose 3 workshops that you are interested in."
           name="workshops"
-          options={[
-            {
-              label: 'Basics of Python',
-              value: 'Basics of Python',
-            },
-            {
-              label: 'Cloud-Connected AR/VR App',
-              value: 'Cloud-Connected AR/VR App',
-            },
-          ]}
+          options={enums.requestedWorkshops.map((v) => ({
+            label: v,
+            value: v,
+          }))}
           required
         />
       </div>

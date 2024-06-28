@@ -1,7 +1,8 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { fetchHt6 } from './api';
+import { fetchHt6 } from '@/api';
+import type Ht6Api from '@/api.d';
 
 const callbackURL = new URL('/callback', process.env.HOST);
 
@@ -10,12 +11,7 @@ interface LoginPayload {
   callbackURL: string;
 }
 
-interface LoginResult {
-  status: number;
-  message: {
-    url: string;
-  };
-}
+type LoginResult = Ht6Api.ApiResponse<{ url: string }>;
 
 export async function middleware(request: NextRequest) {
   if (cookies().has('token') && cookies().has('refreshToken')) {

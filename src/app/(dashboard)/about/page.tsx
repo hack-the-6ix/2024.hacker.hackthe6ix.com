@@ -1,3 +1,5 @@
+import { fetchHt6 } from '@/api';
+import type Ht6Api from '@/api.d';
 import Checkbox from '@/components/Checkbox';
 import Dropdown from '@/components/Dropdown';
 import Flex from '@/components/Flex';
@@ -6,7 +8,16 @@ import Input from '@/components/Input';
 import Text from '@/components/Text';
 import { FormPage } from '../client';
 
-function AboutPage() {
+async function AboutPage() {
+  const [{ message: profile }, { message: enums }] = await Promise.all([
+    fetchHt6<Ht6Api.ApiResponse<Ht6Api.HackerProfile>>('/api/action/profile'),
+    fetchHt6<Ht6Api.ApiResponse<Ht6Api.ApplicationEnums>>(
+      '/api/action/applicationEnums',
+    ),
+  ]);
+
+  console.log(enums);
+
   return (
     <FormPage
       heading="About You"
@@ -28,8 +39,10 @@ function AboutPage() {
           inputProps={{
             placeholder: 'First name',
             autoComplete: 'given-name',
+            defaultValue: profile.firstName,
             required: true,
             name: 'firstName',
+            disabled: true,
           }}
         />
         <Input
@@ -37,8 +50,10 @@ function AboutPage() {
           inputProps={{
             placeholder: 'Last name',
             autoComplete: 'family-name',
+            defaultValue: profile.lastName,
             required: true,
             name: 'lastName',
+            disabled: true,
           }}
         />
         <Input
@@ -46,9 +61,11 @@ function AboutPage() {
           inputProps={{
             placeholder: 'hacker@hackthe6ix.com',
             autoComplete: 'email',
+            defaultValue: profile.email,
             required: true,
             name: 'email',
             type: 'email',
+            disabled: true,
           }}
         />
         <Checkbox
@@ -67,12 +84,7 @@ function AboutPage() {
             required: true,
             name: 'gender',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
+          options={enums.gender.map((v) => ({ label: v, value: v }))}
         />
         <Dropdown
           label="Ethnicity"
@@ -80,12 +92,7 @@ function AboutPage() {
             required: true,
             name: 'ethnicity',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
+          options={enums.ethnicity.map((v) => ({ label: v, value: v }))}
         />
         <Dropdown
           label="City"
@@ -106,27 +113,18 @@ function AboutPage() {
             required: true,
             name: 'province',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
+          options={enums.province
+            .slice(0, 13)
+            .map((v) => ({ label: v, value: v }))}
         />
-        <Dropdown
+        <Input
           label="Country"
           inputProps={{
             required: true,
             name: 'country',
-            defaultValue: 'canada',
+            defaultValue: 'Canada',
             disabled: true,
           }}
-          options={[
-            {
-              label: 'Canada',
-              value: 'canada',
-            },
-          ]}
         />
         <Dropdown
           label="Shirt size"
@@ -135,12 +133,7 @@ function AboutPage() {
             required: true,
             name: 'size',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
+          options={enums.shirt.map((v) => ({ label: v, value: v }))}
         />
         <Input
           label="Please specify any dietary restrictions you have."
@@ -205,12 +198,10 @@ function AboutPage() {
             required: true,
             name: 'relationship',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
+          options={enums.emergencyContactRelationship.map((v) => ({
+            label: v,
+            value: v,
+          }))}
         />
       </div>
     </FormPage>

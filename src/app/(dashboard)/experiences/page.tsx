@@ -1,3 +1,5 @@
+import { fetchHt6 } from '@/api';
+import type Ht6Api from '@/api.d';
 import Checkbox from '@/components/Checkbox';
 import Dropdown from '@/components/Dropdown';
 import FileUpload from '@/components/FileUpload';
@@ -6,7 +8,14 @@ import Icon from '@/components/Icon';
 import Input from '@/components/Input';
 import { FormPage } from '../client';
 
-function ExperiencesPage() {
+async function ExperiencesPage() {
+  const [{ message: profile }, { message: enums }] = await Promise.all([
+    fetchHt6<Ht6Api.ApiResponse<Ht6Api.HackerProfile>>('/api/action/profile'),
+    fetchHt6<Ht6Api.ApiResponse<Ht6Api.ApplicationEnums>>(
+      '/api/action/applicationEnums',
+    ),
+  ]);
+
   return (
     <FormPage
       heading="Your Experiences"
@@ -29,12 +38,7 @@ function ExperiencesPage() {
             required: true,
             name: 'school',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
+          options={enums.school.map((v) => ({ label: v, value: v }))}
         />
         <Dropdown
           label="Your Program of Study"
@@ -42,12 +46,7 @@ function ExperiencesPage() {
             required: true,
             name: 'program',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
+          options={enums.programOfStudy.map((v) => ({ label: v, value: v }))}
         />
         <Dropdown
           label="Year of Study"
@@ -55,12 +54,7 @@ function ExperiencesPage() {
             required: true,
             name: 'year',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
+          options={enums.levelOfStudy.map((v) => ({ label: v, value: v }))}
         />
         <Dropdown
           label="Number of Hackathons Attended"
@@ -68,12 +62,10 @@ function ExperiencesPage() {
             required: true,
             name: 'hacakthons',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
+          options={enums.hackathonsAttended.map((v) => ({
+            label: v,
+            value: v,
+          }))}
         />
         <FileUpload
           label="Your resume"

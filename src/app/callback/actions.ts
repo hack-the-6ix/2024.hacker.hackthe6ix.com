@@ -1,22 +1,19 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { fetchHt6 } from '@/api';
+import type Ht6Api from '@/api.d';
 
 interface CallbackPayload {
   code: string;
   state: string;
 }
 
-interface CallbackResult {
-  status: number;
-  message: {
-    token: string;
-    refreshToken: string;
-    redirectTo: string;
-  };
-}
+type CallbackResult = Ht6Api.ApiResponse<{
+  token: string;
+  refreshToken: string;
+  redirectTo: string;
+}>;
 
 export async function setSession(state: string, code: string) {
   const res = await fetchHt6<CallbackResult, CallbackPayload>(
