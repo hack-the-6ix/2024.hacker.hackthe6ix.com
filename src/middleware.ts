@@ -1,16 +1,16 @@
+import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { fetchJSON } from './api';
+import { fetchHt6 } from './api';
 
-const loginURL = new URL('/auth/public/login', process.env.API_HOST);
 const callbackURL = new URL('/callback', process.env.HOST);
 
-interface AuthPayload {
+interface LoginPayload {
   redirectTo: string;
   callbackURL: string;
 }
 
-interface AuthResult {
+interface LoginResult {
   status: number;
   message: {
     url: string;
@@ -18,10 +18,11 @@ interface AuthResult {
 }
 
 export async function middleware(request: NextRequest) {
-  const isAuthenticated = true; // TODO: Add logic for auth
+  if (cookies().has('token') && cookies().has('refreshToken')) {
+    return NextResponse.next();
+  }
 
-  if (isAuthenticated) return NextResponse.next();
-  const data = await fetchJSON<AuthPayload, AuthResult>(loginURL, {
+  const data = await fetchHt6<LoginResult, LoginPayload>('/auth/public/login', {
     body: {
       redirectTo: new URL(request.url).pathname,
       callbackURL: callbackURL.href,
@@ -32,6 +33,7 @@ export async function middleware(request: NextRequest) {
   if (data.status !== 200) {
     throw new Error('Unable to auth. RIP');
   }
+
   return NextResponse.redirect(new URL(data.message.url));
 }
 

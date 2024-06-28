@@ -7,6 +7,7 @@ import cn from 'classnames';
 import Button, { ButtonProps } from '@/components/Button';
 import Flex from '@/components/Flex';
 import Text from '@/components/Text';
+import { logout } from './actions';
 import styles from './client.module.scss';
 
 export interface NavLinksProps {
@@ -37,6 +38,18 @@ export function NavLinks({ items }: NavLinksProps) {
         </Button>
       ))}
     </Flex>
+  );
+}
+
+export function Logout() {
+  return (
+    <Button
+      onClick={() => logout()}
+      buttonColor="primary"
+      buttonType="secondary"
+    >
+      Log Out
+    </Button>
   );
 }
 

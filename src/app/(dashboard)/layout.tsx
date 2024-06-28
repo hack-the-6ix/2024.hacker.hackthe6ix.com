@@ -3,7 +3,7 @@ import Image from 'next/image';
 import logo from '@/assets/logo.png';
 import Button from '@/components/Button';
 import Flex from '@/components/Flex';
-import { NavLinks } from './client';
+import { Logout, NavLinks } from './client';
 import styles from './layout.module.scss';
 
 const links = [
@@ -45,9 +45,7 @@ function DashboardLayout({
         </Flex>
         <Flex direction="column" align="stretch" gap="x-big">
           {status}
-          <Button buttonColor="primary" buttonType="secondary">
-            Log Out
-          </Button>
+          <Logout />
         </Flex>
       </Flex>
       <Flex

@@ -1,17 +1,13 @@
+import { fetchHt6 } from '@/api';
 import Flex from '@/components/Flex';
 import Text from '@/components/Text';
 
-function mockApi<T>(result: T, delay = Math.random() * 2000) {
-  return new Promise<T>((resolve) => {
-    setTimeout(() => resolve(result), delay);
-  });
-}
-
 async function ApplicationStatus() {
-  const [status, closeAt] = await Promise.all([
-    mockApi('Not submitted'),
-    mockApi('July 21, 2023 @ 11:59PM EST'),
-  ]);
+  const res = await fetchHt6('/api/action/profile');
+  const status = res.message.status.textStatus;
+  const closeAt = new Date(
+    res.message.computedApplicationDeadline,
+  ).toLocaleDateString();
 
   return (
     <Flex direction="column" as="dl" gap="x-big">
