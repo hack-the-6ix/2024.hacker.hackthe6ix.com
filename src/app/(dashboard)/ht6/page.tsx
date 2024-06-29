@@ -48,6 +48,7 @@ function HT6Page() {
             rows: 6,
             required: true,
           }}
+          limit={200}
         />
         <Textarea
           label="What is one project you were proud of? What tools and methods did you use to complete it?"
@@ -56,6 +57,7 @@ function HT6Page() {
             rows: 6,
             required: true,
           }}
+          limit={200}
         />
       </div>
       <div data-grid>
