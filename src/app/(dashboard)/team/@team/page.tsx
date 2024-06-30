@@ -23,7 +23,7 @@ async function YourTeam() {
         </Button>
       }
     >
-      <Flex justify="center" gap="x-big">
+      <Flex justify="center" gap="x-lg" wrap>
         <Flex
           className={styles.section}
           direction="column"

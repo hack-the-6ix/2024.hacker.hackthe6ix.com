@@ -1,22 +1,18 @@
-import { ElementType } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 import { IconType } from 'react-icons';
 import cn from 'classnames';
-import Button, { ButtonProps } from '../Button';
+import Button from '../Button';
 import Icon from '../Icon';
 import styles from './IconButton.module.scss';
 
-export type IconButtonProps<T extends ElementType> = Omit<
-  ButtonProps<T>,
+export type IconButtonProps = Omit<
+  ComponentPropsWithoutRef<typeof Button>,
   'children'
 > & {
   icon: string | IconType;
 };
 
-function IconButton<T extends ElementType>({
-  icon,
-  as,
-  ...props
-}: IconButtonProps<T>) {
+function IconButton({ icon, as, ...props }: IconButtonProps) {
   return (
     <Button
       {...props}

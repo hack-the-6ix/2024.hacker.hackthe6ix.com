@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import Checkbox from '@/components/Checkbox';
@@ -7,6 +8,8 @@ import Icon from '@/components/Icon';
 import Input from '@/components/Input';
 import Text from '@/components/Text';
 import { FormPage } from '../client';
+import { submitApplication } from './actions';
+import { SaveAndContinue, WhyEthnicity } from './client';
 
 async function AboutPage() {
   const [{ message: profile }, { message: enums }] = await Promise.all([
@@ -15,8 +18,6 @@ async function AboutPage() {
       '/api/action/applicationEnums',
     ),
   ]);
-
-  console.log(enums);
 
   return (
     <FormPage
@@ -28,17 +29,17 @@ async function AboutPage() {
             <span>Back</span>
           </Flex>
         ),
+        href: '/team',
       }}
-      onNext={{
-        children: 'Save & continue',
-      }}
+      action={submitApplication}
+      noValidate
+      onNext={<SaveAndContinue />}
     >
       <div data-grid>
         <Input
           label="First name"
           inputProps={{
             placeholder: 'First name',
-            autoComplete: 'given-name',
             defaultValue: profile.firstName,
             required: true,
             name: 'firstName',
@@ -49,7 +50,6 @@ async function AboutPage() {
           label="Last name"
           inputProps={{
             placeholder: 'Last name',
-            autoComplete: 'family-name',
             defaultValue: profile.lastName,
             required: true,
             name: 'lastName',
@@ -60,7 +60,6 @@ async function AboutPage() {
           label="Email"
           inputProps={{
             placeholder: 'hacker@hackthe6ix.com',
-            autoComplete: 'email',
             defaultValue: profile.email,
             required: true,
             name: 'email',
@@ -71,7 +70,8 @@ async function AboutPage() {
         <Checkbox
           label="I give permission to Hack the 6ix for sending me emails containing information from the event sponsors."
           inputProps={{
-            name: 'can-email',
+            defaultChecked: profile.hackerApplication?.emailConsent,
+            name: 'emailConsent',
           }}
           data-full
         />
@@ -80,6 +80,7 @@ async function AboutPage() {
         <Dropdown
           label="Gender"
           inputProps={{
+            defaultValue: profile.hackerApplication?.gender,
             autoComplete: 'sex',
             required: true,
             name: 'gender',
@@ -89,27 +90,26 @@ async function AboutPage() {
         <Dropdown
           label="Ethnicity"
           inputProps={{
+            defaultValue: profile.hackerApplication?.ethnicity,
             required: true,
             name: 'ethnicity',
           }}
+          description={<WhyEthnicity />}
           options={enums.ethnicity.map((v) => ({ label: v, value: v }))}
         />
-        <Dropdown
+        <Input
           label="City"
           inputProps={{
+            defaultValue: profile.hackerApplication?.city,
+            placeholder: 'Enter city name',
             required: true,
             name: 'city',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
         />
         <Dropdown
           label="Province"
           inputProps={{
+            defaultValue: profile.hackerApplication?.province,
             required: true,
             name: 'province',
           }}
@@ -130,27 +130,31 @@ async function AboutPage() {
           label="Shirt size"
           data-start
           inputProps={{
+            defaultValue: profile.hackerApplication?.shirtSize,
             required: true,
-            name: 'size',
+            name: 'shirtSize',
           }}
           options={enums.shirt.map((v) => ({ label: v, value: v }))}
         />
-        <Input
+        <Dropdown
           label="Please specify any dietary restrictions you have."
           data-full
+          options={enums.dietaryRestrictions.map((v) => ({
+            label: v,
+            value: v,
+          }))}
           inputProps={{
-            placeholder: 'ie: vegan, vegetarian',
-            required: true,
-            name: 'dietary',
+            defaultValue: profile.hackerApplication?.dietaryRestrictions,
+            name: 'dietaryRestrictions',
           }}
         />
         <Input
           label="Please specify any allergies you have."
           data-full
           inputProps={{
+            defaultValue: profile.hackerApplication?.healthWarnings,
             placeholder: 'ie: peanuts, nuts',
-            required: true,
-            name: 'allergies',
+            name: 'healthWarnings',
           }}
         />
       </div>
@@ -168,35 +172,41 @@ async function AboutPage() {
         <Input
           label="First name"
           inputProps={{
+            defaultValue: profile.hackerApplication?.emergencyContact.firstName,
             placeholder: 'First name',
             autoComplete: 'off',
             required: true,
-            name: 'firstName',
+            name: 'emergency.firstName',
           }}
         />
         <Input
           label="Last name"
           inputProps={{
+            defaultValue: profile.hackerApplication?.emergencyContact.lastName,
             placeholder: 'Last name',
             autoComplete: 'off',
             required: true,
-            name: 'lastName',
+            name: 'emergency.lastName',
           }}
         />
         <Input
           label="Phone number"
           inputProps={{
+            defaultValue:
+              profile.hackerApplication?.emergencyContact.phoneNumber,
             placeholder: '###-###-####',
             autoComplete: 'off',
             required: true,
-            type: 'phone',
+            type: 'emergency.phoneNumber',
           }}
         />
         <Dropdown
           label="Relationship"
           inputProps={{
+            defaultValue:
+              profile.hackerApplication?.emergencyContact.relationship,
             required: true,
-            name: 'relationship',
+            name: 'emergency.relationship',
           }}
           options={enums.emergencyContactRelationship.map((v) => ({
             label: v,

@@ -27,10 +27,9 @@ async function HT6Page() {
             <span>Back</span>
           </Flex>
         ),
+        href: '/experiences',
       }}
-      onNext={{
-        children: 'Submit Application',
-      }}
+      onNext={'Submit Application'}
     >
       <div data-grid>
         <Checklist

@@ -8,9 +8,13 @@
 
 .content {
   grid-template-columns: 1fr max-content;
-  gap: mixins.spacing(x-big);
+  gap: mixins.spacing(sm) mixins.spacing(x-big);
   align-items: flex-end;
   display: grid;
+
+  @include mixins.media(tablet) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .error {

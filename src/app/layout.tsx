@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
@@ -17,7 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html className={inter.className} lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Toaster />
+      </body>
       <Script strategy="lazyOnload" id="animate">
         {`
           window.setTimeout(() => {

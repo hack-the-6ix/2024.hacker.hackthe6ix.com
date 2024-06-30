@@ -13,6 +13,45 @@ export namespace Ht6Api {
     memberNames: string[];
   }
 
+  export interface HackerApplication {
+    lastUpdated: number;
+    phoneNumber: string;
+    teamCode: string;
+    emailConsent: boolean;
+    gender: string;
+    age: number;
+    pronouns: string;
+    ethnicity: string;
+    country: string;
+    shirtSize: string;
+    dietaryRestrictions: string;
+    healthWarnings: string;
+    city: string;
+    province: string;
+    school: string;
+    program: string;
+    levelOfStudy: string;
+    hackathonsAttended: string;
+    resumeFileName: string;
+    friendlyResumeFileName: string;
+    resumeSharePermission: boolean;
+    githubLink: string;
+    portfolioLink: string;
+    linkedinLink: string;
+    projectEssay: string;
+    whyHT6Essay: string;
+    creativeResponseEssay: string;
+    mlhCOC: boolean;
+    mlhEmail: boolean;
+    mlhData: boolean;
+    emergencyContact: {
+      firstName: string;
+      lastName: string;
+      phoneNumber: string;
+      relationship: string;
+    };
+  }
+
   export interface HackerProfile {
     _id: string;
     fullName: string;
@@ -50,7 +89,7 @@ export namespace Ht6Api {
       canRSVP: boolean;
       isRSVPOpen: boolean;
     };
-    hackerApplication: { emergencyContact: {} };
+    hackerApplication?: HackerApplication;
   }
 
   export interface ApplicationEnums {

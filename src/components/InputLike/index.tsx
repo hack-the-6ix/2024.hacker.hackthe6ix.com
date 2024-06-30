@@ -43,18 +43,18 @@ function InputLike({
   const id = useId();
   const descriptor = description || status?.msg;
   return (
-    <Flex direction="column" gap="2x-sm" {...props} inline>
+    <Flex direction="column" gap="x-sm" {...props} inline>
       <Text
         htmlFor={id}
         className={cn(hideLabel && 'hidden')}
-        textColor="secondary-700"
+        textColor={disabled ? 'neutral-200' : 'secondary-700'}
         textType="paragraph-sm"
         textWeight="semi-bold"
         as="label"
       >
         <span>{label}</span>
         {required && (
-          <Text textColor="error-500" aria-hidden>
+          <Text textColor={disabled ? 'neutral-200' : 'error-500'} aria-hidden>
             *
           </Text>
         )}

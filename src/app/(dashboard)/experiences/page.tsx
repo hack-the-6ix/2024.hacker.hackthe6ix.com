@@ -26,10 +26,9 @@ async function ExperiencesPage() {
             <span>Back</span>
           </Flex>
         ),
+        href: '/about',
       }}
-      onNext={{
-        children: 'Save & continue',
-      }}
+      onNext="Save & continue"
     >
       <div data-grid>
         <Dropdown
@@ -89,7 +88,7 @@ async function ExperiencesPage() {
           inputProps={{
             placeholder: 'ex: https://domain1.com/projects',
             name: 'github',
-            type: 'link',
+            type: 'url',
           }}
           data-start
         />
@@ -98,7 +97,7 @@ async function ExperiencesPage() {
           inputProps={{
             placeholder: 'ex: https://johndoe.com',
             name: 'portoflio',
-            type: 'link',
+            type: 'url',
           }}
           data-start
         />
@@ -107,7 +106,7 @@ async function ExperiencesPage() {
           inputProps={{
             placeholder: 'ex: https://linkedin.com/in/johndoe',
             name: 'linkedin',
-            type: 'link',
+            type: 'url',
           }}
           data-start
         />
