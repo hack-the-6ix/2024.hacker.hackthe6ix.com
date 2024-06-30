@@ -6,7 +6,7 @@ import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Textarea from '@/components/Textarea';
 import { FormPage } from '../client';
-import { Checklist } from './client';
+import { Checklist, SubmitApplication } from './client';
 import styles from './page.module.scss';
 
 async function HT6Page() {
@@ -29,7 +29,7 @@ async function HT6Page() {
         ),
         href: '/experiences',
       }}
-      onNext={'Submit Application'}
+      onNext={<SubmitApplication />}
     >
       <div data-grid>
         <Checklist
@@ -49,6 +49,7 @@ async function HT6Page() {
           inputProps={{
             rows: 6,
             required: true,
+            name: 'whyHT6Essay',
           }}
           limit={200}
         />
@@ -58,6 +59,7 @@ async function HT6Page() {
           inputProps={{
             rows: 6,
             required: true,
+            name: 'projectEssay',
           }}
           limit={200}
         />
@@ -74,7 +76,7 @@ async function HT6Page() {
                   buttonType="tertiary"
                   buttonColor="warning"
                   target="_blank"
-                  href="#"
+                  href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
                   as="a"
                 >
                   Major League Hacking (MLH) Code of Conduct.
@@ -83,11 +85,14 @@ async function HT6Page() {
             }
             inputProps={{
               required: true,
+              name: 'mlhCOC',
             }}
           />
           <Checkbox
             label="I authorize MLH to send me pre- and post-event informational emails, which contain free credit and opportunities from their partners."
-            inputProps={{}}
+            inputProps={{
+              name: 'mlhEmail',
+            }}
           />
           <Checkbox
             label={
@@ -102,7 +107,7 @@ async function HT6Page() {
                   buttonType="tertiary"
                   buttonColor="warning"
                   target="_blank"
-                  href="#"
+                  href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
                   as="a"
                 >
                   MLH Contest Terms and Conditions
@@ -114,7 +119,7 @@ async function HT6Page() {
                   buttonType="tertiary"
                   buttonColor="warning"
                   target="_blank"
-                  href="#"
+                  href="https://mlh.io/privacy"
                   as="a"
                 >
                   MLH Privacy Policy
@@ -122,7 +127,9 @@ async function HT6Page() {
                 .
               </>
             }
-            inputProps={{}}
+            inputProps={{
+              name: 'mlhData',
+            }}
           />
         </Flex>
       </div>

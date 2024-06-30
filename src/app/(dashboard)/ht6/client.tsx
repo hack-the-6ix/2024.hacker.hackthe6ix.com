@@ -1,12 +1,27 @@
 'use client';
 
 import { FormEvent, ReactNode, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import * as R from 'ramda';
+import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
 import Flex from '@/components/Flex';
 import { InputLikePublicProps } from '@/components/InputLike';
 import Text from '@/components/Text';
 import styles from './client.module.scss';
+
+export function SubmitApplication() {
+  const { pending } = useFormStatus();
+  return (
+    <Button
+      loading={pending && 'Saving...'}
+      buttonColor="primary"
+      type="submit"
+    >
+      Submit Application
+    </Button>
+  );
+}
 
 export interface ChecklistProps extends InputLikePublicProps {
   limit?: number;

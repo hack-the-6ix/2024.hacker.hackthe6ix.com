@@ -7,6 +7,8 @@ import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input';
 import { FormPage } from '../client';
+import { submitApplication } from './actions';
+import { SaveAndContinue } from './client';
 
 async function ExperiencesPage() {
   const [{ message: profile }, { message: enums }] = await Promise.all([
@@ -28,12 +30,15 @@ async function ExperiencesPage() {
         ),
         href: '/about',
       }}
-      onNext="Save & continue"
+      action={submitApplication}
+      onNext={<SaveAndContinue />}
+      noValidate
     >
       <div data-grid>
         <Dropdown
           label="Your School (Most Recently Attended)"
           inputProps={{
+            defaultValue: profile.hackerApplication?.school,
             required: true,
             name: 'school',
           }}
@@ -42,6 +47,7 @@ async function ExperiencesPage() {
         <Dropdown
           label="Your Program of Study"
           inputProps={{
+            defaultValue: profile.hackerApplication?.program,
             required: true,
             name: 'program',
           }}
@@ -50,16 +56,18 @@ async function ExperiencesPage() {
         <Dropdown
           label="Year of Study"
           inputProps={{
+            defaultValue: profile.hackerApplication?.levelOfStudy,
             required: true,
-            name: 'year',
+            name: 'levelOfStudy',
           }}
           options={enums.levelOfStudy.map((v) => ({ label: v, value: v }))}
         />
         <Dropdown
           label="Number of Hackathons Attended"
           inputProps={{
+            defaultValue: profile.hackerApplication?.hackathonsAttended,
             required: true,
-            name: 'hacakthons',
+            name: 'hacakthonsAttended',
           }}
           options={enums.hackathonsAttended.map((v) => ({
             label: v,
@@ -77,7 +85,8 @@ async function ExperiencesPage() {
         <Checkbox
           label="I allow Hack the 6ix to distribute my resume to its event sponsors."
           inputProps={{
-            name: 'can-share',
+            defaultChecked: profile.hackerApplication?.resumeSharePermission,
+            name: 'resumeSharePermission',
           }}
           data-full
         />
@@ -86,8 +95,9 @@ async function ExperiencesPage() {
         <Input
           label="GitHub"
           inputProps={{
+            defaultValue: profile.hackerApplication?.githubLink,
             placeholder: 'ex: https://domain1.com/projects',
-            name: 'github',
+            name: 'githubLink',
             type: 'url',
           }}
           data-start
@@ -95,8 +105,9 @@ async function ExperiencesPage() {
         <Input
           label="Link to Portfolio"
           inputProps={{
+            defaultValue: profile.hackerApplication?.portfolioLink,
             placeholder: 'ex: https://johndoe.com',
-            name: 'portoflio',
+            name: 'portfolioLink',
             type: 'url',
           }}
           data-start
@@ -104,8 +115,9 @@ async function ExperiencesPage() {
         <Input
           label="LinkedIn"
           inputProps={{
+            defaultValue: profile.hackerApplication?.linkedinLink,
             placeholder: 'ex: https://linkedin.com/in/johndoe',
-            name: 'linkedin',
+            name: 'linkedinLink',
             type: 'url',
           }}
           data-start

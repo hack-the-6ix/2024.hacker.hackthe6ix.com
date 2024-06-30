@@ -1,10 +1,10 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import * as R from 'ramda';
 import z, { ZodFormattedError } from 'zod';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
+import { patchApplication } from '../actions';
 
 const schema = z.object({
   emailConsent: z.boolean(),
@@ -50,15 +50,6 @@ export async function submitApplication(formData: FormData) {
     } satisfies Ht6Api.ApiResponse<ZodFormattedError<typeof schema>>;
   }
 
-  const application = await fetchHt6<Ht6Api.ApiResponse<Ht6Api.HackerProfile>>(
-    '/api/action/profile',
-  );
-
-  const updatedApplication = R.omit(['lastUpdated', 'teamCode'], {
-    ...(application.message.hackerApplication ?? {}),
-    ...res.data,
-  } as any);
-
   await fetchHt6<
     Ht6Api.ApiResponse<{ status: 200; message: 'Success' }>,
     { submit: false; application: Partial<Ht6Api.HackerApplication> }
@@ -66,13 +57,7 @@ export async function submitApplication(formData: FormData) {
     method: 'POST',
     body: {
       submit: false,
-      application: R.reject(R.isEmpty, {
-        ...updatedApplication,
-        emergencyContact: R.reject(
-          R.isEmpty,
-          updatedApplication.emergencyContact,
-        ),
-      }),
+      application: await patchApplication(res.data),
     },
   });
 
