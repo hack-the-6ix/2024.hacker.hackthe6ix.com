@@ -1,6 +1,7 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { FormEvent, ReactNode, useState } from 'react';
+import * as R from 'ramda';
 import Checkbox from '@/components/Checkbox';
 import Flex from '@/components/Flex';
 import { InputLikePublicProps } from '@/components/InputLike';
@@ -16,7 +17,22 @@ export interface ChecklistProps extends InputLikePublicProps {
     value: string;
   }[];
 }
-export function Checklist({ label, required, options, name }: ChecklistProps) {
+export function Checklist({
+  label,
+  required,
+  options,
+  name,
+  limit = 3,
+}: ChecklistProps) {
+  const [checked, setChecked] = useState(new Array(options.length).fill(false));
+
+  const handleOnChange = (pos: number) => (e: FormEvent<HTMLDivElement>) => {
+    setChecked((oldChecked) => {
+      const isUnderLimit = R.count(Boolean, oldChecked) < limit;
+      return R.assoc(pos, !oldChecked[pos] && isUnderLimit, oldChecked);
+    });
+  };
+
   return (
     <Flex direction="column" role="group" gap="sm" data-full>
       <Text
@@ -33,7 +49,12 @@ export function Checklist({ label, required, options, name }: ChecklistProps) {
         {options.map((option, key) => (
           <Checkbox
             label={option.label}
-            inputProps={{ name, value: option.value }}
+            inputProps={{
+              name,
+              value: option.value,
+              checked: checked[key],
+              onChange: handleOnChange(key),
+            }}
             key={key}
           />
         ))}
