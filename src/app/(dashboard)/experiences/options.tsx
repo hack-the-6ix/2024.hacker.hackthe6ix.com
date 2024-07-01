@@ -961,6 +961,7 @@ const schoolsData = [
   "Lampeter-Strasburg High School",
   "Lancaster University",
   "Lankenau High School",
+  "Laurel Heights Secondary School",
   "Laval University",
   "Lawrence Technological University",
   "Lawrence University",
@@ -2225,7 +2226,41 @@ const schoolsData = [
   "Zespół Szkół Nr.2 im. Jana Pawła II w Miechowie",
 ]
 
-let schools:any = []
+const majorsData = [
+  "Computer science, computer engineering, or software engineering",
+  "Another engineering discipline (such as civil, electrical, mechanical, etc.)",
+  "Information systems, information technology, or system administration",
+  "A natural science (such as biology, chemistry, physics, etc.)",
+  "Mathematics or statistics",
+  "Web development or web design",
+  "Business discipline (such as accounting, finance, marketing, etc.)",
+  "Humanities discipline (such as literature, history, philosophy, etc.)",
+  "Social science (such as anthropology, psychology, political science, etc.)",
+  "Fine arts or performing arts (such as graphic design, music, studio art, etc.)",
+  "Health science (such as nursing, pharmacy, radiology, etc.)",
+  "Other (please specify)",
+  "Undecided / No Declared Major",
+  "My school does not offer majors / primary areas of study",
+  "Prefer not to answer",
+]
+
+const levelData = [
+  "Less than Secondary / High School",
+  "Secondary / High School",
+  "Undergraduate University (2 year - community college or similar)",
+  "Undergraduate University (3+ year)",
+  "Graduate University (Masters, Professional, Doctoral, etc)",
+  "Code School / Bootcamp",
+  "Other Vocational / Trade Program or Apprenticeship",
+  "Post Doctorate",
+  "Other",
+  "I’m not currently a student",
+  "Prefer not to answer"
+]
+
+export let schools:any = []
+export let majors:any = []
+export let levels:any = []
 
 schoolsData.forEach((school: any) => {
   schools.push({
@@ -2234,4 +2269,16 @@ schoolsData.forEach((school: any) => {
   })
 })
 
-export default schools
+majorsData.forEach((major: any) => {
+  majors.push({
+    label: major,
+    value: major.toLowerCase().replace(/ /g, "-")
+  })
+})
+
+levelData.forEach((level: any) => {
+  levels.push({
+    label: level,
+    value: level.toLowerCase().replace(/ /g, "-")
+  })
+})

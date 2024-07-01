@@ -5,7 +5,6 @@ import Icon from '@/components/Icon';
 import Input from '@/components/Input';
 import Text from '@/components/Text';
 import { FormPage } from '../client';
-import schools from './schools.data';
 
 function AboutPage() {
   return (
@@ -87,14 +86,6 @@ function AboutPage() {
               value: 'placeholder',
             },
           ]}
-        />
-        <Dropdown
-          label="School"
-          inputProps={{
-            required: true,
-            name: 'school',
-          }}
-          options={schools}
         />
         <Dropdown 
           label="Level of Study"

@@ -5,6 +5,7 @@ import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input';
 import { FormPage } from '../client';
+import { schools, majors, levels } from './options';
 
 function ExperiencesPage() {
   return (
@@ -24,17 +25,12 @@ function ExperiencesPage() {
     >
       <div data-grid>
         <Dropdown
-          label="Your School (Most Recently Attended)"
+          label="Your School (most recently attended)"
           inputProps={{
             required: true,
             name: 'school',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
+          options={schools}
         />
         <Dropdown
           label="Your Program of Study"
@@ -42,24 +38,59 @@ function ExperiencesPage() {
             required: true,
             name: 'program',
           }}
-          options={[
-            {
-              label: 'Placeholder',
-              value: 'placeholder',
-            },
-          ]}
+          options={majors}
+        />
+        <Dropdown 
+          label="Level of Study"
+          inputProps={{
+            required: true,
+            name: 'level',
+          }}
+          options={levels}
         />
         <Dropdown
-          label="Year of Study"
+          label="Graduation Year"
           inputProps={{
             required: true,
             name: 'year',
           }}
           options={[
             {
-              label: 'Placeholder',
-              value: 'placeholder',
+              label: "2023",
+              value: "2023",
             },
+            {
+              label: "2024",
+              value: "2024",
+            },
+            {
+              label: "2025",
+              value: "2025",
+            },
+            {
+              label: "2026",
+              value: "2026",
+            },
+            {
+              label: "2027",
+              value: "2027",
+            },
+            {
+              label: "2028",
+              value: "2028",
+            },
+            {
+              label: "2029",
+              value: "2029",
+            },
+            {
+              label: "2030",
+              value: "2030",
+            },
+            {
+              label: "2031",
+              value: "2031",
+            }
           ]}
         />
         <Dropdown
@@ -70,9 +101,25 @@ function ExperiencesPage() {
           }}
           options={[
             {
-              label: 'Placeholder',
-              value: 'placeholder',
+              label: 'None',
+              value: 'none',
             },
+            {
+              label: '1-3',
+              value: '1-3',
+            },
+            {
+              label: '4-6',
+              value: '4-6',
+            },
+            {
+              label: '7-9',
+              value: '7-9',
+            },
+            {
+              label: '10+',
+              value: '10+',
+            }
           ]}
         />
         <FileUpload
@@ -95,7 +142,7 @@ function ExperiencesPage() {
         <Input
           label="GitHub"
           inputProps={{
-            placeholder: 'ex: https://domain1.com/projects',
+            placeholder: 'https://github.com/ht6-hacker',
             name: 'github',
             type: 'link',
           }}
@@ -104,7 +151,7 @@ function ExperiencesPage() {
         <Input
           label="Link to Portfolio"
           inputProps={{
-            placeholder: 'ex: https://johndoe.com',
+            placeholder: 'https://ilovehackthe6ix.com',
             name: 'portoflio',
             type: 'link',
           }}
@@ -113,7 +160,7 @@ function ExperiencesPage() {
         <Input
           label="LinkedIn"
           inputProps={{
-            placeholder: 'ex: https://linkedin.com/in/johndoe',
+            placeholder: 'https://linkedin.com/in/hackthe6ix',
             name: 'linkedin',
             type: 'link',
           }}

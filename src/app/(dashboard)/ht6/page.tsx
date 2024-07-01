@@ -4,7 +4,6 @@ import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Textarea from '@/components/Textarea';
 import { FormPage } from '../client';
-import { Checklist } from './client';
 import styles from './page.module.scss';
 
 function HT6Page() {
@@ -23,23 +22,6 @@ function HT6Page() {
         children: 'Submit Application',
       }}
     >
-      <div data-grid>
-        <Checklist
-          label="Please choose 3 workshops that you are interested in."
-          name="workshops"
-          options={[
-            {
-              label: 'Basics of Python',
-              value: 'Basics of Python',
-            },
-            {
-              label: 'Cloud-Connected AR/VR App',
-              value: 'Cloud-Connected AR/VR App',
-            },
-          ]}
-          required
-        />
-      </div>
       <div data-grid>
         <Textarea
           label="What would you like to accomplish at Hack the 6ix?"
