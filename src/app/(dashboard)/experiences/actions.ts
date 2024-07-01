@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { z, ZodFormattedError } from 'zod';
-import { fetchHt6 } from '@/api';
+import { fetchHt6, uploadHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import { patchApplication } from '../actions';
 
@@ -18,6 +18,7 @@ const schema = z.object({
 });
 
 export async function submitApplication(formData: FormData) {
+  const resume = formData.get('resume') as File;
   const validation = schema.safeParse({
     school: formData.get('school') ?? '',
     program: formData.get('program') ?? '',
@@ -36,7 +37,18 @@ export async function submitApplication(formData: FormData) {
     } as Ht6Api.ApiResponse<ZodFormattedError<typeof schema>>;
   }
 
-  const res = await fetchHt6<
+  if (resume.size) {
+    await uploadHt6<{ status: 200; message: 'Success' }>(
+      '/api/action/updateresume',
+      resume,
+      {
+        fileName: 'resume',
+        method: 'PUT',
+      },
+    );
+  }
+
+  await fetchHt6<
     Ht6Api.ApiResponse<{ status: 200; message: 'Success' }>,
     { submit: false; application: Partial<Ht6Api.HackerApplication> }
   >('/api/action/updateapp', {

@@ -41,6 +41,7 @@ export namespace Ht6Api {
     projectEssay: string;
     whyHT6Essay: string;
     creativeResponseEssay: string;
+    requestedWorkshops: string;
     mlhCOC: boolean;
     mlhEmail: boolean;
     mlhData: boolean;

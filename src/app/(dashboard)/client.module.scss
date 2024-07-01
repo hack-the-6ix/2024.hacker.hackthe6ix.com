@@ -41,7 +41,7 @@
   &__body {
     > *[data-grid] {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(1px, 1fr));
       gap: mixins.spacing(m);
 
       @include mixins.media(tablet) {

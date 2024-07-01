@@ -22,6 +22,7 @@ export async function setSession(state: string, code: string) {
   );
 
   if (res.status !== 200) {
+    console.log(res);
     throw new Error('Bad Session :c');
   }
 

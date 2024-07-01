@@ -8,4 +8,25 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(1px, 1fr));
   gap: mixins.spacing(m);
+
+  @include mixins.media(mobile) {
+    grid-template-columns: minmax(1px, 1fr);
+  }
+}
+
+.dialog {
+  border: none;
+  padding: mixins.spacing(3x-big);
+  border-radius: mixins.spacing(2x-big);
+  width: calc(100% - mixins.spacing(3x-big));
+  box-sizing: border-box;
+  max-width: 27rem;
+
+  &Footer {
+    width: 100%;
+    @include mixins.media(tablet) {
+      flex-direction: column-reverse;
+      align-items: stretch;
+    }
+  }
 }

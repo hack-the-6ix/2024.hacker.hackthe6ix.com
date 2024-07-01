@@ -6,6 +6,7 @@ import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Textarea from '@/components/Textarea';
 import { FormPage } from '../client';
+import { submitApplication } from './actions';
 import { Checklist, SubmitApplication } from './client';
 import styles from './page.module.scss';
 
@@ -16,6 +17,8 @@ async function HT6Page() {
       '/api/action/applicationEnums',
     ),
   ]);
+
+  const workshops = profile.hackerApplication?.requestedWorkshops.split(', ');
 
   return (
     <FormPage
@@ -29,12 +32,15 @@ async function HT6Page() {
         ),
         href: '/experiences',
       }}
+      action={submitApplication}
+      noValidate
       onNext={<SubmitApplication />}
     >
       <div data-grid>
         <Checklist
           label="Please choose 3 workshops that you are interested in."
-          name="workshops"
+          name="requestedWorkshops"
+          initialValue={workshops}
           options={enums.requestedWorkshops.map((v) => ({
             label: v,
             value: v,
@@ -50,6 +56,7 @@ async function HT6Page() {
             rows: 6,
             required: true,
             name: 'whyHT6Essay',
+            defaultValue: profile.hackerApplication?.whyHT6Essay,
           }}
           limit={200}
         />
@@ -60,6 +67,7 @@ async function HT6Page() {
             rows: 6,
             required: true,
             name: 'projectEssay',
+            defaultValue: profile.hackerApplication?.projectEssay,
           }}
           limit={200}
         />
@@ -86,12 +94,14 @@ async function HT6Page() {
             inputProps={{
               required: true,
               name: 'mlhCOC',
+              defaultChecked: profile.hackerApplication?.mlhCOC,
             }}
           />
           <Checkbox
             label="I authorize MLH to send me pre- and post-event informational emails, which contain free credit and opportunities from their partners."
             inputProps={{
               name: 'mlhEmail',
+              defaultChecked: profile.hackerApplication?.mlhEmail,
             }}
           />
           <Checkbox
@@ -129,6 +139,7 @@ async function HT6Page() {
             }
             inputProps={{
               name: 'mlhData',
+              defaultChecked: profile.hackerApplication?.mlhData,
             }}
           />
         </Flex>

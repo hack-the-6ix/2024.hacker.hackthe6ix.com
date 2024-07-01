@@ -1,16 +1,8 @@
 'use client';
 
-import {
-  ComponentPropsWithoutRef,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import Link from 'next/link';
+import { ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 import * as R from 'ramda';
-import Button from '../Button';
 import Flex from '../Flex';
 import Icon from '../Icon';
 import InputLike, { InputLikePublicProps } from '../InputLike';
@@ -18,21 +10,20 @@ import Text from '../Text';
 import styles from './FileUpload.module.scss';
 
 export type FileUploadProps = InputLikePublicProps & {
-  inputProps: Omit<ComponentPropsWithoutRef<'input'>, 'value'> & {
+  inputProps: Omit<
+    ComponentPropsWithoutRef<'input'>,
+    'value' | 'defaultValue'
+  > & {
+    defaultValue?: File;
     value?: File;
   };
 };
 
 function FileUpload({ inputProps, ...props }: FileUploadProps) {
-  const [file, _setFile] = useState<File | null>(null);
-  const previewUrl = useRef<string>();
+  const [file, setFile] = useState<File | null>(
+    inputProps.defaultValue ?? null,
+  );
   const input = useRef<HTMLInputElement>(null);
-
-  const setFile = useCallback((file: File | null) => {
-    URL.revokeObjectURL(previewUrl.current ?? '');
-    if (file) previewUrl.current = URL.createObjectURL(file);
-    _setFile(file);
-  }, []);
 
   useEffect(() => {
     if (!input.current || !inputProps.value) return;
@@ -40,7 +31,7 @@ function FileUpload({ inputProps, ...props }: FileUploadProps) {
     transfer.items.add(inputProps.value);
     input.current.files = transfer.files;
     setFile(inputProps.value ?? null);
-  }, [setFile, inputProps.value]);
+  }, [inputProps.value]);
 
   return (
     <InputLike
@@ -51,7 +42,7 @@ function FileUpload({ inputProps, ...props }: FileUploadProps) {
       {(ariaProps) => (
         <Flex className={styles.frame} align="center" gap="x-big">
           <input
-            {...R.omit(['value'], inputProps)}
+            {...R.omit(['value', 'defaultValue'], inputProps)}
             {...ariaProps}
             onChange={(...args) => {
               setFile(args[0].currentTarget.files?.[0] ?? null);
@@ -67,7 +58,7 @@ function FileUpload({ inputProps, ...props }: FileUploadProps) {
             icon={file ? 'upload_file' : 'task'}
           />
           {file ?
-            <Flex direction="column">
+            <Flex className={styles.uploaded} direction="column">
               <Text
                 textColor="secondary-700"
                 textType="paragraph-sm"
@@ -76,17 +67,13 @@ function FileUpload({ inputProps, ...props }: FileUploadProps) {
               >
                 File uploaded
               </Text>
-              <Button
-                className={cn(styles.preview, 'font--label')}
-                buttonColor="warning"
-                buttonType="tertiary"
-                href={previewUrl.current}
-                target="_blank"
-                as="a"
+              <Text
+                className={styles.name}
+                textColor="warning-500"
+                textType="label"
               >
-                <span>Preview File</span>
-                <Icon icon="open_in_new" size="xs" />
-              </Button>
+                {file.name}
+              </Text>
             </Flex>
           : <Flex direction="column">
               <Text

@@ -8,7 +8,7 @@ import Icon from '@/components/Icon';
 import Input from '@/components/Input';
 import { FormPage } from '../client';
 import { submitApplication } from './actions';
-import { SaveAndContinue } from './client';
+import { ResumeUpload, SaveAndContinue } from './client';
 
 async function ExperiencesPage() {
   const [{ message: profile }, { message: enums }] = await Promise.all([
@@ -74,13 +74,10 @@ async function ExperiencesPage() {
             value: v,
           }))}
         />
-        <FileUpload
-          label="Your resume"
-          inputProps={{
-            accept: '.pdf',
-            required: true,
-            name: 'resume',
-          }}
+        <ResumeUpload
+          friendlyResumeFileName={
+            profile.hackerApplication?.friendlyResumeFileName
+          }
         />
         <Checkbox
           label="I allow Hack the 6ix to distribute my resume to its event sponsors."

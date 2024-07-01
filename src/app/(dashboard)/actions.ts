@@ -14,7 +14,7 @@ export async function logout() {
 
   cookies().delete('refreshToken');
   cookies().delete('token');
-  return redirect(process.env.LANDING_HOST!);
+  return redirect(process.env.LANDING_HOST ?? '/');
 }
 
 export async function patchApplication(
