@@ -1,0 +1,48 @@
+@use '@/styles/colors';
+
+@keyframes loader {
+  0% {
+    transform: translateX(-100%);
+  }
+  15% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+  85% {
+    transform: translateX(100%);
+  }
+}
+
+.loader {
+  height: calc(1rem * var(--skeleton-h, auto));
+  width: calc(1rem * var(--skeleton-w, auto));
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    animation: loader 1s linear 0s infinite;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      colors.getColor(shade, 100, $alpha: 0.1) 47.5%,
+      colors.getColor(shade, 100, $alpha: 0.1) 52.5%,
+      transparent
+    );
+    position: absolute;
+    content: '';
+    margin: 0;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.fullHeight {
+  height: 100%;
+}

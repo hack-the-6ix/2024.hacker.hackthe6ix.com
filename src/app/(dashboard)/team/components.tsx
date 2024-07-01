@@ -1,7 +1,5 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
-import Link from 'next/link';
 import cn from 'classnames';
-import Button, { ButtonProps } from '@/components/Button';
 import Flex from '@/components/Flex';
 import Text from '@/components/Text';
 import styles from './components.module.scss';
@@ -9,8 +7,8 @@ import styles from './components.module.scss';
 export interface TeamLayoutProps extends ComponentPropsWithoutRef<'div'> {
   label: ReactNode;
   description?: ReactNode;
-  leftAction?: ButtonProps<'button'>;
-  rightAction?: ButtonProps<'a'>;
+  leftAction?: ReactNode;
+  rightAction?: ReactNode;
 }
 
 export function TeamLayout({
@@ -61,11 +59,10 @@ export function TeamLayout({
         justify={leftAction ? 'space-between' : 'flex-end'}
         className={styles.footer}
         align="center"
+        gap="sm"
       >
-        {leftAction && <Button buttonType="secondary" {...leftAction} />}
-        <Button buttonColor="primary" {...rightAction} as={Link} href="/about">
-          {rightAction?.children ?? 'My application'}
-        </Button>
+        {leftAction}
+        {rightAction}
       </Flex>
     </Flex>
   );

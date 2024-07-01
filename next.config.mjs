@@ -8,6 +8,14 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  redirects: () => [
+    {
+      source: '/',
+      destination: '/team',
+      permanent: false,
+    },
+  ],
+};
 
 export default nextConfig;

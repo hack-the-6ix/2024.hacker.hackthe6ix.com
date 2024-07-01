@@ -1,13 +1,25 @@
+import { fetchHt6 } from '@/api';
+import type Ht6Api from '@/api.d';
 import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
 import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Textarea from '@/components/Textarea';
 import { FormPage } from '../client';
-import { Checklist } from './client';
+import { submitApplication } from './actions';
+import { Checklist, SubmitApplication } from './client';
 import styles from './page.module.scss';
 
-function HT6Page() {
+async function HT6Page() {
+  const [{ message: profile }, { message: enums }] = await Promise.all([
+    fetchHt6<Ht6Api.ApiResponse<Ht6Api.HackerProfile>>('/api/action/profile'),
+    fetchHt6<Ht6Api.ApiResponse<Ht6Api.ApplicationEnums>>(
+      '/api/action/applicationEnums',
+    ),
+  ]);
+
+  const workshops = profile.hackerApplication?.requestedWorkshops.split(', ');
+
   return (
     <FormPage
       heading="At HT6"
@@ -18,25 +30,21 @@ function HT6Page() {
             <span>Back</span>
           </Flex>
         ),
+        href: '/experiences',
       }}
-      onNext={{
-        children: 'Submit Application',
-      }}
+      action={submitApplication}
+      noValidate
+      onNext={<SubmitApplication />}
     >
       <div data-grid>
         <Checklist
           label="Please choose 3 workshops that you are interested in."
-          name="workshops"
-          options={[
-            {
-              label: 'Basics of Python',
-              value: 'Basics of Python',
-            },
-            {
-              label: 'Cloud-Connected AR/VR App',
-              value: 'Cloud-Connected AR/VR App',
-            },
-          ]}
+          name="requestedWorkshops"
+          initialValue={workshops}
+          options={enums.requestedWorkshops.map((v) => ({
+            label: v,
+            value: v,
+          }))}
           required
         />
       </div>
@@ -47,6 +55,8 @@ function HT6Page() {
           inputProps={{
             rows: 6,
             required: true,
+            name: 'whyHT6Essay',
+            defaultValue: profile.hackerApplication?.whyHT6Essay,
           }}
           limit={200}
         />
@@ -56,6 +66,8 @@ function HT6Page() {
           inputProps={{
             rows: 6,
             required: true,
+            name: 'projectEssay',
+            defaultValue: profile.hackerApplication?.projectEssay,
           }}
           limit={200}
         />
@@ -72,7 +84,7 @@ function HT6Page() {
                   buttonType="tertiary"
                   buttonColor="warning"
                   target="_blank"
-                  href="#"
+                  href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
                   as="a"
                 >
                   Major League Hacking (MLH) Code of Conduct.
@@ -81,11 +93,16 @@ function HT6Page() {
             }
             inputProps={{
               required: true,
+              name: 'mlhCOC',
+              defaultChecked: profile.hackerApplication?.mlhCOC,
             }}
           />
           <Checkbox
             label="I authorize MLH to send me pre- and post-event informational emails, which contain free credit and opportunities from their partners."
-            inputProps={{}}
+            inputProps={{
+              name: 'mlhEmail',
+              defaultChecked: profile.hackerApplication?.mlhEmail,
+            }}
           />
           <Checkbox
             label={
@@ -100,7 +117,7 @@ function HT6Page() {
                   buttonType="tertiary"
                   buttonColor="warning"
                   target="_blank"
-                  href="#"
+                  href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
                   as="a"
                 >
                   MLH Contest Terms and Conditions
@@ -112,7 +129,7 @@ function HT6Page() {
                   buttonType="tertiary"
                   buttonColor="warning"
                   target="_blank"
-                  href="#"
+                  href="https://mlh.io/privacy"
                   as="a"
                 >
                   MLH Privacy Policy
@@ -120,7 +137,10 @@ function HT6Page() {
                 .
               </>
             }
-            inputProps={{}}
+            inputProps={{
+              name: 'mlhData',
+              defaultChecked: profile.hackerApplication?.mlhData,
+            }}
           />
         </Flex>
       </div>

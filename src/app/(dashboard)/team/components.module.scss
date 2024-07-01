@@ -16,4 +16,9 @@
 .footer {
   border-top: 0.0625rem solid colors.getColor(secondary, 700);
   padding-top: mixins.spacing(sm);
+
+  @include mixins.media(tablet) {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

@@ -41,12 +41,19 @@
   &__body {
     > *[data-grid] {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(1px, 1fr));
       gap: mixins.spacing(m);
+
+      @include mixins.media(tablet) {
+        grid-template-columns: 1fr;
+      }
     }
 
     *[data-full] {
       grid-column: span 2;
+      @include mixins.media(tablet) {
+        grid-column: unset;
+      }
     }
 
     *[data-start] {
@@ -60,5 +67,12 @@
     border: none;
     width: 100%;
     height: 0.125rem;
+  }
+
+  &__foot {
+    @include mixins.media(tablet) {
+      flex-direction: column;
+      align-items: stretch;
+    }
   }
 }

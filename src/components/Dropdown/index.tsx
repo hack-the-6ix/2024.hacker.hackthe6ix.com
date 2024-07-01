@@ -1,6 +1,11 @@
 'use client';
 
-import { ComponentPropsWithoutRef, ReactNode, useRef } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  ReactNode,
+  SetStateAction,
+  useRef,
+} from 'react';
 import cn from 'classnames';
 import * as R from 'ramda';
 import { useDebounceState, useForceUpdate } from '@/utils';
@@ -22,13 +27,16 @@ export type DropdownProps = InputLikePublicProps & {
 };
 
 function Dropdown({ inputProps, options, ...props }: DropdownProps) {
-  const [show, setShow] = useDebounceState(false, 25);
+  const [show, _setShow] = useDebounceState(false, 25);
   const inputRef = useRef<HTMLSelectElement>(null);
   const update = useForceUpdate();
 
   const selectedValue =
     inputProps.defaultValue ?? inputProps.value ?? inputRef.current?.value;
   const hasActive = R.any(R.propEq(selectedValue, 'value'), options);
+
+  const setShow = (payload: SetStateAction<boolean>) =>
+    inputProps.disabled ? _setShow(false) : _setShow(payload);
 
   return (
     <InputLike

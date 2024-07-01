@@ -1,17 +1,17 @@
+import { format } from 'date-fns/format';
+import { fetchHt6 } from '@/api';
+import type Ht6Api from '@/api.d';
 import Flex from '@/components/Flex';
 import Text from '@/components/Text';
 
-function mockApi<T>(result: T, delay = Math.random() * 2000) {
-  return new Promise<T>((resolve) => {
-    setTimeout(() => resolve(result), delay);
-  });
-}
-
 async function ApplicationStatus() {
-  const [status, closeAt] = await Promise.all([
-    mockApi('Not submitted'),
-    mockApi('July 21, 2023 @ 11:59PM EST'),
-  ]);
+  const { message } = await fetchHt6<Ht6Api.ApiResponse<Ht6Api.HackerProfile>>(
+    '/api/action/profile',
+  );
+  const closeAt = format(
+    message.computedApplicationDeadline,
+    "MMMM d, y @ K:mma 'EST'",
+  );
 
   return (
     <Flex direction="column" as="dl" gap="x-big">
@@ -32,7 +32,7 @@ async function ApplicationStatus() {
           textColor="error-600"
           as="dd"
         >
-          {status}
+          {message.status.textStatus}
         </Text>
       </Flex>
       <Flex direction="column">

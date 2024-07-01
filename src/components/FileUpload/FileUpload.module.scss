@@ -32,13 +32,13 @@
   inset: 0;
 }
 
-.preview {
-  text-decoration: none;
-  margin-right: auto;
-  gap: mixins.spacing(2x-sm);
-  align-items: center;
-  display: flex;
-  border: none;
-  padding: 0;
-  z-index: 1;
+.uploaded {
+  flex: 1 1 auto;
+  width: 1px;
+}
+
+.name {
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

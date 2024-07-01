@@ -1,10 +1,11 @@
 import { ReactNode } from 'react';
 import Image from 'next/image';
 import logo from '@/assets/logo.png';
-import Button from '@/components/Button';
 import Flex from '@/components/Flex';
-import { NavLinks } from './client';
+import { Logout, NavLinks } from './client';
 import styles from './layout.module.scss';
+
+export const runtime = 'edge';
 
 const links = [
   {
@@ -40,14 +41,17 @@ function DashboardLayout({
         justify="space-between"
       >
         <Flex direction="column" align="center" gap="lg">
-          <Image src={logo} alt="HT6 logo" width="24" />
+          <Image
+            className={styles.logo}
+            src={logo}
+            alt="HT6 logo"
+            height="87"
+          />
           <NavLinks items={links} />
         </Flex>
         <Flex direction="column" align="stretch" gap="x-big">
           {status}
-          <Button buttonColor="primary" buttonType="secondary">
-            Log Out
-          </Button>
+          <Logout />
         </Flex>
       </Flex>
       <Flex

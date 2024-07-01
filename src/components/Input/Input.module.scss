@@ -19,6 +19,13 @@
   &:focus {
     outline-color: rgb(var(--input-color));
   }
+
+  &:disabled {
+    background: colors.getColor(neutral, 50) !important;
+    color: colors.getColor(neutral, 200) !important;
+    outline: none !important;
+    border: none !important;
+  }
 }
 
 .error {

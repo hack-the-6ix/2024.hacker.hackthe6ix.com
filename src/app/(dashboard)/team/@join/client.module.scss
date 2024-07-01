@@ -1,0 +1,22 @@
+@use '@/styles/mixins';
+
+.frame {
+  max-width: 40rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.content {
+  grid-template-columns: 1fr max-content;
+  gap: mixins.spacing(sm) mixins.spacing(x-big);
+  align-items: flex-end;
+  display: grid;
+
+  @include mixins.media(tablet) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.error {
+  align-items: center;
+}
