@@ -17,10 +17,6 @@ export async function middleware(request: NextRequest) {
   const isAuth = cookies().has('token') && cookies().has('refreshToken');
   const url = new URL(request.url).pathname;
 
-  if (url === '/callback') {
-    return isAuth ? NextResponse.redirect('/') : NextResponse.next();
-  }
-
   if (isAuth) {
     const userRequest = await fetchHt6<
       Ht6Api.ApiResponse<Ht6Api.HackerProfile>
@@ -49,12 +45,12 @@ export async function middleware(request: NextRequest) {
     throw new Error('Unable to auth. RIP');
   }
 
-  const response = NextResponse.redirect(data.message.url);
+  const response = NextResponse.redirect(new URL(data.message.url));
   response.cookies.delete('refreshToken');
   response.cookies.delete('token');
   return response;
 }
 
 export const config = {
-  matcher: ['/callback', '/about', '/experiences', '/ht6', '/team'],
+  matcher: ['/about', '/experiences', '/ht6', '/team'],
 };

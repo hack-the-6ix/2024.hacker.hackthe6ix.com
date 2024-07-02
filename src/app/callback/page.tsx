@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
@@ -20,13 +20,15 @@ interface CallbackPageProps {
 
 function CallbackPage({ searchParams }: CallbackPageProps) {
   const router = useRouter();
+  const stale = useRef(false);
   useEffect(() => {
+    if (stale.current) return;
+    stale.current = true;
+
     if (!searchParams.state || !searchParams.code) {
-      return router.push('/');
+      return router.replace('/');
     }
-    setSession(searchParams.state, searchParams.code).then((url) => {
-      router.push(url);
-    });
+    setSession(searchParams.state, searchParams.code);
   }, [searchParams, router]);
 
   return (
