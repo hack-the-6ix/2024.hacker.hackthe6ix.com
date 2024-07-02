@@ -26,9 +26,12 @@ function CallbackPage({ searchParams }: CallbackPageProps) {
     stale.current = true;
 
     if (!searchParams.state || !searchParams.code) {
-      return router.replace('/');
+      return window.location.replace('/');
     }
-    setSession(searchParams.state, searchParams.code);
+    setSession(searchParams.state, searchParams.code).then((url) => {
+      router.prefetch = () => {};
+      router.replace(url);
+    });
   }, [searchParams, router]);
 
   return (
