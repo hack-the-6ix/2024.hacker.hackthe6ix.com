@@ -9,6 +9,11 @@ if (process.env.NODE_ENV === 'development') {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
   headers: () => [
     {
       source: '/',
@@ -47,7 +52,7 @@ const nextConfig = {
     {
       source: '/',
       destination: '/team',
-      permanent: false,
+      permanent: true,
     },
   ],
 };

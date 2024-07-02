@@ -5,8 +5,6 @@ import Flex from '@/components/Flex';
 import { Logout, NavLinks } from './client';
 import styles from './layout.module.scss';
 
-export const runtime = 'edge';
-
 const links = [
   {
     label: 'Team Formation',

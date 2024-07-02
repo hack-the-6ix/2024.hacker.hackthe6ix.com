@@ -1,6 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
+import { redirect, RedirectType } from 'next/navigation';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 
@@ -28,8 +29,10 @@ export async function setSession(state: string, code: string) {
       cookies().set('refreshToken', res.message.refreshToken);
       cookies().set('token', res.message.token);
       redirectUrl = res.message.redirectTo ?? '/';
+    } else {
+      console.log(res);
     }
   }
 
-  return redirectUrl;
+  return redirect(redirectUrl, RedirectType.replace);
 }

@@ -10,6 +10,8 @@ import styles from './page.module.scss';
 
 // TODO: Added better error boundary
 
+export const runtime = 'edge';
+
 interface CallbackPageProps {
   searchParams: {
     state: string; // The params
@@ -23,15 +25,13 @@ function CallbackPage({ searchParams }: CallbackPageProps) {
   const stale = useRef(false);
   useEffect(() => {
     if (stale.current) return;
+    router.prefetch = () => {};
     stale.current = true;
 
     if (!searchParams.state || !searchParams.code) {
-      return window.location.replace('/');
+      return router.replace('/');
     }
-    setSession(searchParams.state, searchParams.code).then((url) => {
-      router.prefetch = () => {};
-      router.replace(url);
-    });
+    setSession(searchParams.state, searchParams.code);
   }, [searchParams, router]);
 
   return (
