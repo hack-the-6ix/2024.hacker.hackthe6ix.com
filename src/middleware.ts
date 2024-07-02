@@ -16,6 +16,7 @@ type LoginResult = Ht6Api.ApiResponse<{ url: string }>;
 export async function middleware(request: NextRequest) {
   const isAuth = cookies().has('token') && cookies().has('refreshToken');
   const url = new URL(request.url).pathname;
+  let cleanCookies = false;
 
   if (isAuth) {
     const userRequest = await fetchHt6<
@@ -31,6 +32,7 @@ export async function middleware(request: NextRequest) {
       body: { refreshToken: request.cookies.get('refreshToken')!.value },
       method: 'POST',
     });
+    cleanCookies = true;
   }
 
   const data = await fetchHt6<LoginResult, LoginPayload>('/auth/public/login', {
@@ -46,8 +48,10 @@ export async function middleware(request: NextRequest) {
   }
 
   const response = NextResponse.redirect(new URL(data.message.url));
-  response.cookies.delete('refreshToken');
-  response.cookies.delete('token');
+  if (cleanCookies) {
+    response.cookies.delete('refreshToken');
+    response.cookies.delete('token');
+  }
   return response;
 }
 
