@@ -40,7 +40,12 @@ function FileUpload({ inputProps, ...props }: FileUploadProps) {
       required={inputProps.required}
     >
       {(ariaProps) => (
-        <Flex className={styles.frame} align="center" gap="x-big">
+        <Flex
+          aria-invalid={ariaProps['aria-invalid']}
+          className={styles.frame}
+          align="center"
+          gap="x-big"
+        >
           <input
             {...R.omit(['value', 'defaultValue'], inputProps)}
             {...ariaProps}
@@ -49,6 +54,7 @@ function FileUpload({ inputProps, ...props }: FileUploadProps) {
               inputProps.onChange?.(...args);
             }}
             className={cn(styles.input, inputProps.className)}
+            disabled={inputProps.disabled || inputProps.readOnly}
             ref={input}
             type="file"
           />

@@ -15,22 +15,19 @@ export namespace Ht6Api {
 
   export interface HackerApplication {
     lastUpdated: number;
-    phoneNumber: string;
     teamCode: string;
     emailConsent: boolean;
     gender: string;
-    age: number;
-    pronouns: string;
     ethnicity: string;
     country: string;
     shirtSize: string;
     dietaryRestrictions: string;
-    healthWarnings: string;
     city: string;
     province: string;
     school: string;
     program: string;
     levelOfStudy: string;
+    graduationYear: number;
     hackathonsAttended: string;
     resumeFileName: string;
     friendlyResumeFileName: string;
@@ -38,10 +35,8 @@ export namespace Ht6Api {
     githubLink: string;
     portfolioLink: string;
     linkedinLink: string;
-    projectEssay: string;
     whyHT6Essay: string;
     creativeResponseEssay: string;
-    requestedWorkshops: string;
     mlhCOC: boolean;
     mlhEmail: boolean;
     mlhData: boolean;
@@ -52,6 +47,8 @@ export namespace Ht6Api {
       relationship: string;
     };
   }
+
+  export type HackerApplicationFields = Fields<HackerApplication>;
 
   export interface HackerProfile {
     _id: string;

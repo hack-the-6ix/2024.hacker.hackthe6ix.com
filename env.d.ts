@@ -12,4 +12,13 @@ declare module 'react' {
   }
 }
 
+declare global {
+  export type Fields<T> =
+    T extends object ?
+      {
+        [K in keyof T]: `${Exclude<K, symbol>}${Fields<T[K]> extends never ? '' : `.${Fields<T[K]>}`}`;
+      }[keyof T]
+    : never;
+}
+
 export default global;

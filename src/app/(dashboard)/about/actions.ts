@@ -15,7 +15,6 @@ const schema = z.object({
   country: z.string(),
   shirtSize: z.string(),
   dietaryRestrictions: z.string().optional(),
-  healthWarnings: z.string().optional(),
   emergencyContact: z.object({
     firstName: z.string(),
     lastName: z.string(),
@@ -25,7 +24,7 @@ const schema = z.object({
 });
 
 export async function submitApplication(formData: FormData) {
-  const res = schema.safeParse({
+  const application = schema.deepPartial().parse({
     emailConsent: formData.get('emailConsent') === 'on',
     gender: formData.get('gender') ?? '',
     ethnicity: formData.get('ethnicity') ?? '',
@@ -34,21 +33,13 @@ export async function submitApplication(formData: FormData) {
     country: 'Canada',
     shirtSize: formData.get('shirtSize') ?? '',
     dietaryRestrictions: formData.get('dietaryRestrictions') ?? '',
-    healthWarnings: formData.get('healthWarnings') ?? '',
     emergencyContact: {
-      firstName: formData.get('emergencyContact.firstName') ?? '',
-      lastName: formData.get('emergencyContact.lastName') ?? '',
-      phoneNumber: formData.get('emergencyContact.phoneNumber') ?? '',
-      relationship: formData.get('emergencyContact.relationship') ?? '',
+      firstName: formData.get('emergency.firstName') ?? '',
+      lastName: formData.get('emergency.lastName') ?? '',
+      phoneNumber: formData.get('emergency.phoneNumber') ?? '',
+      relationship: formData.get('emergency.relationship') ?? '',
     },
   });
-
-  if (!res.success) {
-    return {
-      status: 400,
-      message: res.error.format(),
-    } satisfies Ht6Api.ApiResponse<ZodFormattedError<typeof schema>>;
-  }
 
   await fetchHt6<
     Ht6Api.ApiResponse<{ status: 200; message: 'Success' }>,
@@ -57,7 +48,7 @@ export async function submitApplication(formData: FormData) {
     method: 'POST',
     body: {
       submit: false,
-      application: await patchApplication(res.data),
+      application: await patchApplication(application as any),
     },
   });
 

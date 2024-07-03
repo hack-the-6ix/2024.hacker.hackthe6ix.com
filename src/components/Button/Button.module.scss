@@ -20,7 +20,7 @@
   &--primary {
     background-color: rgb(var(--button-color));
     border-color: rgb(var(--button-color));
-    color: colors.getColor(shade, 0);
+    color: colors.getColor(shade, 0) !important;
 
     &:hover {
       background-color: rgb(var(--button-color-hover));
@@ -37,32 +37,32 @@
   &--secondary {
     background-color: transparent;
     border-color: rgb(var(--button-color));
-    color: rgb(var(--button-color));
+    color: rgb(var(--button-color)) !important;
 
     &:hover {
       border-color: rgb(var(--button-color-hover));
-      color: rgb(var(--button-color-hover));
+      color: rgb(var(--button-color-hover)) !important;
     }
 
     &:focus,
     &:active {
       border-color: rgb(var(--button-color-active));
-      color: rgb(var(--button-color-active));
+      color: rgb(var(--button-color-active)) !important;
     }
   }
 
   &--tertiary {
     background-color: transparent;
     border-color: transparent;
-    color: rgb(var(--button-color));
+    color: rgb(var(--button-color)) !important;
 
     &:hover {
-      color: rgb(var(--button-color-hover));
+      color: rgb(var(--button-color-hover)) !important;
     }
 
     &:focus,
     &:active {
-      color: rgb(var(--button-color-active));
+      color: rgb(var(--button-color-active)) !important;
     }
   }
 }

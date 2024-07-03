@@ -52,12 +52,15 @@
     outline: none !important;
     border: none !important;
   }
-}
 
-.error {
-  --input-color: var(#{colors.getVar(error, 500)});
-  outline-color: rgb(var(--input-color));
-  outline-width: 0.125rem;
+  &[aria-invalid='true'] {
+    --input-color: var(#{colors.getVar(error, 500)});
+    outline-color: rgb(var(--input-color));
+  }
+
+  &.readOnly {
+    pointer-events: none;
+  }
 }
 
 .trigger {

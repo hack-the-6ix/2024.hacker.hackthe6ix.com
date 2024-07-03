@@ -1,3 +1,5 @@
+'use client';
+
 import { ComponentPropsWithoutRef } from 'react';
 import cn from 'classnames';
 import Flex from '../Flex';
@@ -17,6 +19,7 @@ function Checkbox({ inputProps, ...props }: CheckboxProps) {
       className={cn(props.className, styles.container)}
       disabled={inputProps.disabled}
       required={inputProps.required}
+      hideStatus
     >
       {(ariaProps) => (
         <Flex
@@ -28,6 +31,7 @@ function Checkbox({ inputProps, ...props }: CheckboxProps) {
             {...inputProps}
             {...ariaProps}
             className={cn(inputProps.className, styles.input)}
+            disabled={inputProps.disabled || inputProps.readOnly}
             type="checkbox"
           />
           <Icon className={styles.check} icon="check" />

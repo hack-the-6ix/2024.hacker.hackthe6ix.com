@@ -1,17 +1,76 @@
 'use client';
 
 import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
-import { useFormStatus } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 import * as R from 'ramda';
 import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
 import Flex from '@/components/Flex';
+import Icon from '@/components/Icon';
 import { InputLikePublicProps } from '@/components/InputLike';
 import Text from '@/components/Text';
+import { useSessionStorage } from '@/utils';
+import { FormPage } from '../client';
+import { submitApplication } from './actions';
 import styles from './client.module.scss';
+
+export function Form({
+  children,
+  readonly,
+}: {
+  children: ReactNode;
+  readonly?: boolean;
+}) {
+  const [issues, formAction] = useFormState(submitApplication, null);
+  const { setItem, clear } = useSessionStorage();
+
+  useEffect(() => {
+    if (issues === null) return;
+    clear();
+    issues?.forEach((issue) => {
+      setItem(`errors::${issue.path.join('.')}`, issue.message);
+    });
+  }, [setItem, clear, issues]);
+
+  return (
+    <FormPage
+      heading="At HT6"
+      readonly={readonly}
+      fields={[
+        'creativeResponseEssay',
+        'whyHT6Essay',
+        'mlhCOC',
+        'mlhData',
+        'mlhEmail',
+      ]}
+      onBack={{
+        children: (
+          <Flex as="span" align="center" gap="x-sm">
+            <Icon size="xs" icon="arrow_back" />
+            <span>Back</span>
+          </Flex>
+        ),
+        href: '/experiences',
+      }}
+      action={formAction}
+      noValidate
+      onNext={<SubmitApplication />}
+    >
+      {children}
+    </FormPage>
+  );
+}
 
 export function SubmitApplication() {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const { pending } = useFormStatus();
+
+  useEffect(() => {
+    if (!pending) return;
+    const target = dialogRef.current;
+    return () => target?.close();
+  }, [pending]);
+
   return (
     <>
       <Button
@@ -20,62 +79,61 @@ export function SubmitApplication() {
       >
         Submit Application
       </Button>
-      <Flex
-        className={styles.dialog}
-        direction="column"
-        align="center"
-        ref={dialogRef}
-        gap="3x-big"
-        as="dialog"
-      >
-        <Flex direction="column" align="center" gap="m">
-          <Text
-            textWeight="bold"
-            textColor="warning-500"
-            textType="subtitle-lg"
-            textAlign="center"
-            as="h2"
+      <dialog className={styles.dialog} ref={dialogRef}>
+        <Flex direction="column" align="center" gap="3x-big">
+          <Flex direction="column" align="center" gap="m">
+            <Text
+              textWeight="bold"
+              textColor="warning-500"
+              textType="subtitle-lg"
+              textAlign="center"
+              as="h2"
+            >
+              Submit application?
+            </Text>
+            <Text
+              textAlign="center"
+              textColor="secondary-700"
+              textType="paragraph-lg"
+              as="p"
+            >
+              Once you submit this application, you{' '}
+              <Text textColor="error-600" textWeight="bold">
+                cannot make
+              </Text>{' '}
+              any changes.
+            </Text>
+            <Text
+              textAlign="center"
+              textColor="secondary-700"
+              textType="paragraph-lg"
+              as="p"
+            >
+              Please review your answers to ensure they are accurate.
+            </Text>
+          </Flex>
+          <Flex
+            className={styles.dialogFooter}
+            justify="center"
+            align="center"
+            gap="x-sm"
           >
-            Submit application?
-          </Text>
-          <Text
-            textAlign="center"
-            textColor="secondary-700"
-            textType="paragraph-lg"
-            as="p"
-          >
-            Once you submit this application, you{' '}
-            <Text textColor="error-600" textWeight="bold">
-              cannot make
-            </Text>{' '}
-            any changes.
-          </Text>
-          <Text
-            textAlign="center"
-            textColor="secondary-700"
-            textType="paragraph-lg"
-            as="p"
-          >
-            Please review your answers to ensure they are accurate.
-          </Text>
+            <Button
+              onClick={() => dialogRef.current?.close()}
+              buttonType="secondary"
+            >
+              Cancel
+            </Button>
+            <Button
+              loading={pending && 'Submitting...'}
+              buttonColor="primary"
+              type="submit"
+            >
+              Submit
+            </Button>
+          </Flex>
         </Flex>
-        <Flex
-          className={styles.dialogFooter}
-          justify="center"
-          align="center"
-          gap="x-sm"
-        >
-          <Button
-            onClick={() => dialogRef.current?.close()}
-            buttonType="secondary"
-          >
-            Cancel
-          </Button>
-          <Button buttonColor="primary" type="submit">
-            Submit
-          </Button>
-        </Flex>
-      </Flex>
+      </dialog>
     </>
   );
 }

@@ -19,6 +19,11 @@
   &:focus-within {
     outline-color: rgb(var(--input-color));
   }
+
+  &[aria-invalid='true'] {
+    --input-color: var(#{colors.getVar(error, 500)});
+    outline-color: rgb(var(--input-color));
+  }
 }
 
 .input {

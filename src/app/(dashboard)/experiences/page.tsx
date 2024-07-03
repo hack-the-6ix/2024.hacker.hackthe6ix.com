@@ -2,7 +2,6 @@ import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import Checkbox from '@/components/Checkbox';
 import Dropdown from '@/components/Dropdown';
-import FileUpload from '@/components/FileUpload';
 import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Input from '@/components/Input';
@@ -21,6 +20,17 @@ async function ExperiencesPage() {
   return (
     <FormPage
       heading="Your Experiences"
+      fields={[
+        'school',
+        'program',
+        'levelOfStudy',
+        'graduationYear',
+        'resumeFileName',
+        'resumeSharePermission',
+        'githubLink',
+        'portfolioLink',
+        'linkedinLink',
+      ]}
       onBack={{
         children: (
           <Flex as="span" align="center" gap="x-sm">
@@ -32,13 +42,19 @@ async function ExperiencesPage() {
       }}
       action={submitApplication}
       onNext={<SaveAndContinue />}
+      readonly={profile.status.applied}
       noValidate
     >
       <div data-grid>
         <Dropdown
           label="Your School (Most Recently Attended)"
+          status={{
+            type: 'session',
+            key: 'school',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.school,
+            readOnly: profile.status.applied,
             required: true,
             name: 'school',
           }}
@@ -46,8 +62,13 @@ async function ExperiencesPage() {
         />
         <Dropdown
           label="Your Program of Study"
+          status={{
+            type: 'session',
+            key: 'program',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.program,
+            readOnly: profile.status.applied,
             required: true,
             name: 'program',
           }}
@@ -55,17 +76,44 @@ async function ExperiencesPage() {
         />
         <Dropdown
           label="Year of Study"
+          status={{
+            type: 'session',
+            key: 'levelOfStudy',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.levelOfStudy,
+            readOnly: profile.status.applied,
             required: true,
             name: 'levelOfStudy',
           }}
           options={enums.levelOfStudy.map((v) => ({ label: v, value: v }))}
         />
+        <Input
+          label="Year of Graduation"
+          status={{
+            type: 'session',
+            key: 'graduationYear',
+          }}
+          inputProps={{
+            defaultValue: profile.hackerApplication?.graduationYear,
+            readOnly: profile.status.applied,
+            placeholder: '2023',
+            required: true,
+            name: 'graduationYear',
+            type: 'number',
+            min: 2023,
+            max: 2031,
+          }}
+        />
         <Dropdown
           label="Number of Hackathons Attended"
+          status={{
+            type: 'session',
+            key: 'hackathonsAttended',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.hackathonsAttended,
+            readOnly: profile.status.applied,
             required: true,
             name: 'hacakthonsAttended',
           }}
@@ -75,6 +123,7 @@ async function ExperiencesPage() {
           }))}
         />
         <ResumeUpload
+          readOnly={profile.status.applied}
           friendlyResumeFileName={
             profile.hackerApplication?.friendlyResumeFileName
           }
@@ -83,6 +132,7 @@ async function ExperiencesPage() {
           label="I allow Hack the 6ix to distribute my resume to its event sponsors."
           inputProps={{
             defaultChecked: profile.hackerApplication?.resumeSharePermission,
+            readOnly: profile.status.applied,
             name: 'resumeSharePermission',
           }}
           data-full
@@ -91,8 +141,13 @@ async function ExperiencesPage() {
       <div data-grid>
         <Input
           label="GitHub"
+          status={{
+            type: 'session',
+            key: 'githubLink',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.githubLink,
+            readOnly: profile.status.applied,
             placeholder: 'ex: https://domain1.com/projects',
             name: 'githubLink',
             type: 'url',
@@ -101,8 +156,13 @@ async function ExperiencesPage() {
         />
         <Input
           label="Link to Portfolio"
+          status={{
+            type: 'session',
+            key: 'portfolioLink',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.portfolioLink,
+            readOnly: profile.status.applied,
             placeholder: 'ex: https://johndoe.com',
             name: 'portfolioLink',
             type: 'url',
@@ -111,8 +171,13 @@ async function ExperiencesPage() {
         />
         <Input
           label="LinkedIn"
+          status={{
+            type: 'session',
+            key: 'linkedinLink',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.linkedinLink,
+            readOnly: profile.status.applied,
             placeholder: 'ex: https://linkedin.com/in/johndoe',
             name: 'linkedinLink',
             type: 'url',

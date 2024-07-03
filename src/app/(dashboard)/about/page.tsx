@@ -22,6 +22,19 @@ async function AboutPage() {
   return (
     <FormPage
       heading="About You"
+      fields={[
+        'emailConsent',
+        'gender',
+        'ethnicity',
+        'city',
+        'province',
+        'shirtSize',
+        'dietaryRestrictions',
+        'emergencyContact.firstName',
+        'emergencyContact.lastName',
+        'emergencyContact.phoneNumber',
+        'emergencyContact.relationship',
+      ]}
       onBack={{
         children: (
           <Flex as="span" align="center" gap="x-sm">
@@ -71,6 +84,7 @@ async function AboutPage() {
           label="I give permission to Hack the 6ix for sending me emails containing information from the event sponsors."
           inputProps={{
             defaultChecked: profile.hackerApplication?.emailConsent,
+            readOnly: profile.status.applied,
             name: 'emailConsent',
           }}
           data-full
@@ -79,8 +93,13 @@ async function AboutPage() {
       <div data-grid>
         <Dropdown
           label="Gender"
+          status={{
+            type: 'session',
+            key: 'gender',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.gender,
+            readOnly: profile.status.applied,
             autoComplete: 'sex',
             required: true,
             name: 'gender',
@@ -89,8 +108,13 @@ async function AboutPage() {
         />
         <Dropdown
           label="Ethnicity"
+          status={{
+            type: 'session',
+            key: 'ethnicity',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.ethnicity,
+            readOnly: profile.status.applied,
             required: true,
             name: 'ethnicity',
           }}
@@ -99,8 +123,13 @@ async function AboutPage() {
         />
         <Input
           label="City"
+          status={{
+            type: 'session',
+            key: 'city',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.city,
+            readOnly: profile.status.applied,
             placeholder: 'Enter city name',
             required: true,
             name: 'city',
@@ -108,14 +137,17 @@ async function AboutPage() {
         />
         <Dropdown
           label="Province"
+          status={{
+            type: 'session',
+            key: 'province',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.province,
+            readOnly: profile.status.applied,
             required: true,
             name: 'province',
           }}
-          options={enums.province
-            .slice(0, 13)
-            .map((v) => ({ label: v, value: v }))}
+          options={enums.province.map((v) => ({ label: v, value: v }))}
         />
         <Input
           label="Country"
@@ -128,9 +160,14 @@ async function AboutPage() {
         />
         <Dropdown
           label="Shirt size"
+          status={{
+            type: 'session',
+            key: 'shirtSize',
+          }}
           data-start
           inputProps={{
             defaultValue: profile.hackerApplication?.shirtSize,
+            readOnly: profile.status.applied,
             required: true,
             name: 'shirtSize',
           }}
@@ -139,22 +176,20 @@ async function AboutPage() {
         <Dropdown
           label="Please specify any dietary restrictions you have."
           data-full
-          options={enums.dietaryRestrictions.map((v) => ({
-            label: v,
-            value: v,
-          }))}
+          options={[
+            ...enums.dietaryRestrictions.map((v) => ({
+              label: v,
+              value: v,
+            })),
+            {
+              label: 'None',
+              value: '',
+            },
+          ]}
           inputProps={{
             defaultValue: profile.hackerApplication?.dietaryRestrictions,
+            readOnly: profile.status.applied,
             name: 'dietaryRestrictions',
-          }}
-        />
-        <Input
-          label="Please specify any allergies you have."
-          data-full
-          inputProps={{
-            defaultValue: profile.hackerApplication?.healthWarnings,
-            placeholder: 'ie: peanuts, nuts',
-            name: 'healthWarnings',
           }}
         />
       </div>
@@ -171,8 +206,13 @@ async function AboutPage() {
         </Flex>
         <Input
           label="First name"
+          status={{
+            type: 'session',
+            key: 'emergency.firstName',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.emergencyContact.firstName,
+            readOnly: profile.status.applied,
             placeholder: 'First name',
             autoComplete: 'off',
             required: true,
@@ -181,8 +221,13 @@ async function AboutPage() {
         />
         <Input
           label="Last name"
+          status={{
+            type: 'session',
+            key: 'emergency.lastName',
+          }}
           inputProps={{
             defaultValue: profile.hackerApplication?.emergencyContact.lastName,
+            readOnly: profile.status.applied,
             placeholder: 'Last name',
             autoComplete: 'off',
             required: true,
@@ -191,20 +236,30 @@ async function AboutPage() {
         />
         <Input
           label="Phone number"
+          status={{
+            type: 'session',
+            key: 'emergency.phoneNumber',
+          }}
           inputProps={{
             defaultValue:
               profile.hackerApplication?.emergencyContact.phoneNumber,
+            readOnly: profile.status.applied,
             placeholder: '###-###-####',
             autoComplete: 'off',
             required: true,
-            type: 'emergency.phoneNumber',
+            name: 'emergency.phoneNumber',
           }}
         />
         <Dropdown
           label="Relationship"
+          status={{
+            type: 'session',
+            key: 'emergency.relationship',
+          }}
           inputProps={{
             defaultValue:
               profile.hackerApplication?.emergencyContact.relationship,
+            readOnly: profile.status.applied,
             required: true,
             name: 'emergency.relationship',
           }}

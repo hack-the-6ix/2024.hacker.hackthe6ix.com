@@ -1,5 +1,6 @@
+'use client';
+
 import { ComponentPropsWithoutRef } from 'react';
-import cn from 'classnames';
 import InputLike, { InputLikePublicProps } from '../InputLike';
 import Text from '../Text';
 import styles from './Input.module.scss';
@@ -19,10 +20,7 @@ function Input({ inputProps, ...props }: InputProps) {
         <Text
           {...inputProps}
           {...ariaProps}
-          className={cn(
-            inputProps['aria-invalid'] && styles.error,
-            styles.input,
-          )}
+          className={styles.input}
           textColor="neutral-900"
           textType="paragraph-sm"
           as="input"

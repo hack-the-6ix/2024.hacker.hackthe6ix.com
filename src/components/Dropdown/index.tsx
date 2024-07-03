@@ -22,7 +22,7 @@ export type DropdownItem = {
 };
 
 export type DropdownProps = InputLikePublicProps & {
-  inputProps: ComponentPropsWithoutRef<'select'>;
+  inputProps: ComponentPropsWithoutRef<'select'> & { readOnly?: boolean };
   options: DropdownItem[];
 };
 
@@ -36,7 +36,9 @@ function Dropdown({ inputProps, options, ...props }: DropdownProps) {
   const hasActive = R.any(R.propEq(selectedValue, 'value'), options);
 
   const setShow = (payload: SetStateAction<boolean>) =>
-    inputProps.disabled ? _setShow(false) : _setShow(payload);
+    inputProps.disabled || inputProps.readOnly ?
+      _setShow(false)
+    : _setShow(payload);
 
   return (
     <InputLike
@@ -52,10 +54,7 @@ function Dropdown({ inputProps, options, ...props }: DropdownProps) {
           <Text
             {...inputProps}
             {...ariaProps}
-            className={cn(
-              inputProps['aria-invalid'] && styles.error,
-              styles.input,
-            )}
+            className={cn(inputProps.readOnly && styles.readOnly, styles.input)}
             defaultValue={inputProps.defaultValue ?? ''}
             textColor={hasActive ? 'neutral-900' : 'neutral-400'}
             textType="paragraph-sm"

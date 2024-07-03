@@ -35,7 +35,7 @@
   width: 100%;
   max-width: 55rem;
   box-sizing: border-box;
-  padding: mixins.spacing(huge) mixins.spacing(x-big);
+  padding: mixins.spacing(huge) mixins.spacing(x-big) mixins.spacing(m);
   flex-basis: auto;
 
   &__body {
@@ -75,4 +75,11 @@
       align-items: stretch;
     }
   }
+}
+
+.error {
+  background-color: colors.getColor(error, 50);
+  border: 1px solid colors.getColor(error, 600);
+  border-radius: mixins.spacing(x-big);
+  padding: mixins.spacing(big);
 }
