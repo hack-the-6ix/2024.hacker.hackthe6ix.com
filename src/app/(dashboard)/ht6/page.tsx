@@ -61,13 +61,13 @@ async function HT6Page() {
           limit={200}
         />
         <Textarea
-          label="What is one project you were proud of? What tools and methods did you use to complete it?"
+          label="If you lived in a world where you could create anything, not restricted by money, time, or techical knowledge, what would you build and why?"
           data-full
           inputProps={{
             rows: 6,
             required: true,
-            name: 'projectEssay',
-            defaultValue: profile.hackerApplication?.projectEssay,
+            name: 'creativeResponseEssay',
+            defaultValue: profile.hackerApplication?.creativeResponseEssay,
           }}
           limit={200}
         />

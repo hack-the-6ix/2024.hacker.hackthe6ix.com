@@ -19,7 +19,7 @@ function Textarea({ limit = 50, inputProps, ...props }: TextareaProps) {
 
   const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText((oldText) => {
-      const text = e.currentTarget.value;
+      const text = e.target.value;
       const words = text.trim().split(/\s+/); // array of words
       return words.length <= limit ? text : oldText;
     });
