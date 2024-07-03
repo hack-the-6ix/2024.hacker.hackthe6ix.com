@@ -14,7 +14,7 @@ function FormLoading() {
     >
       <Icon className={styles.icon} color="neutral-300" icon="sync" />
       <Text textType="subtitle-lg" textColor="neutral-300">
-        Loaidng application...
+        Loading application...
       </Text>
     </Flex>
   );
