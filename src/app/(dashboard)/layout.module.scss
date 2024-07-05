@@ -21,6 +21,9 @@
 
   padding: mixins.spacing(lg) mixins.spacing(2x-big);
   box-sizing: border-box;
+  & > *{
+    background-color: #ffffff4c;
+  }
 }
 
 .logo {
