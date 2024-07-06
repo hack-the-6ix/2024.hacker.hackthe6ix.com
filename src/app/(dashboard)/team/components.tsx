@@ -55,15 +55,17 @@ export function TeamLayout({
         )}
         {children}
       </Flex>
-      <Flex
-        justify={leftAction ? 'space-between' : 'flex-end'}
-        className={styles.footer}
-        align="center"
-        gap="sm"
-      >
-        {leftAction}
-        {rightAction}
-      </Flex>
+      {leftAction || rightAction ?
+        <Flex
+          justify={leftAction ? 'space-between' : 'flex-end'}
+          className={styles.footer}
+          align="center"
+          gap="sm"
+        >
+          {leftAction}
+          {rightAction}
+        </Flex>
+      : null}
     </Flex>
   );
 }
