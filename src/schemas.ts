@@ -36,18 +36,30 @@ export const experiencesSchema = z.object({
   hackathonsAttended: z.string().min(1, 'This field is required'),
   resumeFileName: z.string().min(1, 'This field is required'),
   resumeSharePermission: z.boolean(),
-  githubLink: z.union([
-    z.literal(''),
-    z.string().trim().max(1024).url('Please provide a valid URL'),
-  ]),
-  portfolioLink: z.union([
-    z.literal(''),
-    z.string().trim().max(1024).url('Please provide a valid URL'),
-  ]),
-  linkedinLink: z.union([
-    z.literal(''),
-    z.string().trim().max(1024).url('Please provide a valid URL'),
-  ]),
+  githubLink: z
+    .string()
+    .max(1024)
+    .refine(
+      (val) => !val || z.string().url().safeParse(val).success,
+      'Please provide a valid URL',
+    )
+    .optional(),
+  portfolioLink: z
+    .string()
+    .max(1024)
+    .refine(
+      (val) => !val || z.string().url().safeParse(val).success,
+      'Please provide a valid URL',
+    )
+    .optional(),
+  linkedinLink: z
+    .string()
+    .max(1024)
+    .refine(
+      (val) => !val || z.string().url().safeParse(val).success,
+      'Please provide a valid URL',
+    )
+    .optional(),
 });
 
 export const ht6Schema = z.object({

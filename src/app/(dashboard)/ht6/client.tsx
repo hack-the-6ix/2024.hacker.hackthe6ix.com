@@ -16,17 +16,17 @@ import { submitApplication } from './actions';
 import styles from './client.module.scss';
 
 export function Form(props: FormPageProps) {
-  const [errors, formAction] = useFormState(submitApplication, {
-    _errors: ['owo'],
-  });
+  const [errors, formAction] = useFormState(submitApplication, null);
   const { setItem, clear } = useSessionStorage();
 
   useEffect(() => {
-    if (errors?._errors.includes('owo')) return;
-    clear();
+    if (!errors) return;
 
-    const issues = R.toPairs(R.omit(['_errors'], errors!));
-    console.log(issues);
+    clear();
+    errors.forEach((error) => {
+      setItem(`errors::${error.path.join('.')}`, error.message);
+    });
+
     toast.error(
       'Looks like there are some errors in your application. Please review your pages.',
       {

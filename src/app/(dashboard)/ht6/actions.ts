@@ -1,7 +1,8 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { ZodIssue } from 'zod';
+import { ZodInvalidStringIssue, ZodInvalidUnionIssue, ZodIssue } from 'zod';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import { patchApplication, validateApplication } from '../actions';
@@ -28,10 +29,12 @@ export async function submitApplication(_: unknown, formData: FormData) {
     method: 'POST',
   });
 
+  revalidatePath('/ht6');
+
   const validation = await validateApplication(application);
 
   if (validation.error) {
-    return validation.error.format();
+    return validation.error.issues;
   }
 
   const res = await fetchHt6<

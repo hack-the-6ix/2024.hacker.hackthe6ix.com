@@ -50,7 +50,7 @@ export async function patchApplication(
     },
   );
 
-  return R.reject(R.isEmpty, {
+  return R.reject(submit ? R.isEmpty : R.F, {
     ...updatedApplication,
     // Set it "empty" if its not set
     graduationYear: updatedApplication.graduationYear || ('' as any),

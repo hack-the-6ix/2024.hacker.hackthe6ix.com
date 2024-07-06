@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { fetchHt6, uploadHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import { experiencesSchema } from '@/schemas';
@@ -45,5 +46,6 @@ export async function submitApplication(_: unknown, formData: FormData) {
     },
   });
 
+  revalidatePath('/experiences');
   return application.error?.format() ?? { _errors: [] };
 }
