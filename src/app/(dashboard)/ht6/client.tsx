@@ -29,8 +29,8 @@ export function Form(props: FormPageProps) {
 
   return (
     <FormPage
+      {...props}
       heading="At HT6"
-      readonly={props.readonly}
       fields={[
         'creativeResponseEssay',
         'whyHT6Essay',
@@ -50,9 +50,7 @@ export function Form(props: FormPageProps) {
       action={formAction}
       noValidate
       onNext={<SubmitApplication hasErrors={!!errors?.length} />}
-    >
-      {props.children}
-    </FormPage>
+    />
   );
 }
 

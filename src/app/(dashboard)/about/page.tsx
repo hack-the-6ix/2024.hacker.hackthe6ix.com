@@ -16,7 +16,10 @@ async function AboutPage() {
   ]);
 
   return (
-    <Form readonly={profile.status.applied}>
+    <Form
+      readonly={profile.status.applied}
+      updateTeamsUntil={profile.computedApplicationDeadline}
+    >
       <div data-grid>
         <Input
           label="First name"

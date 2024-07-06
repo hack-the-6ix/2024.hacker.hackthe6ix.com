@@ -55,6 +55,7 @@ function DashboardLayout({
       <Flex
         className={styles.content}
         direction="column"
+        gap="lg"
         align="center"
         as="main"
       >

@@ -9,6 +9,7 @@
 
 .content {
   box-sizing: border-box;
+  padding: mixins.spacing(huge) mixins.spacing(x-big) mixins.spacing(lg);
   overflow: auto;
   height: 100%;
 }

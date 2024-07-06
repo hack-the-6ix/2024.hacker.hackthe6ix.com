@@ -10,6 +10,7 @@ import {
 import Link, { LinkProps } from 'next/link';
 import { usePathname } from 'next/navigation';
 import cn from 'classnames';
+import { format } from 'date-fns/format';
 import { ForwardRefExoticComponentWithAs } from 'forward-ref-as';
 import Ht6Api from '@/api.d';
 import Button, { ButtonProps } from '@/components/Button';
@@ -67,6 +68,7 @@ export interface FormPageProps extends ComponentPropsWithoutRef<'form'> {
     ForwardRefExoticComponentWithAs<'a', ButtonProps>
   >;
   fields?: Ht6Api.HackerApplicationFields[];
+  updateTeamsUntil: number;
   readonly?: boolean;
   onNext?: ReactNode;
 }
@@ -75,10 +77,12 @@ export function FormPage({
   fields,
   heading,
   readonly,
+  updateTeamsUntil,
   onBack,
   onNext,
   ...props
 }: FormPageProps) {
+  const date = format(updateTeamsUntil, "MMMM d, y @ K:mma 'EST'");
   const checkErrors = useCallback(
     (fields: string[] = []) =>
       fields?.some((field) =>
@@ -122,6 +126,37 @@ export function FormPage({
             as="p"
           >
             Please resolve the errors on this page before you submit.
+          </Text>
+        </Flex>
+      )}
+      {readonly && (
+        <Flex className={styles.submitted} direction="column" gap="sm">
+          <Text
+            textColor="success-600"
+            textWeight="bold"
+            textType="subtitle-sm"
+            as="p"
+          >
+            Your application has been submitted.
+          </Text>
+          <Text
+            textColor="success-600"
+            textWeight="medium"
+            textType="label"
+            as="p"
+          >
+            The HT6 team will review your application soon. Keep an eye on your
+            inbox for your application results!
+          </Text>
+          <Text
+            textColor="success-600"
+            textWeight="medium"
+            textType="label"
+            as="p"
+          >
+            Updates can be made to your teams until {date}. While you
+            aren&apos;t able to make any more edits, you can still review your
+            submission details below.
           </Text>
         </Flex>
       )}

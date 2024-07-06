@@ -59,6 +59,7 @@ export function Form(props: Partial<FormPageProps>) {
 
   return (
     <FormPage
+      {...props}
       heading="Your Experiences"
       fields={fields}
       onBack={{
@@ -72,11 +73,8 @@ export function Form(props: Partial<FormPageProps>) {
       }}
       action={formAction}
       onNext={<SaveAndContinue onClick={() => (submitted.current = true)} />}
-      readonly={props.readonly}
       noValidate
-    >
-      {props.children}
-    </FormPage>
+    />
   );
 }
 

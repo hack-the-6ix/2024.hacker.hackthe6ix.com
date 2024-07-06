@@ -35,7 +35,6 @@
   width: 100%;
   max-width: 55rem;
   box-sizing: border-box;
-  padding: mixins.spacing(huge) mixins.spacing(x-big) mixins.spacing(lg);
   flex-basis: auto;
 
   &__body {
@@ -77,9 +76,19 @@
   }
 }
 
-.error {
-  background-color: colors.getColor(error, 50);
-  border: 1px solid colors.getColor(error, 600);
+%banner {
   border-radius: mixins.spacing(x-big);
   padding: mixins.spacing(big);
+}
+
+.error {
+  @extend %banner;
+  background-color: colors.getColor(error, 50);
+  border: 1px solid colors.getColor(error, 600);
+}
+
+.submitted {
+  @extend %banner;
+  background-color: colors.getColor(success, 50);
+  border: 1px solid colors.getColor(success, 600);
 }

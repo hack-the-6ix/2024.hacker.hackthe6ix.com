@@ -14,7 +14,10 @@ async function ExperiencesPage() {
   ]);
 
   return (
-    <Form readonly={profile.status.applied}>
+    <Form
+      readonly={profile.status.applied}
+      updateTeamsUntil={profile.computedApplicationDeadline}
+    >
       <div data-grid>
         <Dropdown
           label="Your School (Most Recently Attended)"
