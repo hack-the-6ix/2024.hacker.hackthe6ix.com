@@ -1,5 +1,3 @@
-import { string } from 'zod';
-
 export namespace Ht6Api {
   export type ApplicationStatus = string;
 

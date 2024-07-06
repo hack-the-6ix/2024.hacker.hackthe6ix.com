@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 import cn from 'classnames';
-import { Colors, Spacing } from '@/styles';
+import { Colors } from '@/styles';
 import styles from './Skeleton.module.scss';
 
 export type SkeletonProp = {

@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  ComponentPropsWithoutRef,
-  MouseEventHandler,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import cn from 'classnames';
@@ -35,8 +28,6 @@ const fields = [
   'emergencyContact.phoneNumber',
   'emergencyContact.relationship',
 ] satisfies Ht6Api.HackerApplicationFields[];
-
-const initErrors = { _errors: [] };
 
 export function SaveAndContinue(props: ComponentPropsWithoutRef<'button'>) {
   const { pending } = useFormStatus();

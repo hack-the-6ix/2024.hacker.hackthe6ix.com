@@ -10,7 +10,6 @@ import styles from './Button.module.scss';
 export type ButtonProps = {
   buttonType?: 'primary' | 'secondary' | 'tertiary';
   buttonColor?: ColorTypes;
-  buttonDarker?: boolean;
   buttonLevel?: ColorLevels;
   loading?: boolean | string;
 };
@@ -21,7 +20,6 @@ const Button = forwardRefAs<'button', ButtonProps>(
       buttonColor = 'neutral',
       buttonType = 'primary',
       buttonLevel = 500,
-      buttonDarker,
       loading,
       as,
       ...props
