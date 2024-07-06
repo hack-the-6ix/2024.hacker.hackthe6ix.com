@@ -2,6 +2,7 @@
 
 import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
+import toast from 'react-hot-toast';
 import * as R from 'ramda';
 import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
@@ -10,32 +11,34 @@ import Icon from '@/components/Icon';
 import { InputLikePublicProps } from '@/components/InputLike';
 import Text from '@/components/Text';
 import { useSessionStorage } from '@/utils';
-import { FormPage } from '../client';
+import { FormPage, FormPageProps } from '../client';
 import { submitApplication } from './actions';
 import styles from './client.module.scss';
 
-export function Form({
-  children,
-  readonly,
-}: {
-  children: ReactNode;
-  readonly?: boolean;
-}) {
-  const [issues, formAction] = useFormState(submitApplication, null);
+export function Form(props: FormPageProps) {
+  const [errors, formAction] = useFormState(submitApplication, {
+    _errors: ['owo'],
+  });
   const { setItem, clear } = useSessionStorage();
 
   useEffect(() => {
-    if (issues === null) return;
+    if (errors?._errors.includes('owo')) return;
     clear();
-    issues?.forEach((issue) => {
-      setItem(`errors::${issue.path.join('.')}`, issue.message);
-    });
-  }, [setItem, clear, issues]);
+
+    const issues = R.toPairs(R.omit(['_errors'], errors!));
+    console.log(issues);
+    toast.error(
+      'Looks like there are some errors in your application. Please review your pages.',
+      {
+        id: 'submit-application',
+      },
+    );
+  }, [setItem, clear, errors]);
 
   return (
     <FormPage
       heading="At HT6"
-      readonly={readonly}
+      readonly={props.readonly}
       fields={[
         'creativeResponseEssay',
         'whyHT6Essay',
@@ -56,7 +59,7 @@ export function Form({
       noValidate
       onNext={<SubmitApplication />}
     >
-      {children}
+      {props.children}
     </FormPage>
   );
 }

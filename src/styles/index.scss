@@ -31,3 +31,7 @@ dialog {
   width: 0;
   height: 0;
 }
+
+.toaster {
+  @include fonts.fontStyles(paragraph-sm);
+}

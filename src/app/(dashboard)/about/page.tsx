@@ -1,15 +1,11 @@
-import Link from 'next/link';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import Checkbox from '@/components/Checkbox';
 import Dropdown from '@/components/Dropdown';
 import Flex from '@/components/Flex';
-import Icon from '@/components/Icon';
 import Input from '@/components/Input';
 import Text from '@/components/Text';
-import { FormPage } from '../client';
-import { submitApplication } from './actions';
-import { SaveAndContinue, WhyEthnicity } from './client';
+import { Form, WhyEthnicity } from './client';
 
 async function AboutPage() {
   const [{ message: profile }, { message: enums }] = await Promise.all([
@@ -20,34 +16,7 @@ async function AboutPage() {
   ]);
 
   return (
-    <FormPage
-      heading="About You"
-      fields={[
-        'emailConsent',
-        'gender',
-        'ethnicity',
-        'city',
-        'province',
-        'shirtSize',
-        'dietaryRestrictions',
-        'emergencyContact.firstName',
-        'emergencyContact.lastName',
-        'emergencyContact.phoneNumber',
-        'emergencyContact.relationship',
-      ]}
-      onBack={{
-        children: (
-          <Flex as="span" align="center" gap="x-sm">
-            <Icon size="xs" icon="arrow_back" />
-            <span>Back</span>
-          </Flex>
-        ),
-        href: '/team',
-      }}
-      action={submitApplication}
-      noValidate
-      onNext={<SaveAndContinue />}
-    >
+    <Form readonly={profile.status.applied}>
       <div data-grid>
         <Input
           label="First name"
@@ -132,6 +101,7 @@ async function AboutPage() {
             readOnly: profile.status.applied,
             placeholder: 'Enter city name',
             required: true,
+            maxLength: 256,
             name: 'city',
           }}
         />
@@ -208,7 +178,7 @@ async function AboutPage() {
           label="First name"
           status={{
             type: 'session',
-            key: 'emergency.firstName',
+            key: 'emergencyContact.firstName',
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.emergencyContact.firstName,
@@ -217,13 +187,14 @@ async function AboutPage() {
             autoComplete: 'off',
             required: true,
             name: 'emergency.firstName',
+            maxLength: 256,
           }}
         />
         <Input
           label="Last name"
           status={{
             type: 'session',
-            key: 'emergency.lastName',
+            key: 'emergencyContact.lastName',
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.emergencyContact.lastName,
@@ -232,13 +203,14 @@ async function AboutPage() {
             autoComplete: 'off',
             required: true,
             name: 'emergency.lastName',
+            maxLength: 256,
           }}
         />
         <Input
           label="Phone number"
           status={{
             type: 'session',
-            key: 'emergency.phoneNumber',
+            key: 'emergencyContact.phoneNumber',
           }}
           inputProps={{
             defaultValue:
@@ -269,7 +241,7 @@ async function AboutPage() {
           }))}
         />
       </div>
-    </FormPage>
+    </Form>
   );
 }
 

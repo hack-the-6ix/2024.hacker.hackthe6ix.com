@@ -1,23 +1,96 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { useFormStatus } from 'react-dom';
+import {
+  ComponentPropsWithoutRef,
+  MouseEventHandler,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { useFormState, useFormStatus } from 'react-dom';
+import { useRouter } from 'next/navigation';
 import cn from 'classnames';
+import * as R from 'ramda';
+import type Ht6Api from '@/api.d';
 import Button from '@/components/Button';
+import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Text from '@/components/Text';
+import { useSessionStorage } from '@/utils';
+import { FormPage, FormPageProps } from '../client';
+import { submitApplication } from './actions';
 import styles from './client.module.scss';
 
-export function SaveAndContinue() {
+const fields = [
+  'emailConsent',
+  'gender',
+  'ethnicity',
+  'city',
+  'province',
+  'shirtSize',
+  'dietaryRestrictions',
+  'emergencyContact.firstName',
+  'emergencyContact.lastName',
+  'emergencyContact.phoneNumber',
+  'emergencyContact.relationship',
+] satisfies Ht6Api.HackerApplicationFields[];
+
+const initErrors = { _errors: [] };
+
+export function SaveAndContinue(props: ComponentPropsWithoutRef<'button'>) {
   const { pending } = useFormStatus();
+
   return (
     <Button
       loading={pending && 'Saving...'}
       buttonColor="primary"
       type="submit"
+      {...props}
     >
       Save & Continue
     </Button>
+  );
+}
+
+export function Form(props: Partial<FormPageProps>) {
+  const [errors, formAction] = useFormState(submitApplication, {
+    _errors: [],
+  });
+  const { setItem } = useSessionStorage();
+  const submitted = useRef(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!submitted.current) return;
+    fields.map((field) => {
+      const error = R.path([...field.split('.'), '_errors', 0], errors);
+      setItem(`errors::${field}`, error);
+    });
+
+    router.push('/experiences');
+  }, [errors, router, setItem]);
+
+  return (
+    <FormPage
+      heading="About You"
+      fields={fields}
+      onBack={{
+        children: (
+          <Flex as="span" align="center" gap="x-sm">
+            <Icon size="xs" icon="arrow_back" />
+            <span>Back</span>
+          </Flex>
+        ),
+        href: '/team',
+      }}
+      action={formAction}
+      readonly={props.readonly}
+      noValidate
+      onNext={<SaveAndContinue onClick={() => (submitted.current = true)} />}
+    >
+      {props.children}
+    </FormPage>
   );
 }
 

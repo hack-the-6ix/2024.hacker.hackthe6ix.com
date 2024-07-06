@@ -9,11 +9,11 @@ import * as R from 'ramda';
 
 export function useSessionStorage() {
   return {
-    setItem: useCallback((key: string, value?: string) => {
-      if (value) {
-        window.sessionStorage.setItem(key, value);
-      } else {
+    setItem: useCallback((key: string, value?: unknown) => {
+      if (R.isEmpty(value) || R.isNil(value)) {
         window.sessionStorage.removeItem(key);
+      } else {
+        window.sessionStorage.setItem(key, value?.toString()!);
       }
       window.dispatchEvent(new Event(`sessionStorage:update:${key}`));
       window.dispatchEvent(new Event('sessionStorage:update'));

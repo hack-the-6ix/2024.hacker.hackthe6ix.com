@@ -58,7 +58,7 @@ function InputLike({
   const [error, setError] = useState<string | null>(null);
   const id = useId();
   const descriptor =
-    description || hideStatus ? undefined : (status as any)?.msg || error;
+    (hideStatus ? undefined : (status as any)?.msg || error) || description;
   const hasError = !!((status as any)?.msg || error);
 
   useEffect(() => {

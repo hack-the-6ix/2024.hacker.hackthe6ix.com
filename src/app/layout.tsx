@@ -2,6 +2,7 @@ import { Toaster } from 'react-hot-toast';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
+import cn from 'classnames';
 import '@/styles/index.scss';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -21,7 +22,12 @@ export default function RootLayout({
     <html className={inter.className} lang="en">
       <body>
         {children}
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            className: cn('toaster', 'font--wgt--medium', inter.className),
+            position: 'bottom-right',
+          }}
+        />
       </body>
       <Script strategy="lazyOnload" id="animate">
         {`
