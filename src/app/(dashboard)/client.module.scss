@@ -1,12 +1,48 @@
+@use '@/styles/variables' as vars;
 @use '@/styles/mixins';
 @use '@/styles/colors';
+
+.mobile {
+  @include mixins.media(tablet) {
+    display: none;
+  }
+}
+
+.menu {
+  margin: auto 0 auto auto !important;
+  display: none;
+  padding: mixins.spacing(m);
+  order: 999;
+
+  @include mixins.media(tablet) {
+    display: inline-flex;
+  }
+}
 
 .navLinks {
   counter-reset: navLinks;
   $self: &;
 
+  @include mixins.media(tablet) {
+    background-color: colors.getColor(secondary, 50);
+    box-sizing: border-box;
+    z-index: map-get(vars.$level, nav);
+    padding: mixins.spacing(m) 0;
+    margin: 7rem 0 0;
+    inset: 0;
+    width: 100%;
+    height: calc(100% - 7rem);
+    position: fixed;
+    display: none;
+
+    &.show {
+      display: flex;
+    }
+  }
+
   &__item {
     justify-content: flex-start;
+    margin-right: auto;
 
     &--active #{$self}__label::after {
       content: '';
@@ -28,6 +64,10 @@
       content: counter(navLinks) '.';
       margin-right: mixins.spacing(2x-sm);
     }
+  }
+
+  &__logout {
+    margin: auto mixins.spacing(x-big) mixins.spacing(sm) !important;
   }
 }
 

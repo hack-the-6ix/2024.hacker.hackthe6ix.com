@@ -2,6 +2,7 @@
 
 import {
   ComponentPropsWithoutRef,
+  MouseEventHandler,
   ReactNode,
   useCallback,
   useEffect,
@@ -15,6 +16,7 @@ import { ForwardRefExoticComponentWithAs } from 'forward-ref-as';
 import Ht6Api from '@/api.d';
 import Button, { ButtonProps } from '@/components/Button';
 import Flex from '@/components/Flex';
+import Icon from '@/components/Icon';
 import Text from '@/components/Text';
 import { logout } from './actions';
 import styles from './client.module.scss';
@@ -27,33 +29,63 @@ export interface NavLinksProps {
 }
 export function NavLinks({ items }: NavLinksProps) {
   const pathname = usePathname();
+  const [show, setShow] = useState(false);
 
   return (
-    <Flex className={styles.navLinks} direction="column">
-      {items.map(({ label, href }, idx) => (
-        <Button
-          className={cn(
-            styles.navLinks__item,
-            pathname === href && styles['navLinks__item--active'],
-          )}
-          buttonColor="primary"
-          buttonType="tertiary"
-          buttonLevel={600}
-          as={Link}
-          href={href}
-          key={idx}
-        >
-          <span className={styles.navLinks__label}>{label}</span>
-        </Button>
-      ))}
-    </Flex>
+    <>
+      <Flex
+        className={cn(show && styles.show, styles.navLinks)}
+        direction="column"
+      >
+        {items.map(({ label, href }, idx) => (
+          <Button
+            className={cn(
+              styles.navLinks__item,
+              pathname === href && styles['navLinks__item--active'],
+            )}
+            onClick={() => setShow(false)}
+            buttonColor="primary"
+            buttonType="tertiary"
+            buttonLevel={600}
+            as={Link}
+            href={href}
+            key={idx}
+          >
+            <span className={styles.navLinks__label}>{label}</span>
+          </Button>
+        ))}
+        <Logout
+          onClick={() => setShow(false)}
+          className={styles.navLinks__logout}
+        />
+      </Flex>
+      <Button
+        onClick={() => setShow(!show)}
+        buttonType="tertiary"
+        className={styles.menu}
+      >
+        <Icon size="md" icon="menu" />
+      </Button>
+    </>
   );
 }
 
-export function Logout() {
+export function Logout({
+  className,
+  onClick,
+  mobile,
+}: {
+  className?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  mobile?: boolean;
+}) {
   return (
     <Button
-      onClick={() => logout()}
+      className={cn(mobile && styles.mobile, className)}
+      onClick={(e) => {
+        onClick?.(e);
+        logout();
+      }}
       buttonColor="primary"
       buttonType="secondary"
     >

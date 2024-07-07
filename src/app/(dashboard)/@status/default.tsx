@@ -3,6 +3,7 @@ import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import Flex from '@/components/Flex';
 import Text from '@/components/Text';
+import styles from './default.module.scss';
 
 async function ApplicationStatus() {
   const { message } = await fetchHt6<Ht6Api.ApiResponse<Ht6Api.HackerProfile>>(
@@ -10,12 +11,12 @@ async function ApplicationStatus() {
   );
   const closeAt = format(
     message.computedApplicationDeadline,
-    "MMMM d, y @ K:mma 'EST'",
+    "MMM d @ K:mma 'EST'",
   );
 
   return (
-    <Flex direction="column" as="dl" gap="x-big">
-      <Flex direction="column">
+    <Flex className={styles.container} direction="column" as="dl" gap="x-big">
+      <Flex className={styles.column} direction="column" gap="2x-sm">
         <Text
           textType="paragraph-sm"
           textWeight="semi-bold"
@@ -23,7 +24,7 @@ async function ApplicationStatus() {
           textColor="primary-600"
           as="dt"
         >
-          Application Status:
+          Apps Status:
         </Text>
         <Text
           textType="paragraph-sm"
@@ -35,7 +36,7 @@ async function ApplicationStatus() {
           {message.status.textStatus}
         </Text>
       </Flex>
-      <Flex direction="column">
+      <Flex className={styles.column} direction="column" gap="2x-sm">
         <Text
           textType="paragraph-sm"
           textWeight="semi-bold"
@@ -43,7 +44,7 @@ async function ApplicationStatus() {
           textColor="primary-600"
           as="dt"
         >
-          Application Close:
+          Apps Close:
         </Text>
         <Text
           textType="paragraph-sm"

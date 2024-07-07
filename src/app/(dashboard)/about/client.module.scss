@@ -1,3 +1,4 @@
+@use '@/styles/variables' as vars;
 @use '@/styles/mixins';
 @use '@/styles/colors';
 
@@ -27,7 +28,7 @@
 
   position: absolute;
   height: fit-content;
-  z-index: 100;
+  z-index: map-get(vars.$level, tooltip);
   margin: 0;
   inset: calc(100% + mixins.spacing(x-sm)) 0 0;
   display: none;
