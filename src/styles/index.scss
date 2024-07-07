@@ -1,3 +1,4 @@
+@use '@/styles/variables' as vars;
 @use '@/styles/mixins';
 @use '@/styles/colors';
 @use '@/styles/fonts';
@@ -16,7 +17,7 @@ html {
 }
 
 dialog {
-  z-index: 999999;
+  z-index: map-get(vars.$level, dialog);
 }
 
 :root {
@@ -30,4 +31,8 @@ dialog {
   overflow: hidden;
   width: 0;
   height: 0;
+}
+
+.toaster {
+  @include fonts.fontStyles(paragraph-sm);
 }

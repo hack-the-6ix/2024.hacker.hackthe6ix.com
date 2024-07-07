@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { isBefore } from 'date-fns/isBefore';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import Button from '@/components/Button';
@@ -9,14 +10,16 @@ import { LeaveTeam } from './client';
 import styles from './page.module.scss';
 
 async function YourTeam() {
-  const { message } = await fetchHt6<Ht6Api.ApiResponse<Ht6Api.Team>>(
-    '/api/action/getTeam',
-  );
+  const [{ message: profile }, { message: team }] = await Promise.all([
+    fetchHt6<Ht6Api.ApiResponse<Ht6Api.HackerProfile>>('/api/action/profile'),
+    fetchHt6<Ht6Api.ApiResponse<Ht6Api.Team>>('/api/action/getTeam'),
+  ]);
+  const canTeam = !isBefore(new Date(), profile.computedApplicationOpen);
 
   return (
     <TeamLayout
       label="Your Team"
-      leftAction={<LeaveTeam />}
+      leftAction={canTeam ? <LeaveTeam /> : null}
       rightAction={
         <Button buttonColor="primary" as={Link} href="about">
           To my application
@@ -44,7 +47,7 @@ async function YourTeam() {
             textType="paragraph-lg"
             as="p"
           >
-            {message.code}
+            {team.code}
           </Text>
         </Flex>
         <Flex
@@ -59,10 +62,10 @@ async function YourTeam() {
             textWeight="bold"
             as="h2"
           >
-            Members ({message.memberNames?.length ?? 0}/4)
+            Members ({team.memberNames?.length ?? 0}/4)
           </Text>
           <Flex className={styles.members} direction="column" gap="sm" as="ul">
-            {message.memberNames?.map((member, idx) => (
+            {team.memberNames?.map((member, idx) => (
               <Text
                 textColor="secondary-700"
                 textType="paragraph-lg"

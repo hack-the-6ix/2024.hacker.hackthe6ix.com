@@ -36,25 +36,19 @@ function DashboardLayout({
       <Flex
         className={styles.sidenav}
         direction="column"
-        justify="space-between"
+        align="stretch"
+        gap="lg"
+        as="nav"
       >
-        <Flex direction="column" align="center" gap="lg">
-          <Image
-            className={styles.logo}
-            src={logo}
-            alt="HT6 logo"
-            height="87"
-          />
-          <NavLinks items={links} />
-        </Flex>
-        <Flex direction="column" align="stretch" gap="x-big">
-          {status}
-          <Logout />
-        </Flex>
+        <Image className={styles.logo} src={logo} alt="HT6 logo" height="87" />
+        <NavLinks items={links} />
+        <div className={styles.status}>{status}</div>
+        <Logout mobile />
       </Flex>
       <Flex
         className={styles.content}
         direction="column"
+        gap="lg"
         align="center"
         as="main"
       >

@@ -13,7 +13,10 @@ async function HT6Page() {
   >('/api/action/profile');
 
   return (
-    <Form readonly={profile.status.applied}>
+    <Form
+      readonly={profile.status.applied}
+      updateTeamsUntil={profile.computedApplicationDeadline}
+    >
       <div data-grid>
         <Textarea
           label="What would you like to accomplish at Hack the 6ix?"

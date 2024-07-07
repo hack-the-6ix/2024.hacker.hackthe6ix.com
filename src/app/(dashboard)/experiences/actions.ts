@@ -1,36 +1,26 @@
 'use server';
 
-import { redirect } from 'next/navigation';
-import { z, ZodFormattedError } from 'zod';
+import { revalidatePath } from 'next/cache';
 import { fetchHt6, uploadHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
+import { experiencesSchema } from '@/schemas';
 import { patchApplication } from '../actions';
 
-const schema = z.object({
-  school: z.string(),
-  program: z.string(),
-  levelOfStudy: z.string(),
-  graduationYear: z.number().int(),
-  hackathonsAttended: z.string(),
-  resumeSharePermission: z.boolean().optional(),
-  githubLink: z.string(),
-  portfolioLink: z.string(),
-  linkedinLink: z.string(),
-});
-
-export async function submitApplication(formData: FormData) {
+export async function submitApplication(_: unknown, formData: FormData) {
   const resume = formData.get('resume') as File;
-  const application = schema.deepPartial().parse({
+  const payload = {
     school: formData.get('school') ?? '',
     program: formData.get('program') ?? '',
     levelOfStudy: formData.get('levelOfStudy') ?? '',
     graduationYear: parseInt(formData.get('graduationYear')?.toString() ?? '0'),
     hackathonsAttended: formData.get('hacakthonsAttended') ?? '',
     resumeSharePermission: formData.get('resumeSharePermission') === 'on',
+    resumeFileName: 'owo',
     githubLink: formData.get('githubLink') ?? '',
     portfolioLink: formData.get('portfolioLink') ?? '',
     linkedinLink: formData.get('linkedinLink') ?? '',
-  });
+  };
+  const application = experiencesSchema.safeParse(payload);
 
   if (resume.size) {
     await uploadHt6<{ status: 200; message: 'Success' }>(
@@ -50,9 +40,12 @@ export async function submitApplication(formData: FormData) {
     method: 'POST',
     body: {
       submit: false,
-      application: await patchApplication(application),
+      application: await patchApplication(
+        payload as Partial<Ht6Api.HackerApplication>,
+      ),
     },
   });
 
-  return redirect('/ht6');
+  revalidatePath('/experiences');
+  return application.error?.format() ?? { _errors: [] };
 }

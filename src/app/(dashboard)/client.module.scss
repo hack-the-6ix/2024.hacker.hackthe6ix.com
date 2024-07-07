@@ -1,12 +1,48 @@
+@use '@/styles/variables' as vars;
 @use '@/styles/mixins';
 @use '@/styles/colors';
+
+.mobile {
+  @include mixins.media(tablet) {
+    display: none;
+  }
+}
+
+.menu {
+  margin: auto 0 auto auto !important;
+  display: none;
+  padding: mixins.spacing(m);
+  order: 999;
+
+  @include mixins.media(tablet) {
+    display: inline-flex;
+  }
+}
 
 .navLinks {
   counter-reset: navLinks;
   $self: &;
 
+  @include mixins.media(tablet) {
+    background-color: colors.getColor(secondary, 50);
+    box-sizing: border-box;
+    z-index: map-get(vars.$level, nav);
+    padding: mixins.spacing(m) 0;
+    margin: 7rem 0 0;
+    inset: 0;
+    width: 100%;
+    height: calc(100% - 7rem);
+    position: fixed;
+    display: none;
+
+    &.show {
+      display: flex;
+    }
+  }
+
   &__item {
     justify-content: flex-start;
+    margin-right: auto;
 
     &--active #{$self}__label::after {
       content: '';
@@ -29,13 +65,16 @@
       margin-right: mixins.spacing(2x-sm);
     }
   }
+
+  &__logout {
+    margin: auto mixins.spacing(x-big) mixins.spacing(sm) !important;
+  }
 }
 
 .form {
   width: 100%;
   max-width: 55rem;
   box-sizing: border-box;
-  padding: mixins.spacing(huge) mixins.spacing(x-big) mixins.spacing(m);
   flex-basis: auto;
 
   &__body {
@@ -77,9 +116,19 @@
   }
 }
 
-.error {
-  background-color: colors.getColor(error, 50);
-  border: 1px solid colors.getColor(error, 600);
+%banner {
   border-radius: mixins.spacing(x-big);
   padding: mixins.spacing(big);
+}
+
+.error {
+  @extend %banner;
+  background-color: colors.getColor(error, 50);
+  border: 1px solid colors.getColor(error, 600);
+}
+
+.submitted {
+  @extend %banner;
+  background-color: colors.getColor(success, 50);
+  border: 1px solid colors.getColor(success, 600);
 }

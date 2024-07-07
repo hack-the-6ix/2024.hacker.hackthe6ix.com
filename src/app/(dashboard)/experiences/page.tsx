@@ -2,12 +2,8 @@ import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import Checkbox from '@/components/Checkbox';
 import Dropdown from '@/components/Dropdown';
-import Flex from '@/components/Flex';
-import Icon from '@/components/Icon';
 import Input from '@/components/Input';
-import { FormPage } from '../client';
-import { submitApplication } from './actions';
-import { ResumeUpload, SaveAndContinue } from './client';
+import { Form, ResumeUpload } from './client';
 
 async function ExperiencesPage() {
   const [{ message: profile }, { message: enums }] = await Promise.all([
@@ -18,32 +14,9 @@ async function ExperiencesPage() {
   ]);
 
   return (
-    <FormPage
-      heading="Your Experiences"
-      fields={[
-        'school',
-        'program',
-        'levelOfStudy',
-        'graduationYear',
-        'resumeFileName',
-        'resumeSharePermission',
-        'githubLink',
-        'portfolioLink',
-        'linkedinLink',
-      ]}
-      onBack={{
-        children: (
-          <Flex as="span" align="center" gap="x-sm">
-            <Icon size="xs" icon="arrow_back" />
-            <span>Back</span>
-          </Flex>
-        ),
-        href: '/about',
-      }}
-      action={submitApplication}
-      onNext={<SaveAndContinue />}
+    <Form
       readonly={profile.status.applied}
-      noValidate
+      updateTeamsUntil={profile.computedApplicationDeadline}
     >
       <div data-grid>
         <Dropdown
@@ -150,6 +123,7 @@ async function ExperiencesPage() {
             readOnly: profile.status.applied,
             placeholder: 'ex: https://domain1.com/projects',
             name: 'githubLink',
+            maxLength: 1024,
             type: 'url',
           }}
           data-start
@@ -165,6 +139,7 @@ async function ExperiencesPage() {
             readOnly: profile.status.applied,
             placeholder: 'ex: https://johndoe.com',
             name: 'portfolioLink',
+            maxLength: 1024,
             type: 'url',
           }}
           data-start
@@ -180,12 +155,13 @@ async function ExperiencesPage() {
             readOnly: profile.status.applied,
             placeholder: 'ex: https://linkedin.com/in/johndoe',
             name: 'linkedinLink',
+            maxLength: 1024,
             type: 'url',
           }}
           data-start
         />
       </div>
-    </FormPage>
+    </Form>
   );
 }
 

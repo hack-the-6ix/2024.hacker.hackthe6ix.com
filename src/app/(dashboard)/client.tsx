@@ -2,6 +2,7 @@
 
 import {
   ComponentPropsWithoutRef,
+  MouseEventHandler,
   ReactNode,
   useCallback,
   useEffect,
@@ -10,10 +11,12 @@ import {
 import Link, { LinkProps } from 'next/link';
 import { usePathname } from 'next/navigation';
 import cn from 'classnames';
+import { format } from 'date-fns/format';
 import { ForwardRefExoticComponentWithAs } from 'forward-ref-as';
 import Ht6Api from '@/api.d';
 import Button, { ButtonProps } from '@/components/Button';
 import Flex from '@/components/Flex';
+import Icon from '@/components/Icon';
 import Text from '@/components/Text';
 import { logout } from './actions';
 import styles from './client.module.scss';
@@ -26,33 +29,63 @@ export interface NavLinksProps {
 }
 export function NavLinks({ items }: NavLinksProps) {
   const pathname = usePathname();
+  const [show, setShow] = useState(false);
 
   return (
-    <Flex className={styles.navLinks} direction="column">
-      {items.map(({ label, href }, idx) => (
-        <Button
-          className={cn(
-            styles.navLinks__item,
-            pathname === href && styles['navLinks__item--active'],
-          )}
-          buttonColor="primary"
-          buttonType="tertiary"
-          buttonLevel={600}
-          as={Link}
-          href={href}
-          key={idx}
-        >
-          <span className={styles.navLinks__label}>{label}</span>
-        </Button>
-      ))}
-    </Flex>
+    <>
+      <Flex
+        className={cn(show && styles.show, styles.navLinks)}
+        direction="column"
+      >
+        {items.map(({ label, href }, idx) => (
+          <Button
+            className={cn(
+              styles.navLinks__item,
+              pathname === href && styles['navLinks__item--active'],
+            )}
+            onClick={() => setShow(false)}
+            buttonColor="primary"
+            buttonType="tertiary"
+            buttonLevel={600}
+            as={Link}
+            href={href}
+            key={idx}
+          >
+            <span className={styles.navLinks__label}>{label}</span>
+          </Button>
+        ))}
+        <Logout
+          onClick={() => setShow(false)}
+          className={styles.navLinks__logout}
+        />
+      </Flex>
+      <Button
+        onClick={() => setShow(!show)}
+        buttonType="tertiary"
+        className={styles.menu}
+      >
+        <Icon size="md" icon="menu" />
+      </Button>
+    </>
   );
 }
 
-export function Logout() {
+export function Logout({
+  className,
+  onClick,
+  mobile,
+}: {
+  className?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  mobile?: boolean;
+}) {
   return (
     <Button
-      onClick={() => logout()}
+      className={cn(mobile && styles.mobile, className)}
+      onClick={(e) => {
+        onClick?.(e);
+        logout();
+      }}
       buttonColor="primary"
       buttonType="secondary"
     >
@@ -67,6 +100,7 @@ export interface FormPageProps extends ComponentPropsWithoutRef<'form'> {
     ForwardRefExoticComponentWithAs<'a', ButtonProps>
   >;
   fields?: Ht6Api.HackerApplicationFields[];
+  updateTeamsUntil: number;
   readonly?: boolean;
   onNext?: ReactNode;
 }
@@ -75,10 +109,12 @@ export function FormPage({
   fields,
   heading,
   readonly,
+  updateTeamsUntil,
   onBack,
   onNext,
   ...props
 }: FormPageProps) {
+  const date = format(updateTeamsUntil, "MMMM d, y @ K:mma 'EST'");
   const checkErrors = useCallback(
     (fields: string[] = []) =>
       fields?.some((field) =>
@@ -122,6 +158,37 @@ export function FormPage({
             as="p"
           >
             Please resolve the errors on this page before you submit.
+          </Text>
+        </Flex>
+      )}
+      {readonly && (
+        <Flex className={styles.submitted} direction="column" gap="sm">
+          <Text
+            textColor="success-600"
+            textWeight="bold"
+            textType="subtitle-sm"
+            as="p"
+          >
+            Your application has been submitted.
+          </Text>
+          <Text
+            textColor="success-600"
+            textWeight="medium"
+            textType="label"
+            as="p"
+          >
+            The HT6 team will review your application soon. Keep an eye on your
+            inbox for your application results!
+          </Text>
+          <Text
+            textColor="success-600"
+            textWeight="medium"
+            textType="label"
+            as="p"
+          >
+            Updates can be made to your teams until {date}. While you
+            aren&apos;t able to make any more edits, you can still review your
+            submission details below.
           </Text>
         </Flex>
       )}

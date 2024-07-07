@@ -16,6 +16,7 @@ const countWords = (str: string) =>
   str.trim().split(/\s+/).filter(Boolean).length;
 
 function Textarea({ limit = 50, inputProps, ...props }: TextareaProps) {
+  const [focused, setFocused] = useState(false);
   const [text, setText] = useState<string>(
     inputProps.defaultValue?.toString() ?? '',
   );
@@ -26,6 +27,9 @@ function Textarea({ limit = 50, inputProps, ...props }: TextareaProps) {
       {...props}
       disabled={inputProps.disabled}
       required={inputProps.required}
+      hideStatus={focused}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
       description={
         <Flex justify="flex-end" as={Text}>
           {words}/{limit} words

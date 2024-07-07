@@ -1,0 +1,17 @@
+@use '@/styles/mixins';
+
+.container {
+  @include mixins.media(tablet) {
+    gap: mixins.spacing(x-sm) !important;
+  }
+}
+
+.column {
+  @include mixins.media(tablet) {
+    flex-direction: row !important;
+
+    & > * {
+      text-align: start !important;
+    }
+  }
+}

@@ -1,30 +1,13 @@
 'use server';
 
-import { redirect } from 'next/navigation';
-import z, { ZodFormattedError } from 'zod';
+import { revalidatePath } from 'next/cache';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
+import { aboutSchema } from '@/schemas';
 import { patchApplication } from '../actions';
 
-const schema = z.object({
-  emailConsent: z.boolean(),
-  gender: z.string(),
-  ethnicity: z.string(),
-  city: z.string(),
-  province: z.string(),
-  country: z.string(),
-  shirtSize: z.string(),
-  dietaryRestrictions: z.string().optional(),
-  emergencyContact: z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    phoneNumber: z.string(),
-    relationship: z.string(),
-  }),
-});
-
-export async function submitApplication(formData: FormData) {
-  const application = schema.deepPartial().parse({
+export async function submitApplication(_: unknown, formData: FormData) {
+  const payload = {
     emailConsent: formData.get('emailConsent') === 'on',
     gender: formData.get('gender') ?? '',
     ethnicity: formData.get('ethnicity') ?? '',
@@ -39,8 +22,9 @@ export async function submitApplication(formData: FormData) {
       phoneNumber: formData.get('emergency.phoneNumber') ?? '',
       relationship: formData.get('emergency.relationship') ?? '',
     },
-  });
+  };
 
+  const application = aboutSchema.safeParse(payload);
   await fetchHt6<
     Ht6Api.ApiResponse<{ status: 200; message: 'Success' }>,
     { submit: false; application: Partial<Ht6Api.HackerApplication> }
@@ -48,9 +32,12 @@ export async function submitApplication(formData: FormData) {
     method: 'POST',
     body: {
       submit: false,
-      application: await patchApplication(application as any),
+      application: await patchApplication(
+        payload as Partial<Ht6Api.HackerApplication>,
+      ),
     },
   });
 
-  return redirect('/experiences');
+  revalidatePath('/about');
+  return application.error?.format() ?? { _errors: [] };
 }
