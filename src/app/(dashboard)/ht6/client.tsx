@@ -3,6 +3,7 @@
 import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import * as R from 'ramda';
+import { ZodIssue } from 'zod';
 import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
 import Flex from '@/components/Flex';
@@ -16,16 +17,6 @@ import styles from './client.module.scss';
 
 export function Form(props: Partial<FormPageProps>) {
   const [errors, formAction] = useFormState(submitApplication, null);
-  const { setItem, clear } = useSessionStorage();
-
-  useEffect(() => {
-    if (!errors) return;
-
-    clear();
-    errors.forEach((error) => {
-      setItem(`errors::${error.path.join('.')}`, error.message);
-    });
-  }, [setItem, clear, errors]);
 
   return (
     <FormPage
@@ -49,26 +40,35 @@ export function Form(props: Partial<FormPageProps>) {
       }}
       action={formAction}
       noValidate
-      onNext={<SubmitApplication hasErrors={!!errors?.length} />}
+      onNext={<SubmitApplication errors={errors} />}
     />
   );
 }
 
-export function SubmitApplication({ hasErrors }: { hasErrors: boolean }) {
+export function SubmitApplication({
+  errors,
+}: {
+  errors: ZodIssue[] | undefined | null;
+}) {
+  const [hasErrors, setHasErrors] = useState<boolean | null>(null);
+  const { setItem, clear } = useSessionStorage();
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [showIncomplete, setShowIncomplete] = useState(false);
   const { pending } = useFormStatus();
+
+  useEffect(() => {
+    if (!errors) return;
+
+    clear();
+    errors.forEach((error) => {
+      setItem(`errors::${error.path.join('.')}`, error.message);
+    });
+    setHasErrors(!!errors?.length);
+  }, [setItem, clear, errors]);
 
   const close = () => {
     dialogRef.current?.close();
-    setShowIncomplete(false);
+    setHasErrors(null);
   };
-
-  useEffect(() => {
-    if (!pending) return;
-    console.log('ERRORS', hasErrors);
-    return () => setShowIncomplete(hasErrors);
-  }, [hasErrors, pending]);
 
   return (
     <>
@@ -79,7 +79,7 @@ export function SubmitApplication({ hasErrors }: { hasErrors: boolean }) {
         Submit Application
       </Button>
       <dialog className={styles.dialog} ref={dialogRef}>
-        {showIncomplete ?
+        {hasErrors ?
           <Flex direction="column" align="center" gap="3x-big">
             <Text
               textWeight="bold"
