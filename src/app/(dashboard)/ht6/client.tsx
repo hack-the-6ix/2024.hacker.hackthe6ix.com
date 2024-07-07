@@ -14,7 +14,7 @@ import { FormPage, FormPageProps } from '../client';
 import { submitApplication } from './actions';
 import styles from './client.module.scss';
 
-export function Form(props: FormPageProps) {
+export function Form(props: Partial<FormPageProps>) {
   const [errors, formAction] = useFormState(submitApplication, null);
   const { setItem, clear } = useSessionStorage();
 

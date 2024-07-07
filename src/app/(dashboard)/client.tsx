@@ -100,7 +100,7 @@ export interface FormPageProps extends ComponentPropsWithoutRef<'form'> {
     ForwardRefExoticComponentWithAs<'a', ButtonProps>
   >;
   fields?: Ht6Api.HackerApplicationFields[];
-  updateTeamsUntil: number;
+  updateTeamsUntil?: number;
   readonly?: boolean;
   onNext?: ReactNode;
 }
@@ -109,7 +109,7 @@ export function FormPage({
   fields,
   heading,
   readonly,
-  updateTeamsUntil,
+  updateTeamsUntil = 0,
   onBack,
   onNext,
   ...props
