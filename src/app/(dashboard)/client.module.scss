@@ -8,6 +8,13 @@
   }
 }
 
+.desktop {
+  display: none;
+  @include mixins.media(tablet) {
+    display: flex;
+  }
+}
+
 .menu {
   margin: auto 0 auto auto !important;
   display: none;

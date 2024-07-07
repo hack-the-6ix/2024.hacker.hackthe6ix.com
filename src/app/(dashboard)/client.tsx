@@ -81,7 +81,7 @@ export function Logout({
 }) {
   return (
     <Button
-      className={cn(mobile && styles.mobile, className)}
+      className={cn(className, mobile ? styles.mobile : styles.desktop)}
       onClick={(e) => {
         onClick?.(e);
         logout();
