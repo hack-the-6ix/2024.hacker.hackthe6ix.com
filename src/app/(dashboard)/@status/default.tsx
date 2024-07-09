@@ -53,7 +53,8 @@ async function ApplicationStatus() {
           textColor="warning-600"
           as="dd"
         >
-          {closeAt}
+          {/* {closeAt} */}
+          July 17th, 2024 @ 11:59 PM EST
         </Text>
       </Flex>
     </Flex>
