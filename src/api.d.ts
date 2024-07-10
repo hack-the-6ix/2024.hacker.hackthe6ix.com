@@ -15,6 +15,8 @@ export namespace Ht6Api {
     lastUpdated: number;
     teamCode: string;
     emailConsent: boolean;
+    phoneNumber: string;
+    age: number;
     gender: string;
     ethnicity: string;
     country: string;

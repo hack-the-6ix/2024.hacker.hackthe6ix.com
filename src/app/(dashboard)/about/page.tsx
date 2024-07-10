@@ -53,7 +53,7 @@ async function AboutPage() {
           }}
         />
         <Checkbox
-          label="I give permission to Hack the 6ix for sending me emails containing information from the event sponsors."
+          label="I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements."
           inputProps={{
             defaultChecked: profile.hackerApplication?.emailConsent,
             readOnly: profile.status.applied,
@@ -61,8 +61,38 @@ async function AboutPage() {
           }}
           data-full
         />
+        <Input
+          label="Phone number"
+          status={{
+            type: 'session',
+            key: 'phoneNumber',
+          }}
+          inputProps={{
+            defaultValue: profile.hackerApplication?.phoneNumber,
+            readOnly: profile.status.applied,
+            placeholder: '###-###-####',
+            autoComplete: 'off',
+            required: true,
+            name: 'phoneNumber',
+          }}
+        />
       </div>
       <div data-grid>
+        <Input
+          label="Age by August 2nd"
+          status={{
+            type: 'session',
+            key: 'age',
+          }}
+          inputProps={{
+            type: 'number',
+            defaultValue: profile.hackerApplication?.age,
+            readOnly: profile.status.applied,
+            placeholder: 'Enter your age',
+            required: true,
+            name: 'age',
+          }}
+        />
         <Dropdown
           label="Gender"
           status={{
