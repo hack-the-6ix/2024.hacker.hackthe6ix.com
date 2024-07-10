@@ -71,7 +71,7 @@ async function AboutPage() {
             defaultValue: profile.hackerApplication?.phoneNumber,
             readOnly: profile.status.applied,
             placeholder: '###-###-####',
-            autoComplete: 'off',
+            autoComplete: 'on',
             required: true,
             name: 'phoneNumber',
           }}
@@ -88,6 +88,8 @@ async function AboutPage() {
             type: 'number',
             defaultValue: profile.hackerApplication?.age,
             readOnly: profile.status.applied,
+            min: 14,
+            max: 100,
             placeholder: 'Enter your age',
             required: true,
             name: 'age',
