@@ -53,7 +53,7 @@ async function AboutPage() {
           }}
         />
         <Checkbox
-          label="I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements."
+          label="I give permission to Hack the 6ix for sending me emails containing information from the event sponsors."
           inputProps={{
             defaultChecked: profile.hackerApplication?.emailConsent,
             readOnly: profile.status.applied,

@@ -35,7 +35,7 @@ async function HT6Page() {
           limit={200}
         />
         <Textarea
-          label="If you lived in a world where you could create anything, not restricted by money, time, or techical knowledge, what would you build and why?"
+          label="If you lived in a world where you could create anything, not restricted by money, time, or technical knowledge, what would you build and why?"
           status={{
             type: 'session',
             key: 'creativeResponseEssay',
@@ -82,7 +82,7 @@ async function HT6Page() {
             }}
           />
           <Checkbox
-            label="I authorize MLH to send me pre- and post-event informational emails, which contain free credit and opportunities from their partners."
+            label="I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements."
             inputProps={{
               readOnly: profile.status.applied,
               name: 'mlhEmail',
