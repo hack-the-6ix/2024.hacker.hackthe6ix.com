@@ -17,6 +17,8 @@ import styles from './client.module.scss';
 
 const fields = [
   'emailConsent',
+  'phoneNumber',
+  'age',
   'gender',
   'ethnicity',
   'city',

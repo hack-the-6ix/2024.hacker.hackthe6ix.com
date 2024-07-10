@@ -15,6 +15,14 @@ export const emergencyContactSchema = z.object({
 
 export const aboutSchema = z.object({
   emailConsent: z.boolean().optional(),
+  phoneNumber: z
+    .string()
+    .min(1, 'This field is required')
+    .regex(
+      /^\d{3}[\s.-]\d{3}[\s.-]\d{4}$/,
+      'Should be in the format of ###-###-####',
+    ),
+  age: z.number().min(14).max(100),
   gender: z.string().min(1, 'This field is required'),
   country: z.literal('Canada'),
   shirtSize: z.string().min(1, 'This field is required'),
