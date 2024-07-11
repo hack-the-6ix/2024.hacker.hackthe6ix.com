@@ -85,7 +85,6 @@ async function AboutPage() {
             key: 'age',
           }}
           inputProps={{
-            type: 'number',
             defaultValue: profile.hackerApplication?.age,
             readOnly: profile.status.applied,
             min: 14,
