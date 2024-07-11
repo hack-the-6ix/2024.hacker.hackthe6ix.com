@@ -22,7 +22,11 @@ export const aboutSchema = z.object({
       /^\d{3}[\s.-]\d{3}[\s.-]\d{4}$/,
       'Should be in the format of ###-###-####',
     ),
-  age: z.number().min(14).max(100),
+  age: z
+    .number()
+    .int('This field is required')
+    .min(14, 'Please enter an age between 14-100')
+    .max(100, 'Please enter an age between 14-100'),
   gender: z.string().min(1, 'This field is required'),
   country: z.literal('Canada'),
   shirtSize: z.string().min(1, 'This field is required'),
