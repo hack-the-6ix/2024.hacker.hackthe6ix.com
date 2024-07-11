@@ -10,7 +10,7 @@ export async function submitApplication(_: unknown, formData: FormData) {
   const payload = {
     emailConsent: formData.get('emailConsent') === 'on',
     phoneNumber: formData.get('phoneNumber') ?? '',
-    age: formData.get('age') ?? 0,
+    age: parseInt(formData.get('age')?.toString() ?? '0'),
     gender: formData.get('gender') ?? '',
     ethnicity: formData.get('ethnicity') ?? '',
     city: formData.get('city') ?? '',
