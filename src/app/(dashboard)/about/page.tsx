@@ -61,29 +61,15 @@ async function AboutPage() {
           }}
           data-full
         />
-        <Input
-          label="Phone number"
-          status={{
-            type: 'session',
-            key: 'phoneNumber',
-          }}
-          inputProps={{
-            defaultValue: profile.hackerApplication?.phoneNumber,
-            readOnly: profile.status.applied,
-            placeholder: '###-###-####',
-            autoComplete: 'on',
-            required: true,
-            name: 'phoneNumber',
-          }}
-        />
       </div>
       <div data-grid>
         <Input
-          label="Age by August 2nd"
+          label="Age"
           status={{
             type: 'session',
             key: 'age',
           }}
+          description="By August 2nd, 2024"
           inputProps={{
             type: 'number',
             defaultValue: profile.hackerApplication?.age,
@@ -126,18 +112,30 @@ async function AboutPage() {
           options={enums.ethnicity.map((v) => ({ label: v, value: v }))}
         />
         <Input
-          label="City"
+          label="Phone number"
           status={{
             type: 'session',
-            key: 'city',
+            key: 'phoneNumber',
           }}
           inputProps={{
-            defaultValue: profile.hackerApplication?.city,
+            defaultValue: profile.hackerApplication?.phoneNumber,
             readOnly: profile.status.applied,
-            placeholder: 'Enter city name',
+            placeholder: '###-###-####',
+            autoComplete: 'tel-national',
             required: true,
-            maxLength: 256,
-            name: 'city',
+            name: 'phoneNumber',
+          }}
+        />
+      </div>
+      <div data-grid>
+        <Input
+          label="Country"
+          inputProps={{
+            required: true,
+            name: 'country',
+            autoComplete: 'country-name',
+            defaultValue: 'Canada',
+            disabled: true,
           }}
         />
         <Dropdown
@@ -155,12 +153,18 @@ async function AboutPage() {
           options={enums.province.map((v) => ({ label: v, value: v }))}
         />
         <Input
-          label="Country"
+          label="City"
+          status={{
+            type: 'session',
+            key: 'city',
+          }}
           inputProps={{
+            defaultValue: profile.hackerApplication?.city,
+            readOnly: profile.status.applied,
+            placeholder: 'Enter city name',
             required: true,
-            name: 'country',
-            defaultValue: 'Canada',
-            disabled: true,
+            maxLength: 256,
+            name: 'city',
           }}
         />
         <Dropdown

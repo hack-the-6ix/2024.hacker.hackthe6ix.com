@@ -1,0 +1,81 @@
+@use '@/styles/variables';
+@use '@/styles/mixins';
+@use '@/styles/colors';
+
+.frame {
+  position: relative;
+  display: block;
+}
+
+.input {
+  @include mixins.transition(outline-color);
+  --input-color: var(#{colors.getVar(primary, 600)});
+  border: 0.0625rem solid rgb(var(--input-color));
+  outline: 0.0625rem solid transparent;
+  padding: mixins.spacing(sm) mixins.spacing(m);
+  border-radius: 9999rem;
+  background: white;
+  box-sizing: border-box;
+  width: 100%;
+
+  &::placeholder {
+    color: colors.getColor(neutral, 400);
+  }
+
+  &:hover,
+  &:focus {
+    outline-color: rgb(var(--input-color));
+  }
+
+  &:disabled {
+    background: colors.getColor(neutral, 50) !important;
+    color: colors.getColor(neutral, 200) !important;
+    outline: none !important;
+    border: none !important;
+  }
+
+  &[aria-invalid='true'] {
+    --input-color: var(#{colors.getVar(error, 500)});
+    outline-color: rgb(var(--input-color));
+  }
+}
+
+.popup {
+  border: 0.0625rem solid colors.getColor(primary, 600);
+  transform: translateY(mixins.spacing(x-sm));
+  border-radius: mixins.spacing(m);
+  display: none;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0;
+  width: 100%;
+  right: auto;
+  overflow: auto;
+  max-height: 10rem;
+
+  &[open] {
+    display: flex;
+  }
+
+  @media (hover: none) {
+    display: none;
+  }
+}
+
+.option {
+  @include mixins.transition(background-color);
+  padding: mixins.spacing(sm) mixins.spacing(m);
+  text-align: start;
+  background: transparent;
+  cursor: pointer;
+  border: none;
+
+  &:hover,
+  &:focus {
+    background-color: colors.getColor(secondary, 300, 0.08);
+  }
+
+  &:active {
+    background-color: colors.getColor(secondary, 300, 0.16);
+  }
+}

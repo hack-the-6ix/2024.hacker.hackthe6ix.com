@@ -22,9 +22,9 @@ export const aboutSchema = z.object({
       /^\d{3}[\s.-]\d{3}[\s.-]\d{4}$/,
       'Should be in the format of ###-###-####',
     ),
-  age: z
-    .number()
-    .int('This field is required')
+  age: z.coerce
+    .number({ invalid_type_error: 'This field is required' })
+    .int('Please provide a whole number')
     .min(14, 'Please enter an age between 14-100')
     .max(100, 'Please enter an age between 14-100'),
   gender: z.string().min(1, 'This field is required'),

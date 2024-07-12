@@ -1,5 +1,6 @@
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
+import Autocomplete from '@/components/Autocomplete';
 import Checkbox from '@/components/Checkbox';
 import Dropdown from '@/components/Dropdown';
 import Input from '@/components/Input';
@@ -19,7 +20,7 @@ async function ExperiencesPage() {
       updateTeamsUntil={profile.computedApplicationDeadline}
     >
       <div data-grid>
-        <Dropdown
+        <Autocomplete
           label="Your School (Most Recently Attended)"
           status={{
             type: 'session',
@@ -28,10 +29,11 @@ async function ExperiencesPage() {
           inputProps={{
             defaultValue: profile.hackerApplication?.school,
             readOnly: profile.status.applied,
+            placeholder: 'Your school',
             required: true,
             name: 'school',
           }}
-          options={enums.school.map((v) => ({ label: v, value: v }))}
+          options={enums.school}
         />
         <Dropdown
           label="Your Program of Study"

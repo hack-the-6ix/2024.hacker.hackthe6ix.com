@@ -102,7 +102,7 @@ function InputLike({
             disabled ? 'neutral-400'
             : hasError ?
               'error-500'
-            : 'secondary-900'
+            : 'neutral-300'
           }
           id={`${id}--text`}
           textType="label"

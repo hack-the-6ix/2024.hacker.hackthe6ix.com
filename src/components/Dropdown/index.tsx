@@ -96,6 +96,8 @@ function Dropdown({ inputProps, options, ...props }: DropdownProps) {
                   if (!inputProps.onChange) {
                     update();
                   }
+
+                  setShow(false);
                 }}
                 textType="paragraph-sm"
                 className={cn(
