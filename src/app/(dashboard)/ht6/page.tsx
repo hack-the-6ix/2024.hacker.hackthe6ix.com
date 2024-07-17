@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import Button from '@/components/Button';
@@ -14,7 +15,7 @@ async function HT6Page() {
 
   return (
     <Form
-      readonly={profile.status.applied}
+      status={profile.status}
       updateTeamsUntil={profile.computedApplicationDeadline}
     >
       <div data-grid>
@@ -30,7 +31,7 @@ async function HT6Page() {
             required: true,
             name: 'whyHT6Essay',
             defaultValue: profile.hackerApplication?.whyHT6Essay,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
           }}
           limit={200}
         />
@@ -46,7 +47,7 @@ async function HT6Page() {
             required: true,
             name: 'creativeResponseEssay',
             defaultValue: profile.hackerApplication?.creativeResponseEssay,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
           }}
           limit={200}
         />
@@ -75,7 +76,7 @@ async function HT6Page() {
               key: 'mlhCOC',
             }}
             inputProps={{
-              readOnly: profile.status.applied,
+              readOnly: !profile.status.canApply,
               required: true,
               name: 'mlhCOC',
               defaultChecked: profile.hackerApplication?.mlhCOC,
@@ -84,7 +85,7 @@ async function HT6Page() {
           <Checkbox
             label="I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements."
             inputProps={{
-              readOnly: profile.status.applied,
+              readOnly: !profile.status.canApply,
               name: 'mlhEmail',
               defaultChecked: profile.hackerApplication?.mlhEmail,
             }}
@@ -127,7 +128,7 @@ async function HT6Page() {
               key: 'mlhData',
             }}
             inputProps={{
-              readOnly: profile.status.applied,
+              readOnly: !profile.status.canApply,
               name: 'mlhData',
               defaultChecked: profile.hackerApplication?.mlhData,
               required: true,

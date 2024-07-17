@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import Checkbox from '@/components/Checkbox';
@@ -17,7 +18,7 @@ async function AboutPage() {
 
   return (
     <Form
-      readonly={profile.status.applied}
+      status={profile.status}
       updateTeamsUntil={profile.computedApplicationDeadline}
     >
       <div data-grid>
@@ -56,7 +57,7 @@ async function AboutPage() {
           label="I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements."
           inputProps={{
             defaultChecked: profile.hackerApplication?.emailConsent,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             name: 'emailConsent',
           }}
           data-full
@@ -89,7 +90,7 @@ async function AboutPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.gender,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             autoComplete: 'sex',
             required: true,
             name: 'gender',
@@ -104,7 +105,7 @@ async function AboutPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.ethnicity,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             required: true,
             name: 'ethnicity',
           }}
@@ -119,7 +120,7 @@ async function AboutPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.phoneNumber,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             placeholder: '###-###-####',
             autoComplete: 'tel-national',
             required: true,
@@ -146,7 +147,7 @@ async function AboutPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.province,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             required: true,
             name: 'province',
           }}
@@ -176,7 +177,7 @@ async function AboutPage() {
           data-start
           inputProps={{
             defaultValue: profile.hackerApplication?.shirtSize,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             required: true,
             name: 'shirtSize',
           }}
@@ -197,7 +198,7 @@ async function AboutPage() {
           ]}
           inputProps={{
             defaultValue: profile.hackerApplication?.dietaryRestrictions,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             name: 'dietaryRestrictions',
           }}
         />
@@ -221,7 +222,7 @@ async function AboutPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.emergencyContact.firstName,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             placeholder: 'First name',
             autoComplete: 'off',
             required: true,
@@ -237,7 +238,7 @@ async function AboutPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.emergencyContact.lastName,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             placeholder: 'Last name',
             autoComplete: 'off',
             required: true,
@@ -254,7 +255,7 @@ async function AboutPage() {
           inputProps={{
             defaultValue:
               profile.hackerApplication?.emergencyContact.phoneNumber,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             placeholder: '###-###-####',
             autoComplete: 'off',
             required: true,
@@ -270,7 +271,7 @@ async function AboutPage() {
           inputProps={{
             defaultValue:
               profile.hackerApplication?.emergencyContact.relationship,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             required: true,
             name: 'emergency.relationship',
           }}

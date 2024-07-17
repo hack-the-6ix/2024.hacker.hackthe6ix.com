@@ -45,6 +45,7 @@ export async function submitApplication(_: unknown, formData: FormData) {
   });
 
   if (res.status) {
+    revalidatePath('/', 'layout');
     return redirect('/done');
   }
 }

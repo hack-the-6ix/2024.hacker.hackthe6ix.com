@@ -30,7 +30,7 @@ async function ApplicationStatus() {
           textType="paragraph-sm"
           textWeight="semi-bold"
           textAlign="center"
-          textColor="error-600"
+          textColor={message.status.applied ? 'success-500' : 'error-600'}
           as="dd"
         >
           {message.status.textStatus}

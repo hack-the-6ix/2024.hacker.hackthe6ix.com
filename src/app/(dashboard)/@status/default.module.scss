@@ -1,6 +1,7 @@
 @use '@/styles/mixins';
 
 .container {
+  margin-top: auto;
   @include mixins.media(tablet) {
     gap: mixins.spacing(x-sm) !important;
   }

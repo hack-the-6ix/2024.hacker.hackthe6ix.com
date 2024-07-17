@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 import Link, { LinkProps } from 'next/link';
-import { usePathname } from 'next/navigation';
+import { redirect, RedirectType, usePathname } from 'next/navigation';
 import cn from 'classnames';
 import { format } from 'date-fns/format';
 import { ForwardRefExoticComponentWithAs } from 'forward-ref-as';
@@ -101,14 +101,14 @@ export interface FormPageProps extends ComponentPropsWithoutRef<'form'> {
   >;
   fields?: Ht6Api.HackerApplicationFields[];
   updateTeamsUntil?: number;
-  readonly?: boolean;
+  status?: Ht6Api.HackerProfile['status'];
   onNext?: ReactNode;
 }
 
 export function FormPage({
   fields,
   heading,
-  readonly,
+  status,
   updateTeamsUntil = 0,
   onBack,
   onNext,
@@ -132,6 +132,12 @@ export function FormPage({
     setHasErrors(checkErrors(fields));
     return () => window.removeEventListener('sessionStorage:update', handler);
   }, [checkErrors, fields]);
+
+  const readonly = !status?.canApply;
+
+  if (readonly && !status?.applied) {
+    return redirect('/closed', RedirectType.replace);
+  }
 
   return (
     <Flex

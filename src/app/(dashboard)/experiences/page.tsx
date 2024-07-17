@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import Autocomplete from '@/components/Autocomplete';
@@ -16,7 +17,7 @@ async function ExperiencesPage() {
 
   return (
     <Form
-      readonly={profile.status.applied}
+      status={profile.status}
       updateTeamsUntil={profile.computedApplicationDeadline}
     >
       <div data-grid>
@@ -28,7 +29,7 @@ async function ExperiencesPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.school,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             placeholder: 'Your school',
             required: true,
             name: 'school',
@@ -43,7 +44,7 @@ async function ExperiencesPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.program,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             required: true,
             name: 'program',
           }}
@@ -57,7 +58,7 @@ async function ExperiencesPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.levelOfStudy,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             required: true,
             name: 'levelOfStudy',
           }}
@@ -71,7 +72,7 @@ async function ExperiencesPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.graduationYear,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             placeholder: '2023',
             required: true,
             name: 'graduationYear',
@@ -88,7 +89,7 @@ async function ExperiencesPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.hackathonsAttended,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             required: true,
             name: 'hacakthonsAttended',
           }}
@@ -98,7 +99,7 @@ async function ExperiencesPage() {
           }))}
         />
         <ResumeUpload
-          readOnly={profile.status.applied}
+          readOnly={!profile.status.canApply}
           friendlyResumeFileName={
             profile.hackerApplication?.friendlyResumeFileName
           }
@@ -107,7 +108,7 @@ async function ExperiencesPage() {
           label="I allow Hack the 6ix to distribute my resume to its event sponsors."
           inputProps={{
             defaultChecked: profile.hackerApplication?.resumeSharePermission,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             name: 'resumeSharePermission',
           }}
           data-full
@@ -122,7 +123,7 @@ async function ExperiencesPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.githubLink,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             placeholder: 'ex: https://domain1.com/projects',
             name: 'githubLink',
             maxLength: 1024,
@@ -138,7 +139,7 @@ async function ExperiencesPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.portfolioLink,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             placeholder: 'ex: https://johndoe.com',
             name: 'portfolioLink',
             maxLength: 1024,
@@ -154,7 +155,7 @@ async function ExperiencesPage() {
           }}
           inputProps={{
             defaultValue: profile.hackerApplication?.linkedinLink,
-            readOnly: profile.status.applied,
+            readOnly: !profile.status.canApply,
             placeholder: 'ex: https://linkedin.com/in/johndoe',
             name: 'linkedinLink',
             maxLength: 1024,
