@@ -9,10 +9,10 @@ async function ApplicationStatus() {
   const { message } = await fetchHt6<Ht6Api.ApiResponse<Ht6Api.HackerProfile>>(
     '/api/action/profile',
   );
-  const closeAt = format(
-    message.computedApplicationDeadline,
-    "MMM d @ K:mma 'EST'",
-  );
+  // const closeAt = format(
+  //   message.computedApplicationDeadline,
+  //   "MMM d @ K:mma 'EST'",
+  // );
 
   return (
     <Flex className={styles.container} direction="column" as="dl" gap="x-big">
@@ -53,7 +53,8 @@ async function ApplicationStatus() {
           textColor="warning-600"
           as="dd"
         >
-          {closeAt}
+          {/* {closeAt} */}
+          Jul 18 @ 11:59PM EST
         </Text>
       </Flex>
     </Flex>
