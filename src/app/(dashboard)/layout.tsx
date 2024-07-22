@@ -6,21 +6,21 @@ import { Logout, NavLinks } from './client';
 import styles from './layout.module.scss';
 
 const links = [
+  // {
+  //   label: 'Team Formation',
+  //   href: '/team',
+  // },
+  // {
+  //   label: 'About You',
+  //   href: '/about',
+  // },
+  // {
+  //   label: 'Your Experiences',
+  //   href: '/experiences',
+  // },
   {
-    label: 'Team Formation',
-    href: '/team',
-  },
-  {
-    label: 'About You',
-    href: '/about',
-  },
-  {
-    label: 'Your Experiences',
-    href: '/experiences',
-  },
-  {
-    label: 'At HT6',
-    href: '/ht6',
+    label: 'Your Application',
+    href: '/',
   },
 ];
 

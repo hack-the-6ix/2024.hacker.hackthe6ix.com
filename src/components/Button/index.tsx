@@ -8,7 +8,7 @@ import Text from '../Text';
 import styles from './Button.module.scss';
 
 export type ButtonProps = {
-  buttonType?: 'primary' | 'secondary' | 'tertiary';
+  buttonType?: 'primary' | 'secondary' | 'tertiary' | 'contrast';
   buttonColor?: ColorTypes;
   buttonLevel?: ColorLevels;
   loading?: boolean | string;

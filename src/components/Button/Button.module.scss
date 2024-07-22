@@ -51,6 +51,23 @@
     }
   }
 
+  &--contrast {
+    background-color: transparent;
+    border-color: rgb(var(--primary-500));
+    color: rgb(var(--primary-500));
+
+    &:hover {
+      background-color: rgb(var(--primary-500));
+      color: white;
+    }
+
+    &:focus,
+    &:active {
+      background-color: rgb(var(--primary-500));
+      border-color: rgb(var(--primary-500));
+    }
+  }
+
   &--tertiary {
     background-color: transparent;
     border-color: transparent;
