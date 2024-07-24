@@ -1,0 +1,12 @@
+@use '@/styles/mixins';
+
+.actions {
+  margin-top: mixins.spacing(m);
+  width: 100%;
+
+  @include mixins.media(tablet) {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    row-gap: mixins.spacing(sm);
+  }
+}

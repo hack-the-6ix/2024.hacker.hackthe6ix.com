@@ -1,0 +1,10 @@
+@use '@/styles/mixins';
+
+.email {
+  margin-top: mixins.spacing(m);
+  width: 100%;
+
+  @include mixins.media(tablet) {
+    align-items: stretch;
+  }
+}

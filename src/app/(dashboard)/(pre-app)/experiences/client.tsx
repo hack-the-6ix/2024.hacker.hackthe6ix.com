@@ -5,12 +5,12 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import * as R from 'ramda';
 import type Ht6Api from '@/api.d';
+import { FormPage, FormPageProps } from '@/app/(dashboard)/client';
 import Button from '@/components/Button';
 import FileUpload from '@/components/FileUpload';
 import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import { useSessionStorage } from '@/utils';
-import { FormPage, FormPageProps } from '../client';
 import { submitApplication } from './actions';
 
 const fields = [

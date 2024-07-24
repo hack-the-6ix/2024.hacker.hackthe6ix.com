@@ -4,6 +4,7 @@ import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import * as R from 'ramda';
 import { ZodIssue } from 'zod';
+import { FormPage, FormPageProps } from '@/app/(dashboard)/client';
 import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
 import Flex from '@/components/Flex';
@@ -11,7 +12,6 @@ import Icon from '@/components/Icon';
 import { InputLikePublicProps } from '@/components/InputLike';
 import Text from '@/components/Text';
 import { useSessionStorage } from '@/utils';
-import { FormPage, FormPageProps } from '../client';
 import { submitApplication } from './actions';
 import styles from './client.module.scss';
 
