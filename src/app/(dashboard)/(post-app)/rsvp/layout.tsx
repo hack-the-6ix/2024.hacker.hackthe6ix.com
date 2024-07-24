@@ -8,12 +8,16 @@ interface RsvpPageProps {
   declined: ReactNode;
   accepted: ReactNode;
   children: ReactNode;
+  rejected: ReactNode;
+  waitlisted: ReactNode;
 }
 async function RsvpPage({
   children,
   closed,
   declined,
   accepted,
+  rejected,
+  waitlisted,
 }: RsvpPageProps) {
   const { message: profile } = await fetchHt6<
     Ht6Api.ApiResponse<Ht6Api.HackerProfile>
@@ -33,6 +37,14 @@ async function RsvpPage({
 
   if (profile.status.accepted) {
     return accepted;
+  }
+
+  if (profile.status.rejected) {
+    return rejected;
+  }
+
+  if (profile.status.waitlisted) {
+    return waitlisted;
   }
 
   return children;

@@ -1,12 +1,14 @@
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
 import Text from '@/components/Text';
-import { EmailUs, Page } from './shared';
+import { EmailUs, Page } from '../shared';
 
 async function RsvpPage() {
   const { message: profile } = await fetchHt6<
     Ht6Api.ApiResponse<Ht6Api.HackerProfile>
   >('/api/action/profile');
+
+  console.log(profile.status)
 
   return (
     <Page
