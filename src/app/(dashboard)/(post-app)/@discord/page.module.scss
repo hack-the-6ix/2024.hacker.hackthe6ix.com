@@ -1,0 +1,21 @@
+@use '@/styles/fonts';
+@use '@/styles/mixins';
+
+.link {
+  @include fonts.fontStyles(paragraph-lg);
+  font-weight: map-get(fonts.$wgts, bold);
+  line-height: 1;
+  padding: 0;
+
+  & .icon {
+    @include mixins.transition(transform, fast);
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    & .icon {
+      transform: translateX(mixins.spacing(2x-sm));
+    }
+  }
+}

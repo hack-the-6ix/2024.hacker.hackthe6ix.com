@@ -11,8 +11,8 @@ export function Decline() {
       onClick={async () => {
         setLoading(true);
         await rsvp(false);
-        setLoading(false);
       }}
+      loading={loading}
       buttonType="secondary"
     >
       I can no longer attend
@@ -27,8 +27,8 @@ export function Accept() {
       onClick={async () => {
         setLoading(true);
         await rsvp(true);
-        setLoading(false);
       }}
+      loading={loading}
       buttonColor="primary"
     >
       Accept invitation

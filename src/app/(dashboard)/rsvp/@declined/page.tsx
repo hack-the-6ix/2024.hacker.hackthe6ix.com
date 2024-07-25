@@ -22,9 +22,6 @@ async function RsvpPage() {
         Thank you for letting us know you will no longer be attending Hack The
         6ix 2024. We hope to see you next year!
       </Text>
-      <Text textAlign="center" as="p">
-        Have a question? Feel free to reach out to us!
-      </Text>
     </Page>
   );
 }

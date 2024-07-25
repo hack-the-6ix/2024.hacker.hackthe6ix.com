@@ -18,15 +18,8 @@ export async function rsvp(attending: boolean) {
 
   const res = await fetchHt6('/api/action/rsvp', {
     method: 'POST',
-    body: {
-      attending,
-      form: {
-        remindInPersonRSVP: false,
-      },
-    },
+    body: { rsvp: { attending } },
   });
-
-  console.log(res);
 
   revalidatePath('/rsvp', 'layout');
   return redirect(attending ? '/' : '/rsvp');

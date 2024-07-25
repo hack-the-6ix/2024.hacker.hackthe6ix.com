@@ -54,7 +54,7 @@ $wgts: (
   font-size: $size;
   line-height: $height;
   letter-spacing: $tracking;
-  @extend .font--wgt--#{$wgt};
+  @extend .font--wgt--#{$wgt} !optional;
 }
 
 @mixin init {

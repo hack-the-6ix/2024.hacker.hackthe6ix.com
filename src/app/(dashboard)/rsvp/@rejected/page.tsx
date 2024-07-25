@@ -1,11 +1,7 @@
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
-import Button from '@/components/Button';
-import Flex from '@/components/Flex';
-import Icon from '@/components/Icon';
 import Text from '@/components/Text';
-import { Page } from '../shared';
-import styles from './page.module.scss';
+import { EmailUs, Page } from '../shared';
 
 async function RsvpPage() {
   const { message: profile } = await fetchHt6<
@@ -21,6 +17,7 @@ async function RsvpPage() {
           <Text textColor="error-400">not been selected</Text> :c
         </>
       }
+      footer={<EmailUs />}
       welcome
     >
       <Text textAlign="center" as="p">
@@ -28,25 +25,6 @@ async function RsvpPage() {
         placed you on the waitlist. We&apos;ll let you know if a spot opens up,
         so make sure to check your inbox!
       </Text>
-      <Flex className={styles.email} align="center" direction="column" gap="sm">
-        <Text textAlign="center" as="p">
-          Have a question? Feel free to reach out to us!
-        </Text>
-        <div>
-          <Button
-            href="mailto:hello@hackthe6ix.com"
-            target="_blank"
-            rel="noreferrer noopener"
-            buttonColor="primary"
-            as="a"
-          >
-            <Flex gap="sm">
-              <span>Email HT6</span>
-              <Icon icon="send" />
-            </Flex>
-          </Button>
-        </div>
-      </Flex>
     </Page>
   );
 }

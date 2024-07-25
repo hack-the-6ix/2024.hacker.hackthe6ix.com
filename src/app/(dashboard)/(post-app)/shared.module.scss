@@ -1,0 +1,8 @@
+@use '@/styles/mixins';
+@use '@/styles/colors';
+
+.sectionBody {
+  background-color: colors.getColor(shade, 100, $alpha: 0.02);
+  padding: mixins.spacing(lg);
+  border-radius: mixins.spacing(m);
+}

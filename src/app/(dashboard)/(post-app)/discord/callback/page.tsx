@@ -5,24 +5,30 @@ async function DiscordCallbackPage({
   params,
   searchParams,
 }: {
-  params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  if (!searchParams.state || !searchParams.code || Array.isArray(searchParams.state) || Array.isArray(searchParams.code)) {
+  if (
+    !searchParams.state ||
+    !searchParams.code ||
+    Array.isArray(searchParams.state) ||
+    Array.isArray(searchParams.code)
+  ) {
     return (
       <>
         <p>ur bad lmao</p>
       </>
-    )
+    );
   }
 
   const { message, status } = await fetchHt6<
-    Ht6Api.ApiResponse<string>, Record<string, string>
+    Ht6Api.ApiResponse<string>,
+    Record<string, string>
   >('/api/action/associateDiscord', {
     method: 'POST',
     body: {
       state: searchParams.state,
-      code: searchParams.code
+      code: searchParams.code,
     },
   });
 
@@ -31,15 +37,14 @@ async function DiscordCallbackPage({
       <>
         <p>success</p>
       </>
-    )
+    );
   }
 
   return (
     <>
       <p>get better lel</p>
     </>
-  )
-
+  );
 }
 
 export default DiscordCallbackPage;
