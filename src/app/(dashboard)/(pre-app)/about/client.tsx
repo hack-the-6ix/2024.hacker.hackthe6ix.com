@@ -6,12 +6,12 @@ import { useRouter } from 'next/navigation';
 import cn from 'classnames';
 import * as R from 'ramda';
 import type Ht6Api from '@/api.d';
+import { FormPage, FormPageProps } from '@/app/(dashboard)/client';
 import Button from '@/components/Button';
 import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Text from '@/components/Text';
 import { useSessionStorage } from '@/utils';
-import { FormPage, FormPageProps } from '../client';
 import { submitApplication } from './actions';
 import styles from './client.module.scss';
 

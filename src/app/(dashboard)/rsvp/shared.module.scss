@@ -1,0 +1,40 @@
+@use '@/styles/mixins';
+@use '@/styles/colors';
+
+.container {
+  height: 100%;
+  max-width: 60rem;
+  width: 100%;
+  margin: auto;
+}
+
+.footer {
+  margin-top: mixins.spacing(m);
+}
+
+.email {
+  width: 100%;
+
+  @include mixins.media(tablet) {
+    align-items: stretch;
+  }
+}
+
+.media {
+  @include mixins.transition(background-color color);
+  background-color: transparent;
+  border-radius: mixins.spacing(x-sm);
+  color: colors.getColor(neutral, 600);
+  padding: mixins.spacing(sm);
+
+  &:hover,
+  &:focus {
+    background-color: colors.getColor(primary, 400, $alpha: 0.06);
+    color: colors.getColor(primary, 400);
+  }
+
+  &:active {
+    background-color: colors.getColor(primary, 400, $alpha: 0.12);
+    color: colors.getColor(primary, 400);
+  }
+}

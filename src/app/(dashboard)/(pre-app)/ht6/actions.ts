@@ -4,7 +4,10 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
-import { patchApplication, validateApplication } from '../actions';
+import {
+  patchApplication,
+  validateApplication,
+} from '@/app/(dashboard)/actions';
 
 type ApplicationPayload = {
   submit: boolean;

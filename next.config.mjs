@@ -43,13 +43,6 @@ const nextConfig = {
       ],
     },
   ],
-  redirects: () => [
-    {
-      source: '/',
-      destination: '/team',
-      permanent: true,
-    },
-  ],
 };
 
 export default nextConfig;

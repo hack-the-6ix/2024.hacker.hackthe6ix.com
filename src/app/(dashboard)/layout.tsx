@@ -2,34 +2,17 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 import logo from '@/assets/logo.png';
 import Flex from '@/components/Flex';
-import { Logout, NavLinks } from './client';
+import { Logout } from './client';
 import styles from './layout.module.scss';
-
-const links = [
-  {
-    label: 'Team Formation',
-    href: '/team',
-  },
-  {
-    label: 'About You',
-    href: '/about',
-  },
-  {
-    label: 'Your Experiences',
-    href: '/experiences',
-  },
-  {
-    label: 'At HT6',
-    href: '/ht6',
-  },
-];
 
 function DashboardLayout({
   children,
   status,
+  links,
 }: {
   status: ReactNode;
   children: ReactNode;
+  links: ReactNode;
 }) {
   return (
     <div className={styles.container}>
@@ -41,7 +24,7 @@ function DashboardLayout({
         as="nav"
       >
         <Image className={styles.logo} src={logo} alt="HT6 logo" height="87" />
-        <NavLinks items={links} />
+        {links}
         <div className={styles.status}>{status}</div>
         <Logout mobile />
       </Flex>

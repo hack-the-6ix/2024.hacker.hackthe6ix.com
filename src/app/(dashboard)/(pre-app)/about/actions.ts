@@ -3,8 +3,8 @@
 import { revalidatePath } from 'next/cache';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
+import { patchApplication } from '@/app/(dashboard)/actions';
 import { aboutSchema } from '@/schemas';
-import { patchApplication } from '../actions';
 
 export async function submitApplication(_: unknown, formData: FormData) {
   const payload = {

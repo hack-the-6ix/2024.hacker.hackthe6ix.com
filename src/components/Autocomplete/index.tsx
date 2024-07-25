@@ -26,10 +26,13 @@ function Autocomplete({ inputProps, options, ...props }: AutocompleteProps) {
     inputProps.defaultValue?.toString() ?? inputProps.value?.toString() ?? '',
   );
   const filteredOptions = fuse.search(value);
-  const setShow =
-    inputProps.disabled || inputProps.readOnly ?
-      () => _setShow(false)
-    : _setShow;
+  const setShow = useMemo(
+    () =>
+      inputProps.disabled || inputProps.readOnly ?
+        () => _setShow(false)
+      : _setShow,
+    [inputProps.disabled, inputProps.readOnly],
+  );
 
   useEffect(() => {
     if (!show) return;
@@ -42,7 +45,7 @@ function Autocomplete({ inputProps, options, ...props }: AutocompleteProps) {
     return () => {
       window.removeEventListener('click', handler);
     };
-  }, [show]);
+  }, [show, setShow]);
 
   return (
     <InputLike

@@ -14,6 +14,21 @@ async function ApplicationStatus() {
   //   "MMM d @ K:mma 'EST'",
   // );
 
+  if (
+    message.status.canRSVP ||
+    message.status.declined ||
+    message.status.waitlisted
+  ) {
+    return (
+      <Flex
+        className={styles.container}
+        direction="column"
+        as="dl"
+        gap="x-big"
+      />
+    );
+  }
+
   return (
     <Flex className={styles.container} direction="column" as="dl" gap="x-big">
       <Flex className={styles.column} direction="column" gap="2x-sm">
