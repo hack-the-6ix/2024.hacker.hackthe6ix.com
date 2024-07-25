@@ -43,7 +43,7 @@ async function HeaderSection() {
             target="_blank"
             as="a"
           >
-            George Vari Engineering and Computing Centre, Toronto, ON
+            Bahen Centre for Information Technology, University of Toronto, Toronto, Ontario, Canada
           </Button>
         </Text>
       </Flex>
