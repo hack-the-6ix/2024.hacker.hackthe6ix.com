@@ -17,16 +17,13 @@ async function RsvpPage() {
       name={profile.firstName}
       title={
         <>
-          You have been placed on the{' '}
-          <Text textColor="warning-400">waitlist</Text>
+          We’re sad to see you go :(
         </>
       }
-      welcome
     >
       <Text textAlign="center" as="p">
-        We received an overwhelming amount of applications this year and have
-        placed you on the waitlist. We&apos;ll let you know if a spot opens up,
-        so make sure to check your inbox!
+        Thank you for letting us know you will no longer be attending Hack the
+        6ix 2024. We hope to see you next year!{' '}
       </Text>
       <Flex className={styles.email} align="center" direction="column" gap="sm">
         <Text textAlign="center" as="p">
