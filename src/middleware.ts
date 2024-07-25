@@ -57,7 +57,8 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/discord/.*',
+    '/discord/link',
+    '/discord/callback',
     '/resources',
     '/schedule',
     '/closed',
