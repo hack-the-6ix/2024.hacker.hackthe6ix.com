@@ -8,8 +8,6 @@ async function RsvpPage() {
     Ht6Api.ApiResponse<Ht6Api.HackerProfile>
   >('/api/action/profile');
 
-  console.log(profile.status)
-
   return (
     <Page
       name={profile.firstName}
