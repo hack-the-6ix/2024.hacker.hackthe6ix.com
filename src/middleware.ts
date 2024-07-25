@@ -56,5 +56,16 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/about', '/experiences', '/ht6', '/team', '/rsvp', '/'],
+  matcher: [
+    '/discord/*',
+    '/resources',
+    '/schedule',
+    '/closed',
+    '/about',
+    '/experiences',
+    '/ht6',
+    '/team',
+    '/rsvp',
+    '/',
+  ],
 };
