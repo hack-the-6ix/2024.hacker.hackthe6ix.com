@@ -6,15 +6,10 @@ import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Text from '@/components/Text';
 import { Section } from '../shared';
-import { Clipboard } from './client';
 import discord from './discord.png';
 import styles from './page.module.scss';
 
 async function DiscordSection() {
-  const { message: profile } = await fetchHt6<
-    Ht6Api.ApiResponse<Ht6Api.HackerProfile>
-  >('/api/action/profile');
-
   return (
     <Section
       heading="Join Our Discord"
@@ -38,11 +33,10 @@ async function DiscordSection() {
               </Flex>
             </Button>
             <Text>
-              Issue the following command in the #verification channel:
+              Follow the instructions in the <code>#✅-verification-instructions</code> <br/>channel to get started!
             </Text>
           </Flex>
         </Flex>
-        <Clipboard content={`!verify ${profile.email}`} />
       </Flex>
     </Section>
   );
