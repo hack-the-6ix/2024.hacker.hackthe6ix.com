@@ -24,7 +24,7 @@ async function HeaderSection() {
         </Text>
         <Text textColor="neutral-700" textWeight="medium" as="p">
           Explore your dashboard below to find out what you can do before the
-          event starts on <Text textColor="warning-400">August 18th</Text>.
+          event starts on <Text textColor="warning-400">August 2nd</Text>.
         </Text>
         <Text
           className={styles.location}
