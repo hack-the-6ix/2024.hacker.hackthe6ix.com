@@ -33,7 +33,9 @@ async function DiscordSection() {
               </Flex>
             </Button>
             <Text>
-              Follow the instructions in the <code>#✅-verification-instructions</code> <br/>channel to get started!
+              Follow the instructions in the{' '}
+              <code>#✅-verification-instructions</code> <br />
+              channel to get started!
             </Text>
           </Flex>
         </Flex>

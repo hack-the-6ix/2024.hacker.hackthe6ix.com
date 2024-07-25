@@ -43,7 +43,8 @@ async function HeaderSection() {
             target="_blank"
             as="a"
           >
-            Bahen Centre for Information Technology, University of Toronto, Toronto, Ontario, Canada
+            Bahen Centre for Information Technology, University of Toronto,
+            Toronto, Ontario, Canada
           </Button>
         </Text>
       </Flex>
