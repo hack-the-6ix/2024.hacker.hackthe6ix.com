@@ -25,7 +25,7 @@ async function Dashboard({ header, discord, links }: DashboardProps) {
   } else if (toRsvp || confirmedBad) {
     return redirect('/rsvp', RedirectType.replace);
   } else if (!profile.status.applied) {
-    return redirect('/done', RedirectType.replace);
+    return redirect('/closed', RedirectType.replace);
   } else if (profile.status.applied && !profile.status.canRSVP) {
     return redirect('/about', RedirectType.replace);
   }

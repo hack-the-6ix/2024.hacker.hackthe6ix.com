@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
+import { LoadingState } from '../client';
 
 async function DiscordLinkPage() {
   const { message: discordOAuthUrl } = await fetchHt6<
@@ -15,11 +16,7 @@ async function DiscordLinkPage() {
     return redirect(discordOAuthUrl);
   }
 
-  return (
-    <>
-      <p>get better lel</p>
-    </>
-  );
+  return <LoadingState />;
 }
 
 export default DiscordLinkPage;

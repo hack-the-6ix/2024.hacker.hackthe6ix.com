@@ -1,30 +1,17 @@
 import { redirect } from 'next/navigation';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
-import { Page } from '@/app/(dashboard)/rsvp/shared';
-import Text from '@/components/Text';
 
 async function DiscordCallbackPage({
-  params,
   searchParams,
 }: {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { state?: string; code?: string };
 }) {
-  if (
-    !searchParams.state ||
-    !searchParams.code ||
-    Array.isArray(searchParams.state) ||
-    Array.isArray(searchParams.code)
-  ) {
-    return (
-      <>
-        <p>ur bad lmao</p>
-      </>
-    );
+  if (!searchParams.state || !searchParams.code) {
+    return <p>ur bad lmao</p>;
   }
 
-  const { message, status } = await fetchHt6<
+  const { status } = await fetchHt6<
     Ht6Api.ApiResponse<string>,
     Record<string, string>
   >('/api/action/associateDiscord', {
@@ -35,15 +22,7 @@ async function DiscordCallbackPage({
     },
   });
 
-  if (status === 200) {
-    redirect('https://discord.gg/ZzYZZKyxSs');
-  }
-
-  return (
-    <>
-      <p>get better lel</p>
-    </>
-  );
+  return redirect('https://discord.gg/ZzYZZKyxSs');
 }
 
 export default DiscordCallbackPage;

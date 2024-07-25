@@ -17,12 +17,7 @@ async function DiscordSection() {
         <Flex align="center" gap="big">
           <Image src={discord} alt="discord logo" width="80" />
           <Flex align="flex-start" direction="column" gap="2x-sm">
-            <Link
-              href="/discord/link"
-              target="_blank"
-              rel="noreferrer noopener"
-              className={styles.link}
-            >
+            <Link href="/discord/link" target="_blank" className={styles.link}>
               <Flex align="center" gap="2x-sm">
                 <span>DISCORD</span>
                 <Icon className={styles.icon} size="sm" icon="arrow_forward" />
