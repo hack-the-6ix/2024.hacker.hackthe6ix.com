@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
-import Button from '@/components/Button';
 import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Text from '@/components/Text';
@@ -35,9 +35,8 @@ async function HeaderSection() {
           <Flex align="center" inline gap="2x-sm">
             <Icon icon="location_on" /> Event Location:
           </Flex>
-          <Button
-            buttonType="tertiary"
-            href="https://maps.app.goo.gl/fSs4YhVQ5g8ZwxxK6"
+          <Link
+            href="https://maps.app.goo.gl/A3Q1xfLvPiJuVjnj6"
             className={styles.link}
             rel="noopener noreferrer"
             target="_blank"
@@ -45,7 +44,7 @@ async function HeaderSection() {
           >
             Bahen Centre for Information Technology, University of Toronto,
             Toronto, Ontario, Canada
-          </Button>
+          </Link>
         </Text>
       </Flex>
       <hr className={styles.divider} />

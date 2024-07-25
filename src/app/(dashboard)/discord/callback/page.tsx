@@ -1,5 +1,8 @@
+import { redirect } from 'next/navigation';
 import { fetchHt6 } from '@/api';
 import type Ht6Api from '@/api.d';
+import { Page } from '@/app/(dashboard)/rsvp/shared';
+import Text from '@/components/Text';
 
 async function DiscordCallbackPage({
   params,
@@ -33,11 +36,7 @@ async function DiscordCallbackPage({
   });
 
   if (status === 200) {
-    return (
-      <>
-        <p>success</p>
-      </>
-    );
+    redirect('https://discord.gg/ZzYZZKyxSs');
   }
 
   return (

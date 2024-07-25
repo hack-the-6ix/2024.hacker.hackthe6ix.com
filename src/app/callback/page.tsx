@@ -8,13 +8,11 @@ import Text from '@/components/Text';
 import { setSession } from './actions';
 import styles from './page.module.scss';
 
-// TODO: Added better error boundary
-
 export const runtime = 'edge';
 
 interface CallbackPageProps {
   searchParams: {
-    state: string; // The params
+    state: string;
     session_state: string;
     code: string;
   };
