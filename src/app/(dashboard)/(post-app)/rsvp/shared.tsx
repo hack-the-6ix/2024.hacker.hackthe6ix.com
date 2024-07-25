@@ -1,4 +1,10 @@
 import { ReactNode } from 'react';
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLinkedinIn,
+  FaTwitter,
+} from 'react-icons/fa6';
 import Button from '@/components/Button';
 import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
@@ -65,6 +71,50 @@ export function EmailUs() {
           </Flex>
         </Button>
       </div>
+    </Flex>
+  );
+}
+
+const links = [
+  {
+    icon: FaFacebook,
+    href: 'https://facebook.com/HackThe6ix',
+  },
+  {
+    icon: FaInstagram,
+    href: 'https://instagram.com/hackthe6ix',
+  },
+  {
+    icon: FaLinkedinIn,
+    href: 'https://linkedin.com/company/hackthe6ixofficial',
+  },
+  {
+    icon: FaTwitter,
+    href: 'https://twitter.com/hackthe6ix',
+  },
+];
+export function MediaFooter() {
+  return (
+    <Flex direction="column" align="center" gap="2x-sm">
+      <Text textWeight="semi-bold">
+        In the meantime, let&apos;s stay connected:
+      </Text>
+      <Flex gap="2x-sm">
+        {links.map((link, idx) => (
+          <Flex
+            className={styles.media}
+            rel="noreferrer noopener"
+            target="_blank"
+            align="center"
+            justify="center"
+            key={idx}
+            href={link.href}
+            as="a"
+          >
+            <Icon icon={link.icon} />
+          </Flex>
+        ))}
+      </Flex>
     </Flex>
   );
 }

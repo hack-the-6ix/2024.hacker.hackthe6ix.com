@@ -1,8 +1,8 @@
-import { ReactNode, Suspense } from 'react';
+import { ReactNode } from 'react';
 import Image from 'next/image';
 import logo from '@/assets/logo.png';
 import Flex from '@/components/Flex';
-import { Logout, NavLinks } from './client';
+import { Logout } from './client';
 import styles from './layout.module.scss';
 
 function DashboardLayout({
@@ -24,10 +24,8 @@ function DashboardLayout({
         as="nav"
       >
         <Image className={styles.logo} src={logo} alt="HT6 logo" height="87" />
-        <Suspense fallback={<div className={styles.loader} />}>
-          {links}
-          <div className={styles.status}>{status}</div>
-        </Suspense>
+        {links}
+        <div className={styles.status}>{status}</div>
         <Logout mobile />
       </Flex>
       <Flex

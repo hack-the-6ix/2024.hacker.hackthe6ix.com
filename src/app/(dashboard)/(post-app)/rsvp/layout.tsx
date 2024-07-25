@@ -26,8 +26,8 @@ async function RsvpPage({
   if (profile.status.confirmed) {
     return redirect('/');
   }
-  
-  if (profile.status.canRSVP && !profile.status.isRSVPOpen) {
+
+  if (profile.status.rsvpExpired) {
     return closed;
   }
 

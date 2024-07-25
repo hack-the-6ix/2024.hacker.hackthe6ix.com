@@ -7,8 +7,8 @@ async function Links() {
     Ht6Api.ApiResponse<Ht6Api.HackerProfile>
   >('/api/action/profile');
 
-  const links: NavLinksProps['items'] =
-    profile.status.canAmendTeam ?
+  let links: NavLinksProps['items'] =
+    profile.status.canAmendTeam && !profile.status.canRSVP ?
       [
         {
           label: 'Team Formation',
@@ -17,7 +17,10 @@ async function Links() {
       ]
     : [];
 
-  if (profile.status.canApply || profile.status.applied) {
+  if (
+    profile.status.applied &&
+    !(profile.status.canRSVP && profile.status.accepted)
+  ) {
     links.push(
       {
         label: 'About You',
@@ -32,6 +35,20 @@ async function Links() {
         href: '/ht6',
       },
     );
+  }
+
+  if (profile.status.canRSVP) {
+    links.push({
+      label: 'RSVP Information',
+      href: '/rsvp',
+    });
+  } else if (profile.status.declined || profile.status.rejected) {
+    links = [
+      {
+        label: 'RSVP Information',
+        href: '/rsvp',
+      },
+    ];
   }
 
   return <NavLinks items={links} />;

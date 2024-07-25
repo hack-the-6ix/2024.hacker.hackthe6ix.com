@@ -4,6 +4,7 @@ import Button from '@/components/Button';
 import Flex from '@/components/Flex';
 import Text from '@/components/Text';
 import { Page } from '../shared';
+import { Accept, Decline } from './client';
 import styles from './page.module.scss';
 
 async function RsvpPage() {
@@ -30,8 +31,8 @@ async function RsvpPage() {
         To confirm your attendance, please RSVP below.
       </Text>
       <Flex className={styles.actions} justify="center" gap="big">
-        <Button buttonType="secondary">I can no longer attend</Button>
-        <Button buttonColor="primary">Accept invitation</Button>
+        <Decline />
+        <Accept />
       </Flex>
     </Page>
   );
