@@ -25,7 +25,7 @@ async function DiscordSection() {
             </Link>
             <Text>
               Follow the instructions in the{' '}
-              <code>#✅-verification-instructions</code> <br />
+              <code>#✅-verification</code> <br />
               channel to get started!
             </Text>
           </Flex>
