@@ -51,6 +51,13 @@ async function Links() {
     ];
   }
 
+  if (profile.status.confirmed) {
+    links.push({
+      label: 'Schedule',
+      href: '/schedule',
+    });
+  }
+
   return <NavLinks items={links} />;
 }
 

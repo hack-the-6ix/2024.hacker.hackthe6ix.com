@@ -59,6 +59,7 @@ export const config = {
   matcher: [
     '/discord/link',
     '/discord/callback',
+    '/schedule',
     '/resources',
     '/schedule',
     '/closed',

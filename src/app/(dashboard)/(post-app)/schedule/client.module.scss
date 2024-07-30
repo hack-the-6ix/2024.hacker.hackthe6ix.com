@@ -1,0 +1,85 @@
+@use '@/styles/colors';
+@use '@/styles/mixins';
+
+.container {
+  background-color: colors.getColor(secondary, 700, $alpha: 0.06);
+  border-radius: mixins.spacing(x-big);
+  padding: mixins.spacing(sm) mixins.spacing(4x-big) mixins.spacing(x-big);
+}
+
+.tabs {
+  border-bottom: 0.0625rem solid colors.getColor(secondary, 700);
+}
+
+.tab {
+  position: relative;
+  border-radius: 0;
+  border: 0;
+  flex: 1;
+
+  &.active {
+    transition: none !important;
+    &::after {
+      position: absolute;
+      background-color: currentColor;
+      border-radius: 9999px;
+      margin: 0;
+      inset: auto auto -0.125rem;
+      content: '';
+      width: 100%;
+      height: 0.25rem;
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 6rem repeat(6, 1fr);
+  grid-template-rows: repeat(
+    calc(var(--rows) * var(--periods, 1)),
+    calc(7.25rem / var(--periods, 1))
+  );
+}
+
+.hour {
+  grid-row: calc(var(--row) * var(--periods, 1) + 1) / span var(--periods, 1);
+  padding-top: mixins.spacing(2x-sm);
+  grid-column: 1;
+}
+
+.event {
+  @include mixins.transition(background-color);
+  background-color: colors.getColor(shade, 0);
+  border-bottom-right-radius: mixins.spacing(sm);
+  border-top-right-radius: mixins.spacing(sm);
+
+  display: grid;
+  grid-template-columns: 1rem auto;
+
+  grid-row: var(--row, 1) / span var(--span, 1);
+  grid-column: span 6;
+
+  &::before {
+    content: '';
+    height: 100%;
+    width: 100%;
+    background-color: var(--color);
+  }
+
+  &.active {
+    background-color: var(--color);
+  }
+}
+
+.content {
+  padding: mixins.spacing(big);
+
+  & * {
+    @include mixins.transition(color);
+    color: colors.getColor(secondary, 700);
+
+    .active & {
+      color: colors.getColor(shade, 0);
+    }
+  }
+}
