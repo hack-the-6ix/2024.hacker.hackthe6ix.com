@@ -107,4 +107,24 @@ export namespace Ht6Api {
   }
 }
 
-export default Ht6Api;
+export namespace Airtable {
+  export interface Record<T> {
+    id: string;
+    createdTime: string;
+    fields: T;
+  }
+  export interface Records<T> {
+    records: Record<T>[];
+    offset?: string;
+  }
+  export interface Event {
+    Name: string;
+    Type: string;
+    Location: string;
+    Host: string;
+    Description: string;
+    Start: string;
+    End: string;
+    Date: string;
+  }
+}

@@ -1,6 +1,6 @@
 import { format } from 'date-fns/format';
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 import Flex from '@/components/Flex';
 import Text from '@/components/Text';
 import styles from './default.module.scss';

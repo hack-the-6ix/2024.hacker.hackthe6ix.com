@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 
 export async function createTeam() {
   const { status } = await fetchHt6<Ht6Api.ApiResponse<Ht6Api.Team>>(

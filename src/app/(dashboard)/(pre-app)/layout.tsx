@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { redirect, RedirectType } from 'next/navigation';
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 
 async function PreAppLayout({ children }: { children: ReactNode }) {
   const { message: profile } = await fetchHt6<

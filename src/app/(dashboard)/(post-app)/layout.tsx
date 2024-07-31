@@ -1,15 +1,12 @@
 import { ReactNode } from 'react';
 import { redirect, RedirectType } from 'next/navigation';
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
-import Flex from '@/components/Flex';
+import type { Ht6Api } from '@/api.d';
 
 interface DashboardProps {
-  discord: ReactNode;
-  header: ReactNode;
-  links: ReactNode;
+  children: ReactNode;
 }
-async function Dashboard({ header, discord, links }: DashboardProps) {
+async function Dashboard({ children }: DashboardProps) {
   const { message: profile } = await fetchHt6<
     Ht6Api.ApiResponse<Ht6Api.HackerProfile>
   >('/api/action/profile');
@@ -30,12 +27,7 @@ async function Dashboard({ header, discord, links }: DashboardProps) {
     return redirect('/about', RedirectType.replace);
   }
 
-  return (
-    <Flex direction="column" gap="x-lg">
-      {header}
-      {discord}
-    </Flex>
-  );
+  return children;
 }
 
 export default Dashboard;

@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 import Checkbox from '@/components/Checkbox';
 import Dropdown from '@/components/Dropdown';
 import Flex from '@/components/Flex';

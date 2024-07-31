@@ -1,5 +1,5 @@
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 import { NavLinks, NavLinksProps } from '../client';
 
 async function Links() {
@@ -49,6 +49,13 @@ async function Links() {
         href: '/rsvp',
       },
     ];
+  }
+
+  if (profile.status.confirmed) {
+    links.push({
+      label: 'Schedule',
+      href: '/schedule',
+    });
   }
 
   return <NavLinks items={links} />;

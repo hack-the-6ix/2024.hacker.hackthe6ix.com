@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 
 const callbackURL = new URL('/callback', process.env.HOST);
 
@@ -59,6 +59,7 @@ export const config = {
   matcher: [
     '/discord/link',
     '/discord/callback',
+    '/schedule',
     '/resources',
     '/schedule',
     '/closed',

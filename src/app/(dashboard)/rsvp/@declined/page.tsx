@@ -1,5 +1,5 @@
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 import Button from '@/components/Button';
 import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';

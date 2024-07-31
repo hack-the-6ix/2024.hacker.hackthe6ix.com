@@ -4,7 +4,7 @@ import { ComponentPropsWithoutRef, useEffect, useRef } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import * as R from 'ramda';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 import { FormPage, FormPageProps } from '@/app/(dashboard)/client';
 import Button from '@/components/Button';
 import FileUpload from '@/components/FileUpload';
