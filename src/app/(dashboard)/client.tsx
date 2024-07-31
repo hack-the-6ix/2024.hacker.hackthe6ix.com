@@ -13,7 +13,7 @@ import { redirect, RedirectType, usePathname } from 'next/navigation';
 import cn from 'classnames';
 import { format } from 'date-fns/format';
 import { ForwardRefExoticComponentWithAs } from 'forward-ref-as';
-import Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 import Button, { ButtonProps } from '@/components/Button';
 import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
