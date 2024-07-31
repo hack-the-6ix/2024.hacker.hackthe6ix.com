@@ -2,7 +2,7 @@
 
 import { CSSProperties, useState } from 'react';
 import cn from 'classnames';
-import { format, getHours, getMinutes, isToday, startOfToday } from 'date-fns';
+import { format, getHours, getMinutes, startOfToday } from 'date-fns';
 import * as R from 'ramda';
 import Button from '@/components/Button';
 import Flex from '@/components/Flex';
@@ -96,7 +96,7 @@ export function Schedule<T extends string>({
               buttonType="tertiary"
               key={date}
             >
-              {format(date, 'EEE. MMM d')}
+              {date}
             </Button>
           );
         })}
