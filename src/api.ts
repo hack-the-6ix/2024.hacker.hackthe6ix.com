@@ -48,3 +48,29 @@ export async function fetchHt6<Result, Payload = never>(
     },
   });
 }
+
+export async function fetchAirtable<Result>(
+  path: string | URL,
+  options?: Omit<RequestInit, 'body'>,
+) {
+  return fetchJSON<Result, never>(path, {
+    ...options,
+    headers: {
+      ...options?.headers,
+      Authorization: `Bearer ${process.env.AIRTABLE_TOKEN}`,
+    },
+  });
+}
+
+export async function fetchAirtableResults<Result>(
+  table: string,
+  sheet: string,
+  filters?: URLSearchParams,
+) {
+  return fetchAirtable<Result>(
+    new URL(`/v0/${table}/${sheet}?${filters ?? ''}`, process.env.AIRTABLE_URL),
+    {
+      next: { revalidate: 30 },
+    },
+  );
+}

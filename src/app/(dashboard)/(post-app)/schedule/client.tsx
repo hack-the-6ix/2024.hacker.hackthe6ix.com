@@ -33,6 +33,30 @@ export interface ScheduleProps<T extends string> {
   initialDate?: string;
 }
 
+const getRow = (
+  d: string | number | Date,
+  periodsPerHour: number,
+  end?: boolean,
+) =>
+  (getHours(d) || (end ? 24 : 0)) * periodsPerHour +
+  getMinutes(d) / (60 / periodsPerHour);
+
+export function getEventPlacement<T>(
+  event: ScheduleConfig<T>['events'][number],
+  periodsPerHour: number,
+  offset: number,
+) {
+  const start = getRow(event.start, periodsPerHour);
+  const end = getRow(event.end, periodsPerHour, true);
+  const span = end - start;
+
+  return {
+    start: start + 1 - offset,
+    end: end + 1 - offset,
+    span,
+  };
+}
+
 export function Schedule<T extends string>({
   periodsPerHour = 4,
   categories,
@@ -46,13 +70,21 @@ export function Schedule<T extends string>({
   });
   const selectedConfig = config[selected];
   const hours = R.range(
-    selectedConfig.startHour ?? 0,
-    selectedConfig.endHour ?? 24,
+    selectedConfig?.startHour ?? 0,
+    selectedConfig?.endHour ?? 24,
   );
   const offset = hours[0] * periodsPerHour;
+  const overlapMap = selectedConfig?.events.reduce(
+    (acc, event) => {
+      const { start, span } = getEventPlacement(event, periodsPerHour, offset);
+      R.range(start, start + span).forEach((idx) => (acc[idx] = acc[idx] + 1));
+      return acc;
+    },
+    new Array(25 * periodsPerHour).fill(0),
+  );
 
   return (
-    <Flex className={styles.container} direction="column" gap="sm">
+    <Flex className={styles.container} direction="column" gap="2x-big">
       <Flex className={styles.tabs}>
         {dates.map((date) => {
           const isActive = date === selected;
@@ -90,18 +122,20 @@ export function Schedule<T extends string>({
             {format(startOfToday().setHours(hour), 'h:mm aa')}
           </Text>
         ))}
-        {selectedConfig.events.map((event, idx) => {
+        {selectedConfig?.events.map((event, idx) => {
           const category = categories[event.category];
-          const getRow = (d: string | number | Date) =>
-            getHours(d) * periodsPerHour +
-            getMinutes(d) / (60 / periodsPerHour);
-          const start = getRow(event.start);
-          const span = getRow(event.end) - start;
+          const { start, span } = getEventPlacement(
+            event,
+            periodsPerHour,
+            offset,
+          );
+          const overlap = Math.max(...overlapMap.slice(start, start + span));
           return (
             <div
               style={
                 {
-                  '--row': start - offset + 1,
+                  '--row': start,
+                  '--overlap': overlap,
                   '--color': category['color'],
                   '--span': span,
                 } as CSSProperties

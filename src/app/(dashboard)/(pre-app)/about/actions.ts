@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 import { patchApplication } from '@/app/(dashboard)/actions';
 import { aboutSchema } from '@/schemas';
 

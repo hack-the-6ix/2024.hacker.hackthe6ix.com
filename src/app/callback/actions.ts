@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers';
 import { redirect, RedirectType } from 'next/navigation';
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 
 interface CallbackPayload {
   code: string;

@@ -1,5 +1,5 @@
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 import Text from '@/components/Text';
 import { EmailUs, Page } from '../shared';
 

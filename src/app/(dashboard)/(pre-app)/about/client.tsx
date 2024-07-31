@@ -5,7 +5,7 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import cn from 'classnames';
 import * as R from 'ramda';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 import { FormPage, FormPageProps } from '@/app/(dashboard)/client';
 import Button from '@/components/Button';
 import Flex from '@/components/Flex';

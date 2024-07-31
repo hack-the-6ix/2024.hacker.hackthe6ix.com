@@ -35,9 +35,10 @@
 .grid {
   display: grid;
   grid-template-columns: 6rem repeat(6, 1fr);
+  grid-gap: mixins.spacing(x-sm);
   grid-template-rows: repeat(
     calc(var(--rows) * var(--periods, 1)),
-    calc(7.25rem / var(--periods, 1))
+    calc(11rem / var(--periods, 1))
   );
 }
 
@@ -57,7 +58,7 @@
   grid-template-columns: 1rem auto;
 
   grid-row: var(--row, 1) / span var(--span, 1);
-  grid-column: span 6;
+  grid-column: span calc(6 / var(--overlap, 1));
 
   &::before {
     content: '';

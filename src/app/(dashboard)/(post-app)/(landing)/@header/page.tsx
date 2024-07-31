@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 import Flex from '@/components/Flex';
 import Icon from '@/components/Icon';
 import Text from '@/components/Text';

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { fetchHt6 } from '@/api';
-import type Ht6Api from '@/api.d';
+import type { Ht6Api } from '@/api.d';
 
 interface TeamPageProps {
   join: ReactNode;

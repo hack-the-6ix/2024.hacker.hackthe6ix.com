@@ -1,11 +1,24 @@
-import { startOfDay, addDays } from 'date-fns';
+import { getHours, getMinutes } from 'date-fns';
+import * as R from 'ramda';
+import { fetchAirtableResults } from '@/api';
+import { Airtable } from '@/api.d';
 import Flex from '@/components/Flex';
 import Text from '@/components/Text';
 import { Schedule } from './client';
 import styles from './page.module.scss';
 
-const SINCE = startOfDay('2024-08-02T00:00:00.001Z');
-function SchedulePage() {
+async function SchedulePage() {
+  const events = await fetchAirtableResults<Airtable.Records<Airtable.Event>>(
+    'applWmO0jkQTXKExd',
+    'tblvJHMV80nHkaHdV',
+    new URLSearchParams({
+      'sort[0][field]': 'Date',
+      'sort[0][direction]': 'asc',
+    }),
+  );
+
+  const eventsByDate = R.groupBy((event) => event.fields.Date, events.records);
+
   return (
     <Flex className={styles.container} direction="column" gap="lg">
       <Flex direction="column" gap="2x-sm">
@@ -27,49 +40,53 @@ function SchedulePage() {
       </Flex>
       <Schedule
         categories={{
-          MAIN: {
-            name: 'Main Events',
+          Events: {
+            name: 'Events',
             color: '#2A7892',
           },
-          WORKSHOP: {
+          Food: {
+            name: 'Food',
+            color: '#08566B',
+          },
+          Activities: {
+            name: 'Activities',
+            color: '#EE7320',
+          },
+          Ceremonies: {
+            name: 'Ceremonies',
+            color: '#AAADC4',
+          },
+          Workshops: {
             name: 'Workshops',
             color: '#00AC6B',
           },
         }}
-        config={{
-          [SINCE.toISOString()]: {
-            startHour: 16,
-            events: [
-              {
-                label: 'Hacker Check-In',
-                location: '1140',
-                start: 'August 2, 2024 4:00 PM',
-                end: 'August 2, 2024 8:00 PM',
-                category: 'MAIN',
-              },
-              {
-                label: 'FGF Food Challenge Event',
-                location: '2159',
-                start: 'August 2, 2024 7:00 PM',
-                end: 'August 2, 2024 7:45 PM',
-                category: 'WORKSHOP',
-              },
-              {
-                label: 'Ideathon Ideation Workshop',
-                location: '1180',
-                start: 'August 2, 2024 7:15 PM',
-                end: 'August 2, 2024 8:00 PM',
-                category: 'WORKSHOP',
-              },
-            ],
-          },
-          [addDays(SINCE, 1).toISOString()]: {
-            events: [],
-          },
-          [addDays(SINCE, 2).toISOString()]: {
-            events: [],
-          },
-        }}
+        config={R.map((day = []) => {
+          const startHour = Math.min(
+            ...day.map((i) => getHours(i.fields.Start)),
+          );
+          const endHour = Math.max(
+            ...day.map(
+              (i) =>
+                (getHours(i.fields.End) || 24) +
+                (getMinutes(i.fields.End) ? 1 : 0),
+            ),
+          );
+          return {
+            startHour: Math.max(0, startHour),
+            endHour: Math.min(24, endHour),
+            events: R.map(
+              (event) => ({
+                category: event.fields.Type,
+                label: event.fields.Name,
+                location: event.fields.Location,
+                start: event.fields.Start,
+                end: event.fields.End,
+              }),
+              day,
+            ),
+          };
+        }, eventsByDate)}
       />
     </Flex>
   );
