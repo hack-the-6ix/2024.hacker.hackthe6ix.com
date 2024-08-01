@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic';
+import dynamicLoader from 'next/dynamic';
 import { getHours, getMinutes } from 'date-fns';
 import { format, toZonedTime } from 'date-fns-tz';
 import * as R from 'ramda';
@@ -9,7 +9,9 @@ import Text from '@/components/Text';
 import Loader from './loading';
 import styles from './page.module.scss';
 
-const Schedule = dynamic(
+export const dynamic = 'force-dynamic';
+
+const Schedule = dynamicLoader(
   async () => {
     const res = await import('./client');
     return res.Schedule;
