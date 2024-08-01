@@ -142,6 +142,7 @@ export function Schedule<T extends string>({
                   '--span': span,
                 } as CSSProperties
               }
+              suppressHydrationWarning
               className={styles.event}
               key={idx}
             >
