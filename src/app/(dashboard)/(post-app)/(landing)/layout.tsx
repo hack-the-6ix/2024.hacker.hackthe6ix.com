@@ -5,7 +5,7 @@ interface DashboardProps {
   discord: ReactNode;
   header: ReactNode;
 }
-async function Dashboard({ header, discord }: DashboardProps) {
+function Dashboard({ header, discord }: DashboardProps) {
   return (
     <Flex direction="column" gap="x-lg">
       {header}
