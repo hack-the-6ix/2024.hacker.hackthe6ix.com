@@ -97,9 +97,7 @@ export function Schedule<T extends string>({
               buttonType="tertiary"
               key={date}
             >
-              {format(`${date} 12:01 AM`, 'EEE. MMM d', {
-                timeZone: 'America/Toronto',
-              })}
+              {format(`${date} 12:01 AM`, 'EEE. MMM d')}
             </Button>
           );
         })}
