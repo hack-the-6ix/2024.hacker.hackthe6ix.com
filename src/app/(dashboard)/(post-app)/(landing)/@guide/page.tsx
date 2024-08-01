@@ -17,14 +17,19 @@ async function GuideSection() {
         <Flex align="center" gap="big">
           <Image src={notion} alt="notion logo" width="80" />
           <Flex align="flex-start" direction="column" gap="2x-sm">
-            <Link href="https://hackthe6ix.notion.site/Hack-the-6ix-2024-Hacker-Guide-c9e7f909e974425f8fb0ade81c05a3ff" target="_blank" className={styles.link}>
+            <Link
+              href="https://hackthe6ix.notion.site/Hack-the-6ix-2024-Hacker-Guide-c9e7f909e974425f8fb0ade81c05a3ff"
+              target="_blank"
+              className={styles.link}
+            >
               <Flex align="center" gap="2x-sm" as="span">
                 <span>HACKER GUIDE</span>
                 <Icon className={styles.icon} size="sm" icon="arrow_forward" />
               </Flex>
             </Link>
             <Text>
-              Learn how to participate in the hackathon, including how to submit your project, and what to expect during the event!
+              Learn how to participate in the hackathon, including how to submit
+              your project, and what to expect during the event!
             </Text>
           </Flex>
         </Flex>

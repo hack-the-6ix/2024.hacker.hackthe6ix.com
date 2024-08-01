@@ -17,14 +17,19 @@ async function DevpostSection() {
         <Flex align="center" gap="big">
           <Image src={devpost} alt="devpost logo" width="80" />
           <Flex align="flex-start" direction="column" gap="2x-sm">
-            <Link href="https://hackthe6ix2024.devpost.com/" target="_blank" className={styles.link}>
+            <Link
+              href="https://hackthe6ix2024.devpost.com/"
+              target="_blank"
+              className={styles.link}
+            >
               <Flex align="center" gap="2x-sm" as="span">
                 <span>DEVPOST</span>
                 <Icon className={styles.icon} size="sm" icon="arrow_forward" />
               </Flex>
             </Link>
             <Text>
-              Make sure to include a link to your repo, a description of your project, and any relevant links.
+              Make sure to include a link to your repo, a description of your
+              project, and any relevant links.
             </Text>
           </Flex>
         </Flex>
