@@ -2,8 +2,7 @@
 
 import { CSSProperties, useState } from 'react';
 import cn from 'classnames';
-import { getHours, getMinutes, startOfToday } from 'date-fns';
-import { format, toZonedTime } from 'date-fns-tz';
+import { getHours, getMinutes, startOfToday, format } from 'date-fns';
 import * as R from 'ramda';
 import Button from '@/components/Button';
 import Flex from '@/components/Flex';
@@ -127,11 +126,6 @@ export function Schedule<T extends string>({
           </Text>
         ))}
         {selectedConfig?.events.map((event, idx) => {
-          const zonedEvent = {
-            ...event,
-            start: toZonedTime(event.start, 'America/Toronto'),
-            end: toZonedTime(event.end, 'America/Toronto'),
-          };
           const category = categories[event.category];
           const { start, span } = getEventPlacement(
             event,

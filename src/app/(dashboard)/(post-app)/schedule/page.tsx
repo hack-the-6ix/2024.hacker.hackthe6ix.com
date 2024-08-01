@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import { getHours, getMinutes } from 'date-fns';
+import { format, toZonedTime } from 'date-fns-tz';
 import * as R from 'ramda';
 import { fetchAirtableResults } from '@/api';
 import { Airtable } from '@/api.d';
@@ -19,6 +20,25 @@ const Schedule = dynamic(
   },
 );
 
+function parseEvent(
+  event: Airtable.Record<Airtable.Event>,
+  applyTimezone?: boolean,
+) {
+  return {
+    category: event.fields.Type,
+    label: event.fields.Name,
+    location: event.fields.Location,
+    start: toZonedTime(
+      event.fields.Start,
+      applyTimezone ? 'America/Toronto' : 'utc',
+    ),
+    end: toZonedTime(
+      event.fields.End,
+      applyTimezone ? 'America/Toronto' : 'utc',
+    ),
+  };
+}
+
 async function SchedulePage() {
   const events = await fetchAirtableResults<Airtable.Records<Airtable.Event>>(
     'applWmO0jkQTXKExd',
@@ -29,7 +49,10 @@ async function SchedulePage() {
     }),
   );
 
-  const eventsByDate = R.groupBy((event) => event.fields.Date, events.records);
+  const eventsByDate = R.groupBy(
+    (event) => format(parseEvent(event, true).start, 'yyyy-MM-dd'),
+    events.records,
+  );
 
   return (
     <Flex className={styles.container} direction="column" gap="lg">
@@ -75,28 +98,19 @@ async function SchedulePage() {
         }}
         config={R.map((day = []) => {
           const startHour = Math.min(
-            ...day.map((i) => getHours(i.fields.Start)),
+            ...day.map((i) => getHours(parseEvent(i, true).start)),
           );
           const endHour = Math.max(
             ...day.map(
               (i) =>
-                (getHours(i.fields.End) || 24) +
-                (getMinutes(i.fields.End) ? 1 : 0),
+                (getHours(parseEvent(i, true).end) || 24) +
+                (getMinutes(parseEvent(i, true).end) ? 1 : 0),
             ),
           );
           return {
             startHour: Math.max(0, startHour),
             endHour: Math.min(24, endHour),
-            events: R.map(
-              (event) => ({
-                category: event.fields.Type,
-                label: event.fields.Name,
-                location: event.fields.Location,
-                start: event.fields.Start,
-                end: event.fields.End,
-              }),
-              day,
-            ),
+            events: R.map(parseEvent, day),
           };
         }, eventsByDate)}
       />
