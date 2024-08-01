@@ -10,7 +10,10 @@ async function Dashboard({ children }: DashboardProps) {
   const { message: profile } = await fetchHt6<
     Ht6Api.ApiResponse<Ht6Api.HackerProfile>
   >('/api/action/profile');
-  if (profile.status.applied && !profile.status.applicationExpired) {
+
+  if (profile.status.confirmed) {
+    return children;
+  } else if (profile.status.applied && !profile.status.applicationExpired) {
     return redirect('/rsvp', RedirectType.replace);
   } else if (profile.status.applicationExpired) {
     return redirect('/closed', RedirectType.replace);
