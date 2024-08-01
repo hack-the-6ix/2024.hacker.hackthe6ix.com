@@ -114,6 +114,7 @@ export function Schedule<T extends string>({
         {hours.map((hour, idx) => (
           <Text
             style={{ '--row': idx } as CSSProperties}
+            suppressHydrationWarning
             textColor="secondary-700"
             className={styles.hour}
             textWeight="semi-bold"
@@ -141,6 +142,7 @@ export function Schedule<T extends string>({
                   '--span': span,
                 } as CSSProperties
               }
+              suppressHydrationWarning
               className={styles.event}
               suppressHydrationWarning
               key={idx}

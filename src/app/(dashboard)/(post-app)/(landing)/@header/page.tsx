@@ -35,16 +35,15 @@ async function HeaderSection() {
           <Flex align="center" inline gap="2x-sm" as="span">
             <Icon icon="location_on" /> Event Location:
           </Flex>
-          <Link
+          <a
             href="https://maps.app.goo.gl/A3Q1xfLvPiJuVjnj6"
             className={styles.link}
             rel="noopener noreferrer"
             target="_blank"
-            as="a"
           >
             Bahen Centre for Information Technology, University of Toronto,
             Toronto, Ontario, Canada
-          </Link>
+          </a>
         </Text>
       </Flex>
       <hr className={styles.divider} />
