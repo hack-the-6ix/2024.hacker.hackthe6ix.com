@@ -2,7 +2,8 @@
 
 import { CSSProperties, useState } from 'react';
 import cn from 'classnames';
-import { format, getHours, getMinutes, startOfToday } from 'date-fns';
+import { getHours, getMinutes, startOfToday } from 'date-fns';
+import { format, toZonedTime } from 'date-fns-tz';
 import * as R from 'ramda';
 import Button from '@/components/Button';
 import Flex from '@/components/Flex';
@@ -97,7 +98,9 @@ export function Schedule<T extends string>({
               buttonType="tertiary"
               key={date}
             >
-              {date}
+              {format(`${date} 12:01 AM`, 'EEE. MMM d', {
+                timeZone: 'America/Toronto',
+              })}
             </Button>
           );
         })}
@@ -124,6 +127,11 @@ export function Schedule<T extends string>({
           </Text>
         ))}
         {selectedConfig?.events.map((event, idx) => {
+          const zonedEvent = {
+            ...event,
+            start: toZonedTime(event.start, 'America/Toronto'),
+            end: toZonedTime(event.end, 'America/Toronto'),
+          };
           const category = categories[event.category];
           const { start, span } = getEventPlacement(
             event,

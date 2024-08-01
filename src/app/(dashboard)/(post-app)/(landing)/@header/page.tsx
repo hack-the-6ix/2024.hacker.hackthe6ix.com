@@ -32,7 +32,7 @@ async function HeaderSection() {
           textWeight="medium"
           as="p"
         >
-          <Flex align="center" inline gap="2x-sm">
+          <Flex align="center" inline gap="2x-sm" as="span">
             <Icon icon="location_on" /> Event Location:
           </Flex>
           <Link
