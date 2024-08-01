@@ -1,13 +1,23 @@
+import dynamic from 'next/dynamic';
 import { getHours, getMinutes } from 'date-fns';
 import * as R from 'ramda';
 import { fetchAirtableResults } from '@/api';
 import { Airtable } from '@/api.d';
 import Flex from '@/components/Flex';
 import Text from '@/components/Text';
-import { Schedule } from './client';
+import Loader from './loading';
 import styles from './page.module.scss';
 
-export const dynamic = 'force-dynamic';
+const Schedule = dynamic(
+  async () => {
+    const res = await import('./client');
+    return res.Schedule;
+  },
+  {
+    ssr: false,
+    loading: () => <Loader />,
+  },
+);
 
 async function SchedulePage() {
   const events = await fetchAirtableResults<Airtable.Records<Airtable.Event>>(
