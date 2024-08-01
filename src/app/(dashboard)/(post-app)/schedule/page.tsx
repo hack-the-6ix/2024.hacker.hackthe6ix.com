@@ -51,6 +51,8 @@ async function SchedulePage() {
     }),
   );
 
+  console.log(events);
+
   const eventsByDate = R.groupBy(
     (event) => format(parseEvent(event).start, 'yyyy-MM-dd'),
     events.records,

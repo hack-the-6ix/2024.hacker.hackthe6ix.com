@@ -161,7 +161,8 @@ export function Schedule<T extends string>({
                     {format(toZonedTime(event.end, 'utc'), 'h:mm aa')}
                   </Text>
                   <Text textWeight="medium" textType="paragraph-sm">
-                    @ {event.location}
+                    {event.location && "@ "}
+                    {event.location}
                   </Text>
                 </Flex>
               </Flex>
