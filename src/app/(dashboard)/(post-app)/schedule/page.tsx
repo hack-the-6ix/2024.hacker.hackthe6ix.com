@@ -7,6 +7,8 @@ import Text from '@/components/Text';
 import { Schedule } from './client';
 import styles from './page.module.scss';
 
+export const dynamic = 'force-dynamic';
+
 async function SchedulePage() {
   const events = await fetchAirtableResults<Airtable.Records<Airtable.Event>>(
     'applWmO0jkQTXKExd',
