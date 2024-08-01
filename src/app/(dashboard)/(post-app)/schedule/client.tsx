@@ -144,7 +144,6 @@ export function Schedule<T extends string>({
               }
               suppressHydrationWarning
               className={styles.event}
-              suppressHydrationWarning
               key={idx}
             >
               <Flex className={styles.content} direction="column" gap="2x-sm">
