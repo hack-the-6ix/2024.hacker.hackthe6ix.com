@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { redirect } from 'next/navigation';
+import { redirect, RedirectType } from 'next/navigation';
 import { fetchHt6 } from '@/api';
 import type { Ht6Api } from '@/api.d';
 
@@ -24,7 +24,7 @@ async function RsvpPage({
   >('/api/action/profile');
 
   if (profile.status.confirmed) {
-    return redirect('/');
+    return redirect('/', RedirectType.replace);
   }
 
   if (profile.status.rsvpExpired) {
