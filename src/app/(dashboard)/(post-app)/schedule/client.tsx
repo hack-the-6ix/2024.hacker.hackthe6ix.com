@@ -93,6 +93,7 @@ export function Schedule<T extends string>({
               className={cn(isActive && styles.active, styles.tab)}
               onClick={() => setSelected(date)}
               buttonColor={isActive ? 'warning' : 'secondary'}
+              suppressHydrationWarning
               buttonType="tertiary"
               key={date}
             >
@@ -141,6 +142,7 @@ export function Schedule<T extends string>({
                 } as CSSProperties
               }
               className={styles.event}
+              suppressHydrationWarning
               key={idx}
             >
               <Flex className={styles.content} direction="column" gap="2x-sm">
@@ -148,7 +150,11 @@ export function Schedule<T extends string>({
                   {event.label}
                 </Text>
                 <Flex gap="2x-sm" wrap>
-                  <Text textWeight="medium" textType="paragraph-sm">
+                  <Text
+                    textWeight="medium"
+                    textType="paragraph-sm"
+                    suppressHydrationWarning
+                  >
                     {format(event.start, 'h:mm aa')} -{' '}
                     {format(event.end, 'h:mm aa')}
                   </Text>
