@@ -43,8 +43,8 @@ function parseEvent(
 
 async function SchedulePage() {
   const events = await fetchAirtableResults<Airtable.Records<Airtable.Event>>(
-    'appfBpIke6r6AefyP',
-    'tblpoKGf3MYUXEiex',
+    'applWmO0jkQTXKExd',
+    'tblvJHMV80nHkaHdV',
     new URLSearchParams({
       'sort[0][field]': 'Date',
       'sort[0][direction]': 'asc',
