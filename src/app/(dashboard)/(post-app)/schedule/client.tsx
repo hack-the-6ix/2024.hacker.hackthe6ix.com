@@ -2,7 +2,7 @@
 
 import { CSSProperties, useState } from 'react';
 import cn from 'classnames';
-import { format, getHours, getMinutes, startOfToday } from 'date-fns';
+import { getHours, getMinutes, startOfToday, format } from 'date-fns';
 import * as R from 'ramda';
 import Button from '@/components/Button';
 import Flex from '@/components/Flex';
@@ -97,7 +97,7 @@ export function Schedule<T extends string>({
               buttonType="tertiary"
               key={date}
             >
-              {format(date, 'EEE. MMM d')}
+              {format(`${date} 12:01 AM`, 'EEE. MMM d')}
             </Button>
           );
         })}
@@ -144,6 +144,7 @@ export function Schedule<T extends string>({
               }
               suppressHydrationWarning
               className={styles.event}
+              suppressHydrationWarning
               key={idx}
             >
               <Flex className={styles.content} direction="column" gap="2x-sm">
