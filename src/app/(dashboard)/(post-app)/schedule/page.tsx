@@ -52,7 +52,7 @@ async function SchedulePage() {
   );
 
   const eventsByDate = R.groupBy(
-    (event) => format(parseEvent(event, true).start, 'yyyy-MM-dd'),
+    (event) => format(parseEvent(event).start, 'yyyy-MM-dd'),
     events.records,
   );
 
@@ -100,19 +100,19 @@ async function SchedulePage() {
         }}
         config={R.map((day = []) => {
           const startHour = Math.min(
-            ...day.map((i) => getHours(parseEvent(i, true).start)),
+            ...day.map((i) => getHours(parseEvent(i).start)),
           );
           const endHour = Math.max(
             ...day.map(
               (i) =>
-                (getHours(parseEvent(i, true).end) || 24) +
-                (getMinutes(parseEvent(i, true).end) ? 1 : 0),
+                (getHours(parseEvent(i).end) || 24) +
+                (getMinutes(parseEvent(i).end) ? 1 : 0),
             ),
           );
           return {
             startHour: Math.max(0, startHour),
             endHour: Math.min(24, endHour),
-            events: R.map(parseEvent, day),
+            events: R.map((i) => parseEvent(i), day),
           };
         }, eventsByDate)}
       />

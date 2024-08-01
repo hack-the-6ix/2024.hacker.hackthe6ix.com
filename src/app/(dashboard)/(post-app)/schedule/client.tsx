@@ -3,6 +3,7 @@
 import { CSSProperties, useState } from 'react';
 import cn from 'classnames';
 import { getHours, getMinutes, startOfToday, format } from 'date-fns';
+import { toZonedTime } from 'date-fns-tz';
 import * as R from 'ramda';
 import Button from '@/components/Button';
 import Flex from '@/components/Flex';
@@ -38,8 +39,8 @@ const getRow = (
   periodsPerHour: number,
   end?: boolean,
 ) =>
-  (getHours(d) || (end ? 24 : 0)) * periodsPerHour +
-  getMinutes(d) / (60 / periodsPerHour);
+  (getHours(toZonedTime(d, 'utc')) || (end ? 24 : 0)) * periodsPerHour +
+  getMinutes(toZonedTime(d, 'utc')) / (60 / periodsPerHour);
 
 export function getEventPlacement<T>(
   event: ScheduleConfig<T>['events'][number],
@@ -156,8 +157,8 @@ export function Schedule<T extends string>({
                     textType="paragraph-sm"
                     suppressHydrationWarning
                   >
-                    {format(event.start, 'h:mm aa')} -{' '}
-                    {format(event.end, 'h:mm aa')}
+                    {format(toZonedTime(event.start, 'utc'), 'h:mm aa')} -{' '}
+                    {format(toZonedTime(event.end, 'utc'), 'h:mm aa')}
                   </Text>
                   <Text textWeight="medium" textType="paragraph-sm">
                     @ {event.location}
