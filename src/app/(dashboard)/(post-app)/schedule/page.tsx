@@ -30,6 +30,7 @@ function parseEvent(
     category: event.fields.Type,
     label: event.fields.Name,
     location: event.fields.Location,
+    description: event.fields.Description,
     start: toZonedTime(
       event.fields.Start,
       applyTimezone ? 'America/Toronto' : 'utc',
@@ -38,6 +39,7 @@ function parseEvent(
       event.fields.End,
       applyTimezone ? 'America/Toronto' : 'utc',
     ),
+    id: event.id,
   };
 }
 
@@ -50,8 +52,6 @@ async function SchedulePage() {
       'sort[0][direction]': 'asc',
     }),
   );
-
-  console.log(events);
 
   const eventsByDate = R.groupBy(
     (event) => format(parseEvent(event).start, 'yyyy-MM-dd'),

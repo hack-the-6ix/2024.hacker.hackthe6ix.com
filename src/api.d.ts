@@ -120,9 +120,9 @@ export namespace Airtable {
   export interface Event {
     Name: string;
     Type: string;
-    Location: string;
-    Host: string;
-    Description: string;
+    Location?: string;
+    Host?: string;
+    Description?: string;
     Start: string;
     End: string;
     Date: string;
