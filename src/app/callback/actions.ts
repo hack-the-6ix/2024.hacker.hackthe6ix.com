@@ -21,7 +21,7 @@ export async function setSession(state: string, code: string) {
   let redirectUrl = '/';
   if (!isAuth) {
     const res = await fetchHt6<CallbackResult, CallbackPayload>(
-      '/auth/public/callback',
+      '/auth/dash-backend/callback',
       { body: { state, code }, method: 'POST' },
     );
 

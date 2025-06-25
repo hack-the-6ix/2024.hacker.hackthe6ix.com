@@ -28,20 +28,23 @@ export async function middleware(request: NextRequest) {
     }
 
     // Logout and reset
-    await fetchHt6('/auth/public/logout', {
+    await fetchHt6('/auth/dash-backend/logout', {
       body: { refreshToken: request.cookies.get('refreshToken')!.value },
       method: 'POST',
     });
     cleanCookies = true;
   }
 
-  const data = await fetchHt6<LoginResult, LoginPayload>('/auth/public/login', {
-    body: {
-      callbackURL: callbackURL.href,
-      redirectTo: url,
+  const data = await fetchHt6<LoginResult, LoginPayload>(
+    '/auth/dash-backend/login',
+    {
+      body: {
+        callbackURL: callbackURL.href,
+        redirectTo: url,
+      },
+      method: 'POST',
     },
-    method: 'POST',
-  });
+  );
 
   if (data.status !== 200) {
     throw new Error('Unable to auth. RIP');

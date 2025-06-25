@@ -8,7 +8,7 @@ import type { Ht6Api } from '@/api.d';
 import { applicationSchema } from '@/schemas';
 
 export async function logout() {
-  await fetchHt6('/auth/public/logout', {
+  await fetchHt6('/auth/dash-backend/logout', {
     body: { refreshToken: cookies().get('refreshToken')!.value },
     method: 'POST',
   });
